@@ -8,16 +8,25 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import os
 import re
 from datetime import datetime, timezone
 
 import numpy as np
 import pandas as pd
 import streamlit as st
+from PIL import Image
 
 from closedloop import engine as E
 
-st.set_page_config(page_title="Closed Loop", page_icon="assets/closed_loop_coin_256.png", layout="centered")
+try:
+    import base64 as _b64
+    from closedloop.logo import LOGO_WEBP_B64
+    LOGO = Image.open(io.BytesIO(_b64.b64decode(LOGO_WEBP_B64)))
+except Exception:
+    LOGO = "assets/closed_loop_coin_256.png" if os.path.exists("assets/closed_loop_coin_256.png") else None
+
+st.set_page_config(page_title="Closed Loop", page_icon=(LOGO if LOGO is not None else "🔁"), layout="centered")
 
 SAMPLES = {
     "US gas + crude + CPI (weekly)": "samples/us_gas_crude_weekly.csv",
@@ -283,7 +292,8 @@ def report_md() -> str:
 # ---------------------------------------------------------------- UI
 
 _l, _r = st.columns([1, 4], vertical_alignment="center")
-_l.image("assets/closed_loop_coin_256.png", width=96)
+if LOGO is not None:
+    _l.image(LOGO, width=96)
 _r.title("Closed Loop")
 st.caption("Test a hunch against data without fooling yourself. Lock the plan first, beat matched fakes, "
            "keep what misses, and know how big a miss could be. Method by Zach Feemster (\"Vex\"), CC BY 4.0.")
@@ -292,7 +302,8 @@ locked = ss.locked
 
 # ---- 1. Data
 st.header("1 · Data")
-src = st.radio("Source", ["Upload a CSV", "Use a sample"], horizontal=True, disabled=locked, key="src")
+SAMPLES = {k: v for k, v in SAMPLES.items() if os.path.exists(v)}
+src = st.radio("Source", ["Upload a CSV"] + (["Use a sample"] if SAMPLES else []), horizontal=True, disabled=locked, key="src")
 raw = None
 if src == "Upload a CSV":
     up = st.file_uploader("CSV file", type=["csv"], disabled=locked, key="upl")
