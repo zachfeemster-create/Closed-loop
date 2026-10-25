@@ -18,6 +18,7 @@ import streamlit as st
 from PIL import Image
 
 from closedloop import engine as E
+from closedloop import sources as S
 
 try:
     import base64 as _b64
@@ -28,11 +29,6 @@ except Exception:
 
 st.set_page_config(page_title="Closed Loop", page_icon=(LOGO if LOGO is not None else "🔁"), layout="centered")
 
-SAMPLES = {
-    "US gas + crude + CPI (weekly)": "samples/us_gas_crude_weekly.csv",
-    "US regional gas (weekly)": "samples/us_regional_gas_weekly.csv",
-    "Country GDP (yearly)": "samples/country_gdp_yearly.csv",
-}
 TEST_LABELS = {
     "cycle": "Hidden cycle (one series)",
     "asymmetry": "Faster up than down (driver → response)",
@@ -49,6 +45,31 @@ ss.setdefault("ran", False)
 
 
 # ---------------------------------------------------------------- helpers
+
+@st.cache_data(ttl=6 * 3600, show_spinner="Fetching from FRED…")
+def _fred(ids):
+    return S.fetch_fred(ids)
+
+
+@st.cache_data(ttl=6 * 3600, show_spinner="Fetching from the World Bank…")
+def _wb(ind, start, end, countries, complete):
+    return S.fetch_worldbank(ind, start, end, countries, complete)
+
+
+@st.cache_data(ttl=6 * 3600, show_spinner="Opening the sheet…")
+def _gsheet(url):
+    return S.fetch_google_sheet(url)
+
+
+@st.cache_data(ttl=6 * 3600, show_spinner="Opening the link…")
+def _link(url):
+    return S.fetch_link(url)
+
+
+@st.cache_data(ttl=6 * 3600, show_spinner="Loading the sample…")
+def _sample(name):
+    return S.load_sample(name)
+
 
 def sha(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
@@ -302,23 +323,75 @@ locked = ss.locked
 
 # ---- 1. Data
 st.header("1 · Data")
-SAMPLES = {k: v for k, v in SAMPLES.items() if os.path.exists(v)}
-src = st.radio("Source", ["Upload a CSV"] + (["Use a sample"] if SAMPLES else []), horizontal=True, disabled=locked, key="src")
-raw = None
-if src == "Upload a CSV":
-    up = st.file_uploader("CSV file", type=["csv"], disabled=locked, key="upl")
-    if up is not None:
-        raw = up.getvalue()
-else:
-    choice = st.selectbox("Sample", list(SAMPLES), disabled=locked, key="sample")
-    with open(SAMPLES[choice], "rb") as f:
-        raw = f.read()
-
-if raw is None:
-    st.info("Upload a CSV with one column for time and one or more number columns — or pick a sample.")
+SOURCES = ["Upload a file (CSV or Excel)", "Google Sheets link", "Paste from a spreadsheet",
+           "Link to a data file", "Public data (FRED, World Bank)", "Samples and a demo"]
+src = st.selectbox("Where's your data?", SOURCES, disabled=locked, key="src",
+                   help="No file? Pick public data or a sample — or paste cells straight from any spreadsheet.")
+df0, raw = None, None
+try:
+    if src == SOURCES[0]:
+        up = st.file_uploader("CSV or Excel file", type=["csv", "tsv", "txt", "xlsx", "xls"], disabled=locked, key="upl")
+        if up is not None:
+            raw = up.getvalue()
+            if up.name.lower().endswith((".xlsx", ".xls")):
+                sheets = S.excel_sheets(raw)
+                sheet = st.selectbox("Sheet", sheets, disabled=locked, key="sheet") if len(sheets) > 1 else sheets[0]
+                df0 = S.read_excel(raw, sheet)
+            else:
+                df0 = S.read_csv_bytes(raw)
+    elif src == SOURCES[1]:
+        url = st.text_input("Google Sheets link", key="gs_url", disabled=locked,
+                            placeholder="https://docs.google.com/spreadsheets/d/…")
+        st.caption("In Google Sheets: Share → General access → Anyone with the link (Viewer). Then paste the link here.")
+        if url.strip():
+            df0 = _gsheet(url.strip())
+    elif src == SOURCES[2]:
+        txt = st.text_area("Paste cells here (include the header row)", key="paste", height=180, disabled=locked,
+                           placeholder="Date\tSales\tCost\n2024-01-01\t1200\t800\n…")
+        st.caption("Select the cells in Excel, Google Sheets, Numbers or a web table, copy, and paste. Tabs, commas or semicolons all work.")
+        if txt.strip():
+            df0 = S.read_pasted(txt)
+    elif src == SOURCES[3]:
+        url = st.text_input("Link to a CSV, Excel or JSON file", key="link_url", disabled=locked,
+                            placeholder="https://…/data.csv")
+        st.caption("Works with direct download links, GitHub file pages and Google Sheets links.")
+        if url.strip():
+            df0 = _link(url.strip())
+    elif src == SOURCES[4]:
+        which = st.radio("Source", ["FRED (US economy)", "World Bank (countries)"], horizontal=True, disabled=locked, key="pub")
+        if which.startswith("FRED"):
+            ss.setdefault("fred_ids", "UNRATE, CPIAUCSL")
+            st.selectbox("Quick picks", ["(type your own below)"] + list(S.FRED_PRESETS), disabled=locked, key="fred_p",
+                         on_change=lambda: ss.update(fred_ids=S.FRED_PRESETS.get(ss.fred_p, ss.fred_ids)))
+            ids = st.text_input("FRED series IDs, comma-separated", key="fred_ids", disabled=locked)
+            st.caption("Find IDs at fred.stlouisfed.org — the code in the page title, like UNRATE or GASREGW.")
+            if ids.strip():
+                df0 = _fred(ids.strip())
+        else:
+            ss.setdefault("wb_ind", next(iter(S.WB_PRESETS.values())))
+            st.selectbox("Indicator", list(S.WB_PRESETS) + ["(type a code)"], disabled=locked, key="wb_p",
+                         on_change=lambda: ss.update(wb_ind=S.WB_PRESETS.get(ss.wb_p, ss.wb_ind)))
+            ind = st.text_input("World Bank indicator code", key="wb_ind", disabled=locked)
+            c1, c2 = st.columns(2)
+            yrs = c1.slider("Years", 1960, 2024, (1990, 2022), disabled=locked, key="wb_y")
+            ctry = c2.text_input("Countries (blank = all)", key="wb_c", disabled=locked, placeholder="USA, MEX, CAN")
+            complete = st.checkbox("Only countries with every year", value=True, disabled=locked, key="wb_full")
+            if ind.strip():
+                df0 = _wb(ind.strip(), yrs[0], yrs[1], ctry, complete)
+    else:
+        choice = st.selectbox("Sample", list(S.SAMPLES), disabled=locked, key="sample")
+        if choice in S.SAMPLE_NOTES:
+            st.info(S.SAMPLE_NOTES[choice])
+        df0 = _sample(choice)
+except Exception as ex:
+    st.error(f"Couldn't read that: {ex}")
     st.stop()
 
-df0 = pd.read_csv(io.BytesIO(raw))
+if df0 is None:
+    st.info("Pick where your data comes from above. No file? Choose **Public data** or **Samples and a demo**.")
+    st.stop()
+if raw is None:
+    raw = df0.to_csv(index=False).encode()
 ss.data_hash = sha(raw)
 if ss.get("_last_hash") != ss.data_hash and not locked:   # new file: reset column-dependent choices
     for k in ("wt", "lt", "lid", "lv", "series", "defl", "cy_t", "cy_d", "as_d", "as_r", "log"):
@@ -337,12 +410,12 @@ else:
 
 df = df0.copy()
 try:
-    if not np.issubdtype(df[tcol].dtype, np.number) or df[tcol].max() > 3000:
+    if not pd.api.types.is_numeric_dtype(df[tcol]) or df[tcol].max() > 3000:
         df[tcol] = pd.to_datetime(df[tcol])
 except Exception:
     pass
 df = df.set_index(tcol).sort_index()
-num = [c for c in df.columns if np.issubdtype(df[c].dtype, np.number)]
+num = [c for c in df.columns if pd.api.types.is_numeric_dtype(df[c])]
 series = st.multiselect("Series to use", num, default=num if len(num) <= 50 else num[:50], disabled=locked, key="series")
 deflator = st.selectbox("Take out inflation or scale — divide every series by (optional)", ["(none)"] + num,
                         disabled=locked, key="defl")
