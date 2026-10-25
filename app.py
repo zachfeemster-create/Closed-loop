@@ -19,6 +19,12 @@ from PIL import Image
 
 from closedloop import engine as E
 from closedloop import sources as S
+from closedloop import runlog as RL
+
+try:
+    from streamlit_js_eval import streamlit_js_eval as _js     # tiny bridge to the browser's own storage
+except Exception:
+    _js = None
 
 try:
     import base64 as _b64
@@ -42,6 +48,8 @@ ss.setdefault("locked", False)
 ss.setdefault("plan", None)
 ss.setdefault("tree", [])          # list of nodes
 ss.setdefault("ran", False)
+LOGCFG = RL.config(st.secrets)        # shared log is on only when the owner has added a GitHub token
+DEVICE_KEY = "closed_loop_v1"
 
 
 # ---------------------------------------------------------------- helpers
@@ -202,8 +210,13 @@ def add_node(spec: dict, parent_id, data, mask, base_seed):
     lock = dict(spec=spec, parent=parent_id, data_hash=ss.data_hash, locked_at=locked_at, seed=base_seed + nid)
     lock_id = plan_hash(lock)
     result = run_spec(spec, data, mask, base_seed + nid)
-    ss.tree.append(dict(id=nid, parent=parent_id, spec=spec, lock_id=lock_id, locked_at=locked_at,
-                        seed=base_seed + nid, result=result))
+    node = dict(id=nid, parent=parent_id, spec=spec, lock_id=lock_id, locked_at=locked_at,
+                seed=base_seed + nid, result=result, run_id=RL.run_id(lock_id), logged=None)
+    if LOGCFG:
+        share = bool(ss.plan.get("share_data"))
+        node["logged"] = RL.log_run(LOGCFG, node["run_id"], ss.plan, node,
+                                    data.reset_index().to_csv(index=False).encode() if share else None)
+    ss.tree.append(node)
     return nid
 
 
@@ -233,6 +246,10 @@ def show_result(node, data, mask, base_seed):
         st.markdown(f"**{label_for(node)}**  \n<small>Lock `{node['lock_id']}` · seed {node['seed']} · {node['locked_at']} UTC</small>",
                     unsafe_allow_html=True)
         st.caption(r["question"])
+        if node.get("run_id"):
+            status = (" · saved to the shared log ✓" if node.get("logged") else
+                      " · shared log didn't answer — still saved on this device" if node.get("logged") is False else "")
+            st.caption(f"Run ID **{node['run_id']}**{status}")
         c1, c2, c3 = st.columns(3)
         c1.metric("Real", r["real"])
         c2.metric("Pass bar", fmt_bar(r["bar"]))
@@ -290,17 +307,18 @@ def render_tree():
     walk(None, 0)
 
 
-def report_md() -> str:
-    p = ss.plan
+def report_md(p=None, tree=None) -> str:
+    p = ss.plan if p is None else p
+    tree = ss.tree if tree is None else tree
     lines = ["# Closed Loop report", "", f"Method by Zach Feemster (\"Vex\"), CC BY 4.0.", "",
              f"**Keystone:** {p['intake']['keystone']}", "", f"Plan lock `{p['plan_id']}` at {p['locked_at']} UTC · data hash `{p['data_hash'][:16]}`", ""]
     for k, v in p["intake"].items():
         if k != "keystone" and v:
             lines.append(f"- **{k.replace('_', ' ')}:** {v}")
     lines += ["", "## Runs"]
-    for n in ss.tree:
+    for n in tree:
         r = n["result"]
-        lines += ["", f"### {label_for(n)} (lock `{n['lock_id']}`, parent {n['parent']})",
+        lines += ["", f"### {label_for(n)} (run ID {n.get('run_id', n['lock_id'][:8].upper())}, parent {n['parent']})",
                   f"- {r['stat_name']}: **{r['real']}** vs bar {fmt_bar(r['bar'])} (percentile {r['percentile']:.1f}) → **{'PASS' if r['passed'] else 'MISS'}**",
                   f"- Fake arm: {r['fake_arm']}" if r.get("fake_arm") else "- Fake arm: n/a",
                   f"- Ladder: {ladder(n)}"]
@@ -308,6 +326,39 @@ def report_md() -> str:
             lines.append(f"- Detection limit: {r['detection']['limit']} ({r['detection']['unit']}); pile: {r['detection']['pile']}")
         lines.append(f"- Details: `{json.dumps(r['details'], default=str)}`")
     return "\n".join(lines)
+
+
+def show_saved(plan, tree, prefix):
+    """Read-only view of a saved locked plan and its results (from this device or the shared log)."""
+    st.markdown(f"**Keystone:** {plan.get('intake', {}).get('keystone', '')}")
+    st.caption(f"Plan `{plan.get('plan_id', '')}` · locked {plan.get('locked_at', '')} UTC · data fingerprint `{str(plan.get('data_hash', ''))[:12]}`")
+    for n in tree:
+        r = n["result"]
+        chip = "⚠️" if r.get("fake_arm") and r["fake_arm"]["passed"] else ("✅" if r["passed"] else "❌")
+        st.markdown(f"{chip} **{label_for(n)}** — {r['real']} vs {fmt_bar(r['bar'])} · run ID {n.get('run_id', '')}  \n"
+                    f"<small>{ladder(n)}</small>", unsafe_allow_html=True)
+    c1, c2, c3 = st.columns(3)
+    pid = plan.get("plan_id", "plan")
+    c1.download_button("Plan", json.dumps(plan, indent=2, default=str), file_name=f"closed_loop_plan_{pid}.json",
+                       key=f"{prefix}_dp", use_container_width=True)
+    c2.download_button("Results", json.dumps(dict(plan=plan, runs=tree), indent=2, default=str),
+                       file_name=f"closed_loop_results_{pid}.json", key=f"{prefix}_dr", use_container_width=True)
+    c3.download_button("Report", report_md(plan, tree), file_name=f"closed_loop_report_{pid}.md",
+                       key=f"{prefix}_dm", use_container_width=True)
+    st.caption("To keep climbing this tree, load the same data again and lock the same question — "
+               "the data fingerprint shows it's the same data.")
+
+
+def device_write(runs):
+    """Save the list of runs into this browser. Re-runs only when the content changes."""
+    if _js is None:
+        return
+    payload = json.dumps(runs, default=str)
+    while len(payload) > 2_500_000 and len(runs) > 1:      # stay well inside the browser's storage limit
+        runs = runs[1:]
+        payload = json.dumps(runs, default=str)
+    lit = json.dumps(payload).replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
+    _js(js_expressions=f"localStorage.setItem('{DEVICE_KEY}', {lit}); 'saved'", key=f"ls_set_{sha(payload.encode())[:12]}")
 
 
 # ---------------------------------------------------------------- UI
@@ -320,6 +371,53 @@ st.caption("Test a hunch against data without fooling yourself. Lock the plan fi
            "keep what misses, and know how big a miss could be. Method by Zach Feemster (\"Vex\"), CC BY 4.0.")
 
 locked = ss.locked
+
+# ---- auto log: this device
+if _js is not None and not ss.get("_dev_loaded"):
+    _v = _js(js_expressions=f"localStorage.getItem('{DEVICE_KEY}') || '[]'", key="ls_get")
+    if _v is not None:
+        try:
+            _stored = json.loads(_v) or []
+        except Exception:
+            _stored = []
+        _ids = {e.get("plan", {}).get("plan_id") for e in (ss.get("device_runs") or [])}
+        ss.device_runs = [e for e in _stored if e.get("plan", {}).get("plan_id") not in _ids] + (ss.get("device_runs") or [])
+        ss._dev_loaded = True
+_runs = ss.get("device_runs") or []
+if _runs:
+    with st.expander(f"📒 Your past runs on this device ({len(_runs)})"):
+        for _i in range(len(_runs) - 1, -1, -1):
+            _e = _runs[_i]
+            _p, _t = _e.get("plan", {}), _e.get("tree", [])
+            _passes = sum(1 for n in _t if n["result"]["passed"] and not (n["result"].get("fake_arm") or {}).get("passed"))
+            with st.container(border=True):
+                st.markdown(f"**{_p.get('intake', {}).get('keystone', '(no keystone)')[:120]}**  \n"
+                            f"<small>{str(_e.get('saved_at', ''))[:16].replace('T', ' ')} UTC · {len(_t)} run(s) · {_passes} pass(es)</small>",
+                            unsafe_allow_html=True)
+                _a, _b = st.columns(2)
+                if _a.button("Open", key=f"dv_open_{_i}", use_container_width=True):
+                    ss.device_view = None if ss.get("device_view") == _p.get("plan_id") else _p.get("plan_id")
+                if _b.button("Delete", key=f"dv_del_{_i}", use_container_width=True):
+                    ss.device_runs = _runs[:_i] + _runs[_i + 1:]
+                    st.rerun()
+                if ss.get("device_view") == _p.get("plan_id"):
+                    show_saved(_p, _t, f"dv{_i}")
+        st.caption("Saved only in this browser. Clearing your browser data removes them — download anything you want to keep.")
+
+# ---- auto log: shared record (owner's private GitHub log)
+if LOGCFG:
+    with st.expander("🔎 Look up a run by ID"):
+        _rid = st.text_input("Run ID", key="lookup_id", placeholder="7F3A1C2B")
+        if _rid.strip():
+            _rec = RL.get_run(LOGCFG, _rid)
+            if _rec:
+                show_saved(_rec.get("plan", {}), [_rec.get("run", {})], f"lk_{_rid.strip().upper()}")
+                if _rec.get("data_included"):
+                    _d = RL.get_data(LOGCFG, _rid)
+                    if _d:
+                        st.download_button("Data used in this run (.csv)", _d, file_name=f"closed_loop_data_{_rid.strip().upper()}.csv")
+            else:
+                st.warning("No run with that ID in the shared log.")
 
 # ---- 1. Data
 st.header("1 · Data")
@@ -488,6 +586,11 @@ else:
 for s in specs:
     s.update(n_fakes=nf, use_log=use_log, modifiers={})
 
+share_data = False
+if LOGCFG and not locked:
+    st.caption("Every run is saved on this device and in the Closed Loop's shared record — your question, plan and "
+               "results, not your data, unless you tick the box.")
+    share_data = st.checkbox("Also add my data to the shared record, so anyone can reproduce this run exactly", key="share_data")
 c1, c2 = st.columns(2)
 if not locked:
     ready = bool(specs) and bool(intake["keystone"].strip())
@@ -495,7 +598,7 @@ if not locked:
         st.caption("Write the keystone before locking.")
     if c1.button("🔒 Lock the plan", type="primary", disabled=not ready, use_container_width=True):
         now = datetime.now(timezone.utc)
-        plan = dict(intake=intake, event_windows=ss.event_windows, specs=specs, data_hash=ss.data_hash,
+        plan = dict(intake=intake, event_windows=ss.event_windows, specs=specs, data_hash=ss.data_hash, share_data=share_data,
                     seed=int(now.timestamp()), locked_at=now.isoformat(timespec="seconds"),
                     data_config=dict(series=series, deflator=deflator, use_log=use_log, rows=len(data)))
         plan["plan_id"] = plan_hash(plan)
@@ -547,3 +650,15 @@ with st.expander("How this works"):
         "- **Detection limit.** On a miss, known effects are planted at growing sizes to find the smallest one the test catches. "
         "A miss then reads 'nothing bigger than X' — either *nothing there* or *below the floor*.\n"
         "- **Next steps.** Passes offer standard follow-ups as buttons. Your own leaps — new questions — start a new plan.")
+
+# ---- auto log: save this session's locked plan and results in the browser
+if ss.locked and ss.tree:
+    _now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    _entry = dict(plan=ss.plan, tree=ss.tree, saved_at=_now)
+    _list = [e for e in (ss.get("device_runs") or []) if e.get("plan", {}).get("plan_id") != ss.plan["plan_id"]]
+    _old = next((e for e in (ss.get("device_runs") or []) if e.get("plan", {}).get("plan_id") == ss.plan["plan_id"]), None)
+    if _old and len(_old.get("tree", [])) == len(ss.tree):
+        _entry["saved_at"] = _old.get("saved_at", _now)          # unchanged: keep the stamp so nothing re-saves
+    ss.device_runs = (_list + [_entry])[-25:]
+    if ss.get("_dev_loaded"):                 # never overwrite older saved runs before they've been read
+        device_write(ss.device_runs)
