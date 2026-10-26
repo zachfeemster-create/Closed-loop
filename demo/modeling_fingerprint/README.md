@@ -44,6 +44,6 @@ The WHO and UNICEF sources update over time, so later downloads may give slightl
 - `fingerprint.py`: lens features (quarter turn: level vs step, per frequency band), momentum-matched fakes and the scorer.
 - `run_demo.py`: the locked test, with the verdict printed.
 
-The full run history behind this (Runs 001-009: plans locked before each run, results, misses and voids) is in the Closed Loop log. The method is described in the paper: https://doi.org/10.5281/zenodo.23638245
+The author keeps a full run history (Runs 001-009: plans locked before each run, results, misses and voids). The method is described in the paper: https://doi.org/10.5281/zenodo.23638245
 
-CC BY 4.0. Zach Feemster, Nightshift Solutions, LLC.
+Code: GPL-3.0 (see the repository LICENSE). Zach Feemster, Nightshift Solutions, LLC.

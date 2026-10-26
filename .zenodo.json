@@ -1,0 +1,13 @@
+{
+  "title": "Closed Loop: software and modeling fingerprint demo",
+  "upload_type": "software",
+  "description": "<p>Software for the Closed Loop method: look for patterns in data, try hard to kill them with matched fakes, and keep only what survives. Includes the Closed Loop app and a one-command demo (demo/modeling_fingerprint) that reruns a locked test on public WHO and UN IGME data: the method's quarter-turn lenses separate agency-smoothed infant-death estimates from raw registered counts, beyond what momentum alone explains (56 countries, 2000-2019).</p>",
+  "creators": [
+    {"name": "Feemster, Zach", "affiliation": "Nightshift Solutions, LLC"}
+  ],
+  "license": "GPL-3.0-only",
+  "keywords": ["pattern detection", "null models", "surrogate data", "pre-registration", "official statistics", "time series"],
+  "related_identifiers": [
+    {"identifier": "10.5281/zenodo.23638245", "relation": "isSupplementTo", "resource_type": "publication-workingpaper", "scheme": "doi"}
+  ]
+}

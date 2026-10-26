@@ -7,4 +7,4 @@ A method for telling real patterns from chance: look for patterns, then try hard
 - **App:** `app.py` and `closedloop/`
 - **Experiments:** [experiments/](experiments)
 
-CC BY 4.0. Zach Feemster, Nightshift Solutions, LLC.
+Code: GPL-3.0 (see LICENSE). Paper: CC BY 4.0. Zach Feemster, Nightshift Solutions, LLC.
