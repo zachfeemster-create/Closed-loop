@@ -1,19 +1,25 @@
 """Closed Loop demo: can the lenses tell an agency's smoothed numbers from the raw counts, beyond momentum?
 Locked plan: closed-loop-log runs/2026-10-25_run009_beyond-momentum_PLAN.md (reproduced here as Run 009)."""
-import glob, numpy as np, pandas as pd, pycountry
+import glob, os, sys, numpy as np, pandas as pd, pycountry
 from scipy import stats
-from fingerprint import load_who, train_scorer, Fakes
+from fingerprint import load_who, load_who_snapshot, train_scorer, Fakes
 D = "data"
+SNAP = os.path.exists("snapshot/who_modeled_series.csv") and "--live" not in sys.argv
+print("Data:", "frozen snapshot from 25 Oct 2026 (run with --live to use a fresh download)" if SNAP else "fresh download in ./data")
 
 print("1) Training the fingerprint scorer on WHO modeled estimates ...")
-score = train_scorer(load_who(D))
+score = train_scorer(load_who_snapshot() if SNAP else load_who(D))
 
 print("2) Pairing raw registered infant deaths (WHO) with UN IGME smoothed estimates ...")
-M = pd.concat([pd.read_csv(f, low_memory=False, dtype={"Cause": str, "List": str, "Admin1": str, "SubDiv": str})
-               for f in sorted(glob.glob(f"{D}/Morticd10_part*"))])
-M = M[M.Admin1.isna() & M.SubDiv.isna() & M.Year.between(2000, 2019) & M.Cause.isin(["AAA", "1000"])]
-raw = M.groupby(["Country", "Year"]).Deaths2.sum(min_count=1).unstack()
-cc = pd.read_csv(f"{D}/country_codes").set_index("country")["name"]
+if SNAP:
+    raw = pd.read_csv("snapshot/raw_infant_deaths.csv", index_col="who_code")
+    cc = raw.pop("name"); raw.columns = raw.columns.astype(int)
+else:
+    M = pd.concat([pd.read_csv(f, low_memory=False, dtype={"Cause": str, "List": str, "Admin1": str, "SubDiv": str})
+                   for f in sorted(glob.glob(f"{D}/Morticd10_part*"))])
+    M = M[M.Admin1.isna() & M.SubDiv.isna() & M.Year.between(2000, 2019) & M.Cause.isin(["AAA", "1000"])]
+    raw = M.groupby(["Country", "Year"]).Deaths2.sum(min_count=1).unstack()
+    cc = pd.read_csv(f"{D}/country_codes").set_index("country")["name"]
 MANUAL = {"United Kingdom": "GBR", "Republic of Korea": "KOR", "Republic of Moldova": "MDA", "Russian Federation": "RUS",
           "USA": "USA", "United States of America": "USA", "Czech Republic": "CZE", "Czechia": "CZE", "Venezuela": "VEN",
           "Iran (Islamic Rep of)": "IRN", "TFYR Macedonia": "MKD", "North Macedonia": "MKD", "Hong Kong SAR": "HKG",
@@ -26,8 +32,11 @@ def iso(name):
     except LookupError:
         try: return pycountry.countries.search_fuzzy(name)[0].alpha_3
         except LookupError: return None
-ig = pd.read_csv(f"{D}/igme_infant_deaths.csv"); ig = ig[ig.REF_AREA.str.fullmatch(r"[A-Z]{3}")]
-ig = ig.pivot_table(index="REF_AREA", columns="TIME_PERIOD", values="OBS_VALUE")
+if SNAP:
+    ig = pd.read_csv("snapshot/igme_infant_deaths.csv", index_col="REF_AREA"); ig.columns = ig.columns.astype(int)
+else:
+    ig = pd.read_csv(f"{D}/igme_infant_deaths.csv"); ig = ig[ig.REF_AREA.str.fullmatch(r"[A-Z]{3}")]
+    ig = ig.pivot_table(index="REF_AREA", columns="TIME_PERIOD", values="OBS_VALUE")
 pairs = []
 for code, r in raw.iterrows():
     if r.notna().sum() != 20 or code not in cc.index: continue

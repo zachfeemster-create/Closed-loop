@@ -56,9 +56,9 @@ class Fakes:
 WHO_GHO = ["NCD_BMI_30A", "NCD_BMI_18A", "NCD_BMI_PLUS2C", "NCD_HYP_PREVALENCE_A",
            "NUTRITION_ANAEMIA_CHILDREN_PREV", "WHOSIS_000001", "SA_0000001688"]
 
-def load_who(D="data"):
+def load_who(D="data", with_labels=False):
     """WHO modeled estimates, both sexes / totals, 2000-2019, complete series only (Run 006 rules)."""
-    TOT = {"SEVERITY_TOTAL", "PREGNANCYSTATUS_TOTAL"}; X = []
+    TOT = {"SEVERITY_TOTAL", "PREGNANCYSTATUS_TOTAL"}; X = []; L = []
     for c in WHO_GHO:
         recs = []
         for d in json.load(open(f"{D}/{c}.json"))["value"]:
@@ -70,9 +70,13 @@ def load_who(D="data"):
             if others and not any(x in TOT for x in others): continue
             recs.append((d["SpatialDim"], d["TimeDim"], d["NumericValue"]))
         P = pd.DataFrame(recs, columns=["iso", "year", "v"]).groupby(["iso", "year"]).v.mean().unstack()
-        for _, r in P.iterrows():
-            if r.notna().sum() == 20 and r.std() > 0: X.append(r.values.astype(float))
-    return X
+        for iso, r in P.iterrows():
+            if r.notna().sum() == 20 and r.std() > 0: X.append(r.values.astype(float)); L.append((c, iso))
+    return (X, L) if with_labels else X
+
+def load_who_snapshot(path="snapshot/who_modeled_series.csv"):
+    """The same series, frozen from the 25 Oct 2026 download (same order)."""
+    return [r.astype(float) for r in pd.read_csv(path).iloc[:, 2:].values]
 
 def train_scorer(X):
     """Real WHO modeled curves (1) vs their fakes A-D (0), on theta+alpha lens features. Frozen after this."""
