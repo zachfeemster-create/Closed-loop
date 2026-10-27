@@ -113,6 +113,7 @@ HTML = r"""
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const P = __P__;
+const esc = v => String(v).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));   // names come from other people's data
 const wrap = document.getElementById('wrap'), cv = document.getElementById('c'), H = 460, W = () => wrap.clientWidth;
 const renderer = new THREE.WebGLRenderer({canvas: cv, antialias: true, alpha: true});
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
@@ -169,9 +170,9 @@ cv.addEventListener('pointerup', e => { const tap = drag && !drag.moved; drag = 
   const hit = ray.intersectObjects(nodes)[0]; if (!hit) { card.style.display = 'none'; return; }
   const n = hit.object.userData.n, run = P.runs[n.run];
   card.style.display = 'block';
-  card.innerHTML = `<div style="display:flex;justify-content:space-between"><b>${P.names[n.ds]}</b><span style="color:#8a93a8">${run.source} · ${run.when}</span></div>` +
-    n.steps.map(s => `<div style="margin-top:6px"><span style="color:${P.colors[s.o]}">●</span> <b>${s.lens}</b> · ${s.eq}<br><span style="color:#c9ccd3">${s.why}</span></div>`).join('') +
-    `<div style="margin-top:8px;color:#7d869c">Run ${run.id}. Tap empty space to close.</div>`; });
+  card.innerHTML = `<div style="display:flex;justify-content:space-between"><b>${esc(P.names[n.ds])}</b><span style="color:#8a93a8">${esc(run.source)} · ${esc(run.when)}</span></div>` +
+    n.steps.map(s => `<div style="margin-top:6px"><span style="color:${P.colors[s.o]}">●</span> <b>${esc(s.lens)}</b> · ${esc(s.eq)}<br><span style="color:#c9ccd3">${esc(s.why)}</span></div>`).join('') +
+    `<div style="margin-top:8px;color:#7d869c">Run ${esc(run.id)}. Tap empty space to close.</div>`; });
 requestAnimationFrame(frame);
 setTimeout(() => { if (!ticked) { fallback = true; setInterval(() => frame(performance.now()), 33); } }, 900);
 </script>
