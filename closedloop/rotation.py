@@ -34,29 +34,42 @@ BAND_HUES = [15, 35, 55, 95, 140, 185, 220, 255, 285, 315]
 BAND_COLORS = [f"hsl({h},90%,60%)" for h in BAND_HUES]
 
 
+def bells(curve: dict) -> list[tuple[float, float, float]]:
+    """(center Hz, gain dB, width in octaves) for every band in a curve. A band's value is either a plain gain
+    (fixed width) or [gain, width] once it has been shaped; keys are the band centers, moved or not."""
+    out = []
+    for f0, v in curve.items():
+        g, w = (float(v[0]), float(v[1])) if isinstance(v, (list, tuple)) else (float(v), EQ_WIDTH_OCT)
+        out.append((float(f0), g, max(0.08, w)))
+    return out
+
+
+def curve_json(curve: dict) -> dict:
+    """The curve as plain rounded numbers, for logs and for counting looks."""
+    return {f"{round(f, 1):g}": (round(g, 2) if abs(w - EQ_WIDTH_OCT) < 1e-9 else [round(g, 2), round(w, 3)])
+            for f, g, w in sorted(bells(curve))}
+
+
 def curve_at(curve: dict, freqs=EQ_BANDS) -> list[float]:
     """The dB a curve actually gives at each frequency (so any curve can be drawn on the ten dots)."""
-    out = []
-    for f in freqs:
-        out.append(float(sum(g * np.exp(-0.5 * (np.log2(f / f0) / EQ_WIDTH_OCT) ** 2) for f0, g in curve.items())))
-    return out
+    return [float(sum(g * np.exp(-0.5 * (np.log2(f / f0) / w) ** 2) for f0, g, w in bells(curve))) for f in freqs]
 
 
 def eq_gain(n: int, curve: dict) -> np.ndarray:
     """Amplitude gain for each FFT bin of an n-point series."""
     fr = np.fft.rfftfreq(n) * 2 * REF_NYQUIST          # bin position in 'reference Hz'
     db = np.zeros_like(fr)
-    for f0, g in curve.items():
+    for f0, g, w in bells(curve):
         if g:
             with np.errstate(divide="ignore"):
                 oct_ = np.log2(np.maximum(fr, 1e-9) / f0)
-            db += g * np.exp(-0.5 * (oct_ / EQ_WIDTH_OCT) ** 2)
+            db += g * np.exp(-0.5 * (oct_ / w) ** 2)
     db[0] = 0.0
     return 10 ** (db / 20)
 
 
 def is_flat(curve: dict) -> bool:
-    return not any(abs(v) > 1e-12 for v in curve.values())
+    return not any(abs(g) > 1e-12 for _, g, _ in bells(curve))
 
 
 def apply_eq(X: np.ndarray, curve: dict) -> np.ndarray:
@@ -252,7 +265,7 @@ def _jinxes(x, rng, curve):
     out["one bad shot"] = (y, curve)
     out["short day"] = (x[: int(0.75 * n)], curve)
     if not is_flat(curve):
-        out["eq nudge"] = (x, {f: g + (rng.uniform(-0.5, 0.5) if g else 0.0) for f, g in curve.items()})
+        out["eq nudge"] = (x, {f: [g + (rng.uniform(-0.5, 0.5) if g else 0.0), w] for f, g, w in bells(curve)})
     return out
 
 
@@ -373,5 +386,5 @@ def rotate(series: dict, curve: dict | None = None, n_fakes: int = 500, bar_pct:
     return dict(key=key, log=log, max_notes=mx.notes if mx else [], survivors=survivors, luck_pile=luck,
                 containment=containment,
                 settings=dict(n_fakes=n_fakes, bar_pct=bar_pct, seed=seed, eq_states=[n for n, _ in eq_states],
-                              curve=curve or FLAT, lenses=list(LENSES), tests=tests,
+                              curve=curve_json(curve or FLAT), lenses=list(LENSES), tests=tests,
                               corrected_bar_pct=round(strict, 4), eq_reference="bands read as audio at 44.1 kHz"))
