@@ -179,4 +179,5 @@ setTimeout(() => { if (!ticked) { fallback = true; setInterval(() => frame(perfo
 
 
 def render(p: dict) -> str:
-    return HTML.replace("__P__", json.dumps(p, default=str))
+    from .embed import safe_json
+    return HTML.replace("__P__", safe_json(json.dumps(p, default=str)))
