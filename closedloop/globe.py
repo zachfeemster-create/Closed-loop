@@ -76,7 +76,7 @@ def band_check(x, curve: dict, looks: int = 1, n_fakes: int = 300, bar_pct: floa
             d = dict(hz=b, pct=round(pct, 2), bar=round(strict, 3), real_share=round(real, 4),
                      fake_range=[round(float(lo95), 4), round(float(hi95), 4)],
                      t0=round(s0 / n, 3), t1=round((s0 + win) / n, 3), rows=[s0, s0 + win], looks=looks,
-                     settings={str(k): round(float(v), 2) for k, v in curve.items()})
+                     settings=R.curve_json(curve))
             dings.append(d)
             row["ding"] = d
         bands.append(row)
@@ -258,7 +258,7 @@ cv.addEventListener('pointerup', e => { const tap = drag && !drag.moved; drag = 
     `Holds ${(d.real_share * 100).toFixed(1)}% of the wobble; fakes held ${(d.fake_range[0] * 100).toFixed(1)}–${(d.fake_range[1] * 100).toFixed(1)}%.<br>` +
     `Beat the fakes at the ${d.pct}th percentile (bar ${d.bar}, after ${d.looks} look${d.looks > 1 ? 's' : ''}).<br>` +
     `Strongest stretch: rows ${d.rows[0]}–${d.rows[1]} (${(d.t0 * 100).toFixed(0)}–${(d.t1 * 100).toFixed(0)}% through).<br>` +
-    `<span style="color:#9a93c4">Knobs frozen: ${Object.entries(d.settings).map(([k, v]) => k + ' ' + (v > 0 ? '+' : '') + v).join(', ')}</span>`;
+    `<span style="color:#9a93c4">Knobs frozen: ${Object.entries(d.settings).map(([k, v]) => { const g = Array.isArray(v) ? v[0] : v; return k + ' Hz ' + (g > 0 ? '+' : '') + g + (Array.isArray(v) ? ' (w ' + v[1] + ')' : ''); }).join(', ')}</span>`;
   t = (d.t0 + d.t1) / 2; playing = false; playBtn.textContent = '▶'; });
 requestAnimationFrame(frame);
 // some embedded views never fire animation frames; fall back to a plain timer so the globe still moves
