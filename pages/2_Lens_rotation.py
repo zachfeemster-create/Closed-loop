@@ -181,11 +181,15 @@ with tab_run:
             st.markdown(f"**Step {m['step']}** · _{m['line']}_  \n{m['note']}" if m["line"] else f"**Step {m['step']}** · {m['note']}")
 
         st.markdown("#### Survivors (passed, and Max couldn't break them)")
-        st.dataframe(pd.DataFrame(res["survivors"]) if res["survivors"] else pd.DataFrame({"": ["none this round"]}),
-                     hide_index=True)
+        if res["survivors"]:
+            st.dataframe(pd.DataFrame(res["survivors"]), hide_index=True)
+        else:
+            st.caption("None this round.")
         st.markdown("#### Luck pile (kept, not thrown away)")
-        st.dataframe(pd.DataFrame(res["luck_pile"]) if res["luck_pile"] else pd.DataFrame({"": ["empty"]}),
-                     hide_index=True)
+        if res["luck_pile"]:
+            st.dataframe(pd.DataFrame(res["luck_pile"]), hide_index=True)
+        else:
+            st.caption("Empty this round.")
 
         with st.expander("Containment (every lens and EQ state per dataset)"):
             st.dataframe(pd.DataFrame(res["containment"]).T, use_container_width=True)
