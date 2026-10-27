@@ -26,8 +26,8 @@ def parametric_chart(x, curve: dict):
     freqs = np.geomspace(20, 20000, 200)
     total = np.zeros_like(freqs)
     rows = []
-    for f0, g in curve.items():
-        bell = g * np.exp(-0.5 * (np.log2(freqs / f0) / R.EQ_WIDTH_OCT) ** 2)
+    for f0, g, w in R.bells(curve):
+        bell = g * np.exp(-0.5 * (np.log2(freqs / f0) / w) ** 2)
         total += bell
         if abs(g) > 0.05:
             i = int(np.argmin([abs(np.log2(f0 / b)) for b in R.EQ_BANDS]))

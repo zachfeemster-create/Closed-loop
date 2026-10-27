@@ -91,3 +91,22 @@ def get_data(cfg, rid: str) -> bytes | None:
         return body
     except Exception:
         return None
+
+
+def list_files(cfg, folder: str) -> list[str]:
+    """Names of the files in one folder of the shared log (newest names last when names carry dates)."""
+    token, repo = cfg
+    try:
+        _, body = _req("GET", f"{API}/repos/{repo}/contents/{folder}", token)
+        return sorted(i["name"] for i in json.loads(body) if i.get("type") == "file")
+    except Exception:
+        return []
+
+
+def get_json(cfg, path: str) -> dict | None:
+    token, repo = cfg
+    try:
+        _, body = _req("GET", f"{API}/repos/{repo}/contents/{path}", token, raw=True)
+        return json.loads(body)
+    except Exception:
+        return None
