@@ -9,7 +9,6 @@ from datetime import datetime, timezone
 
 import pandas as pd
 import streamlit as st
-import streamlit.components.v1 as components
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
@@ -17,6 +16,7 @@ from closedloop import loglobe as LG     # noqa: E402
 from closedloop import rotation as R     # noqa: E402
 from closedloop import runlog as RL      # noqa: E402
 from closedloop import sources as S      # noqa: E402
+from closedloop import embed as EM       # noqa: E402
 
 st.set_page_config(page_title="Live globe · Closed Loop", page_icon="🌐", layout="centered")
 ss = st.session_state
@@ -88,7 +88,7 @@ else:
     shown = [r for r in runs if r["source"] in pick]
     if shown:
         p = LG.payload(shown)
-        components.html(LG.render(p), height=480)
+        EM.show(LG.render(p), height=480)
 
         st.subheader("Fails and misses, explained")
         labels = [f"{r['when']:%Y-%m-%d %H:%M} · {r['source']} · {r['id']}" for r in sorted(shown, key=lambda r: r["when"], reverse=True)]
