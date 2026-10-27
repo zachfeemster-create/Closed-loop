@@ -118,20 +118,34 @@ with tab_run:
     # ------------------------------------------------ plasma globe (bands as cones, pins where a band beats its fakes)
     st.subheader("Plasma globe")
     if series:
-        gpick = st.selectbox("Series in the globe", list(series), key="globe_pick")
+        g1, g2 = st.columns(2)
+        gpick = g1.selectbox("Series in the globe", list(series), key="globe_pick")
+        zpick = g2.selectbox("Zipper with", ["(none)"] + [s for s in series if s != gpick], key="globe_zip")
+        knobs = json.dumps({str(k): round(float(v), 2) for k, v in sorted(curve.items())})
         seen = ss.setdefault("globe_seen", {}).setdefault(gpick, set())
-        seen.add(json.dumps({str(k): round(float(v), 2) for k, v in sorted(curve.items())}))
+        seen.add(knobs)
         payload, dings = G.band_check(series[gpick], curve, looks=len(seen))
-        components.html(G.render(payload), height=470)
+        payload["name"] = gpick
+        other, cross = None, None
+        if zpick != "(none)":
+            seen_b = ss["globe_seen"].setdefault(zpick, set())
+            seen_b.add(knobs)
+            other, dings_b = G.band_check(series[zpick], curve, looks=len(seen_b))
+            other["name"] = zpick
+            dings = dings + [dict(d, who=zpick) for d in dings_b]
+            cross = G.cross_teeth(series[gpick], series[zpick], curve)
+        components.html(G.render(payload, other, cross), height=470)
         st.caption(
-            "Each band is a cone; it swells with that band's energy and with your EQ. The 25–90 Hz bands throw "
-            "crests out of the core. Drag to spin, tap a pin to see why it dinged. Zipper teeth between neighbor "
-            "bands light up where they lock: green in step, yellow a quarter turn, pink opposite. "
+            "The ring around the middle is your EQ: the flat line is the circle, ups push out, downs pull in. "
+            "The glowing shell is the data, each band at its own spot around the circle, rippling with that band's "
+            "energy over time. Pick a second series and its rings zip in between the first one's; teeth light up "
+            "where the same band locks across the two (green in step, yellow a quarter turn, pink opposite). "
+            "Drag to spin, tap a pin to see why it dinged. "
             f"**Looks on this series: {len(seen)}.** Every new knob setting is another look, so the bar gets stricter "
             "each time. A pin is a flag, not a finding, until it holds on frozen settings, fresh fakes, Max, and new data.")
         if dings:
             st.markdown("**Pins:** " + " · ".join(
-                f"{d['hz'] // 1000 if d['hz'] >= 1000 else d['hz']}{'k' if d['hz'] >= 1000 else ' Hz'} "
+                f"{d.get('who', gpick)}: {d['hz'] // 1000 if d['hz'] >= 1000 else d['hz']}{'k' if d['hz'] >= 1000 else ' Hz'} "
                 f"(rows {d['rows'][0]}–{d['rows'][1]}, {d['pct']}th pct)" for d in dings))
     else:
         st.caption("Load some data first.")
