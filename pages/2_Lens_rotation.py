@@ -17,6 +17,8 @@ from closedloop import rotation as R      # noqa: E402
 from closedloop import runlog as RL       # noqa: E402
 from closedloop import sources as S       # noqa: E402
 from closedloop import thumbs as T        # noqa: E402
+from closedloop import eqcurve as EQ      # noqa: E402
+from closedloop import bandview as BV     # noqa: E402
 
 st.set_page_config(page_title="Lens rotation · Closed Loop", page_icon="🔁", layout="centered")
 ss = st.session_state
@@ -76,19 +78,40 @@ with tab_run:
 
     # ------------------------------------------------ EQ with the amalgamation handles
     st.subheader("EQ pass")
-    preset = st.radio("Curve", ["Flat only", "Zach's curve", "Custom"], index=1, horizontal=True)
-    base = R.FLAT if preset == "Flat only" else R.ZACH_CURVE
-    keys = [f"eqband{i}" for i in range(len(R.EQ_BANDS))]
-    st.markdown(T.slider_css(keys), unsafe_allow_html=True)
-    curve = {}
-    for i, fhz in enumerate(R.EQ_BANDS):
-        with st.container(key=keys[i]):
-            label = f"{fhz / 1000:g} kHz" if fhz >= 1000 else f"{fhz} Hz"
-            curve[fhz] = st.slider(label, -6.0, 6.0, float(base[fhz]), 0.05, format="%+.2f dB",
-                                   disabled=(preset != "Custom"), key=f"eqv_{preset}_{fhz}")
+    preset = st.radio("Curve", ["Flat only", "Zach's curve", "Phone curve", "Custom"], index=1, horizontal=True)
+    if "eq_custom" not in ss:
+        ss["eq_custom"] = [R.PHONE_CURVE[f] for f in R.EQ_BANDS]
+    if preset == "Custom":
+        ss["eq_custom"] = EQ.eq_curve(ss["eq_custom"], key="eq_drag_custom")
+        curve = dict(zip(R.EQ_BANDS, ss["eq_custom"]))
+        if st.button("Start custom from the phone curve"):
+            ss["eq_custom"] = [R.PHONE_CURVE[f] for f in R.EQ_BANDS]
+            st.rerun()
+    else:
+        base = {"Flat only": R.FLAT, "Zach's curve": R.ZACH_CURVE, "Phone curve": R.PHONE_CURVE}[preset]
+        EQ.eq_curve(R.curve_at(base) if preset == "Zach's curve" else [base[f] for f in R.EQ_BANDS],
+                    key=f"eq_show_{preset}", disabled=True)
+        curve = base
     st.caption("Bands are read as if each series were audio at 44.1 kHz, so a 2 kHz cut always hits the same "
                "relative slice (about 9% of the way to the top) whatever the time scale. Short series have few "
-               "slices, so the low bands may not touch anything.")
+               "slices, so the low bands may not touch anything. Zach's curve keeps its original handles "
+               "(it's drawn here at the ten dots).")
+
+    # ------------------------------------------------ band spiral (look only, nothing here is scored)
+    with st.expander("Band spiral: each band spiraling across the dB plane", expanded=False):
+        if series:
+            pick = st.selectbox("Series", list(series), key="spiral_pick")
+            mode = st.radio("Radius", ["Time (staircase out)", "dB level (orbit)"], horizontal=True, key="spiral_mode")
+            st.altair_chart(BV.parametric_chart(series[pick], curve), width="stretch")
+            bands = R.band_split(series[pick])
+            st.altair_chart(BV.spiral_chart(bands, by_time=mode.startswith("Time")), width="stretch")
+            lock = R.octave_lock(bands)
+            if lock:
+                st.caption("Octave interlock (1 = teeth locked like a zipper, 0 = no relation): "
+                           + " · ".join(f"{k} **{v:.2f}**" for k, v in lock.items()))
+            st.caption("For looking, not scoring. A band only counts if it passes in the rotation against the fakes.")
+        else:
+            st.caption("Load some data first.")
 
     if st.button("Rotate", type="primary", disabled=len(series) == 0):
         prog = st.progress(0.0, text="Building tunnels…")
