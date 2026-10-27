@@ -58,7 +58,11 @@ with tab_run:
         series["planted cycle"] = np.cumsum(rng.normal(0.05, 1, n)) * 0.3 + rng.normal(0, 1, n) + 2.0 * np.sin(2 * np.pi * t / 19)
         st.caption("Nine series of plain noise and one with a cycle hidden in it. The blind labels hide which is which.")
     elif src.startswith("Upload"):
-        f = st.file_uploader("CSV: one column per series (a date column is fine, it's skipped)", type=["csv", "tsv", "txt"])
+        # No browser-side type filter: Android pickers grey out CSVs they haven't tagged as CSV.
+        f = st.file_uploader("CSV: one column per series (a date column is fine, it's skipped)", type=None)
+        if f is not None and not f.name.lower().endswith((".csv", ".tsv", ".txt")):
+            st.error("Pick a CSV, TSV or TXT file.")
+            st.stop()
         if f is not None:
             df = S.read_csv_bytes(f.getvalue())
             num = df.select_dtypes("number")
