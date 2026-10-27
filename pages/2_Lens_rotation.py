@@ -20,7 +20,7 @@ from closedloop import thumbs as T        # noqa: E402
 from closedloop import eqcurve as EQ      # noqa: E402
 from closedloop import bandview as BV     # noqa: E402
 from closedloop import globe as G         # noqa: E402
-import streamlit.components.v1 as components  # noqa: E402
+from closedloop import embed as EM        # noqa: E402
 
 st.set_page_config(page_title="Lens rotation · Closed Loop", page_icon="🔁", layout="centered")
 ss = st.session_state
@@ -135,7 +135,7 @@ with tab_run:
             other["name"] = zpick
             dings = dings + [dict(d, who=zpick) for d in dings_b]
             cross = G.cross_teeth(series[gpick], series[zpick], curve)
-        components.html(G.render(payload, other, cross), height=470)
+        EM.show(G.render(payload, other, cross), height=470)
         st.caption(
             "The ring around the middle is your EQ: the flat line is the circle, ups push out, downs pull in. "
             "The glowing shell is the data, each band at its own spot around the circle, rippling with that band's "
