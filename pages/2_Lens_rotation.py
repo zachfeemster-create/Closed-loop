@@ -85,7 +85,7 @@ with tab_run:
         ss["eq_custom"] = [R.PHONE_CURVE[f] for f in R.EQ_BANDS]
     if preset == "Custom":
         ss["eq_custom"] = EQ.eq_curve(ss["eq_custom"], key="eq_drag_custom")
-        curve = dict(zip(R.EQ_BANDS, ss["eq_custom"]))
+        curve = EQ.as_curve(ss["eq_custom"])
         if st.button("Start custom from the phone curve"):
             ss["eq_custom"] = [R.PHONE_CURVE[f] for f in R.EQ_BANDS]
             st.rerun()
@@ -97,7 +97,8 @@ with tab_run:
     st.caption("Bands are read as if each series were audio at 44.1 kHz, so a 2 kHz cut always hits the same "
                "relative slice (about 9% of the way to the top) whatever the time scale. Short series have few "
                "slices, so the low bands may not touch anything. Zach's curve keeps its original handles "
-               "(it's drawn here at the ten dots).")
+               "(it's drawn here at the ten dots). In Custom, drag a sigil up or down for gain and twist it to shape "
+               "the band: each quarter turn doubles (clockwise) or halves (counter-clockwise) how wide it reaches.")
 
     # ------------------------------------------------ band spiral (look only, nothing here is scored)
     with st.expander("Band spiral: each band spiraling across the dB plane", expanded=False):
@@ -121,7 +122,7 @@ with tab_run:
         g1, g2 = st.columns(2)
         gpick = g1.selectbox("Series in the globe", list(series), key="globe_pick")
         zpick = g2.selectbox("Zipper with", ["(none)"] + [s for s in series if s != gpick], key="globe_zip")
-        knobs = json.dumps({str(k): round(float(v), 2) for k, v in sorted(curve.items())})
+        knobs = json.dumps(R.curve_json(curve), sort_keys=True)
         seen = ss.setdefault("globe_seen", {}).setdefault(gpick, set())
         seen.add(knobs)
         payload, dings = G.band_check(series[gpick], curve, looks=len(seen))
