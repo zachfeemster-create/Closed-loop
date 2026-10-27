@@ -497,7 +497,26 @@ ss.data_hash = sha(raw)
 if ss.get("_last_hash") != ss.data_hash and not locked:   # new file: reset column-dependent choices
     for k in ("wt", "lt", "lid", "lv", "series", "defl", "cy_t", "cy_d", "as_d", "as_r", "log"):
         ss.pop(k, None)
+    for k in [k for k in ss if str(k).startswith("flt_")]:
+        ss.pop(k, None)
     ss["_last_hash"] = ss.data_hash
+
+# Narrow the rows (long public tables carry extra columns: question, group, measure type…)
+_cats = [c for c in df0.columns if not pd.api.types.is_numeric_dtype(df0[c]) and 1 < df0[c].nunique() <= 200]
+if _cats:
+    with st.expander("Narrow the rows (for files with extra columns like question, group or measure type)",
+                     expanded=len(df0) > 5000):
+        _fcols = st.multiselect("Filter by", _cats, disabled=locked, key="flt_cols")
+        for _c in _fcols:
+            _vals = sorted(df0[_c].dropna().astype(str).unique())
+            _pick = st.selectbox(_c, _vals, disabled=locked, key=f"flt_v_{_c}")
+            df0 = df0[df0[_c].astype(str) == _pick]
+        if _fcols:
+            st.caption(f"{len(df0):,} rows left.")
+    if df0.empty:
+        st.warning("No rows left after those filters.")
+        st.stop()
+
 fmt = st.radio("Layout", ["Wide (one column per series)", "Long (time, series name, value)"], horizontal=True,
                disabled=locked, key="fmt")
 if fmt.startswith("Long"):
@@ -505,6 +524,14 @@ if fmt.startswith("Long"):
     tcol = c1.selectbox("Time column", df0.columns, disabled=locked, key="lt")
     idcol = c2.selectbox("Series name column", df0.columns, index=min(1, len(df0.columns) - 1), disabled=locked, key="lid")
     vcol = c3.selectbox("Value column", df0.columns, index=min(2, len(df0.columns) - 1), disabled=locked, key="lv")
+    if not pd.api.types.is_numeric_dtype(df0[vcol]):
+        st.info(f"**{vcol}** isn't a number column. Pick the column that holds the values.")
+        st.stop()
+    _dups = int(df0.duplicated([tcol, idcol]).sum())
+    if _dups:
+        _vary = [c for c in _cats if c not in (tcol, idcol) and df0.groupby([tcol, idcol])[c].nunique().max() > 1]
+        st.warning(f"{_dups:,} rows share a time and series name, so their values get averaged together. "
+                   + (f"Narrow the rows above by: {', '.join(map(str, _vary[:5]))}." if _vary else ""))
     df0 = df0.pivot_table(index=tcol, columns=idcol, values=vcol).reset_index()
 else:
     tcol = st.selectbox("Time column", df0.columns, disabled=locked, key="wt")
@@ -516,6 +543,12 @@ try:
 except Exception:
     pass
 df = df.set_index(tcol).sort_index()
+if df.index.duplicated().any():
+    _per = int(df.index.value_counts().max())
+    st.warning(f"Each value in **{tcol}** shows up as many as {_per:,} times, so this file is in long layout, "
+               "not one row per time step. Switch **Layout** to **Long**, pick the series-name and value columns, "
+               "and narrow the rows above if there are extra columns (like a question or group).")
+    st.stop()
 num = [c for c in df.columns if pd.api.types.is_numeric_dtype(df[c])]
 series = st.multiselect("Series to use", num, default=num if len(num) <= 50 else num[:50], disabled=locked, key="series")
 deflator = st.selectbox("Take out inflation or scale — divide every series by (optional)", ["(none)"] + num,
@@ -525,12 +558,16 @@ if not series:
     st.stop()
 cfg = dict(series=series + ([deflator] if deflator and deflator not in series else []), deflator=deflator)
 data = prepare(df, cfg)
+if data.empty:
+    st.warning("No time step has a value for every series picked. Drop the series with gaps, or narrow the rows.")
+    st.stop()
 can_log = bool((data > 0).all().all())
 use_log = st.checkbox("Work in logs (percent changes)", value=can_log, disabled=locked or not can_log, key="log")
 for w in E.data_warnings(data, list(data.columns)):
     st.warning(w)
 st.caption(f"{len(data)} rows × {data.shape[1]} series · {data.index.min()} → {data.index.max()} · data hash `{ss.data_hash[:12]}`")
-st.line_chart((data / data.iloc[0]).iloc[:, :12], height=220)
+_view = (data / data.iloc[0]).iloc[:, :12]
+st.line_chart(_view.iloc[::max(1, len(_view) // 1500)], height=220)   # thin long series so phones don't stall
 
 # ---- 2. Question
 st.header("2 · The question")
