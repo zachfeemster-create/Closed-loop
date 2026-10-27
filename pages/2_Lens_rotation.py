@@ -171,6 +171,11 @@ with tab_run:
         ss["rot"] = res
 
     res = ss.get("rot")
+    if res and "run_id" not in res:      # stamp once per run, so redraws don't mint new IDs and re-save it
+        now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        res["logged_at"] = now
+        res["run_id"] = "LR-" + hashlib.sha256(json.dumps([res["settings"], res["log"], now], sort_keys=True,
+                                                          default=str).encode()).hexdigest()[:8].upper()
     if res:
         key = res["key"]
         s1, s2, s3 = st.columns(3)
@@ -206,13 +211,15 @@ with tab_run:
         with st.expander("Unblind (which label was which)"):
             st.table(pd.DataFrame({"label": list(key), "dataset": list(key.values())}).set_index("label"))
 
-        now = datetime.now(timezone.utc).isoformat(timespec="seconds")
-        rid = "LR-" + hashlib.sha256(json.dumps([res["settings"], now], sort_keys=True, default=str).encode()).hexdigest()[:8].upper()
-        record = json.dumps(dict(run_id=rid, logged_at=now, **res), indent=2, default=str)
+        rid = res["run_id"]
+        record = json.dumps(dict(run_id=rid, logged_at=res["logged_at"],
+                                 **{k: v for k, v in res.items() if k not in ("run_id", "logged_at")}),
+                            indent=2, default=str)
         cfg = RL.config(st.secrets)
-        if not ss.get(f"saved_{rid[:6]}_{len(res['log'])}") and cfg and RL.put_file(
+        if not ss.get(f"saved_{rid}") and cfg and RL.put_file(
                 cfg, f"rotation_runs/{rid}.json", record.encode(), f"Lens rotation {rid}"):
-            ss[f"saved_{rid[:6]}_{len(res['log'])}"] = True
+            ss[f"saved_{rid}"] = True
+        if ss.get(f"saved_{rid}"):
             st.caption(f"Run **{rid}** saved to the shared log ✓")
         st.download_button("Download this run (.json)", record, file_name=f"{rid}.json")
 
