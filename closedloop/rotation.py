@@ -1,0 +1,306 @@
+"""Lens rotation with Max in the back — plain Python, no AI, no tokens.
+
+Method by Zach Feemster ("Vex"), CC BY 4.0.
+
+The lenses stay fixed; every dataset rotates through every lens, under every EQ state, and comes back
+carrying all of its results (the spiral staircase). Datasets are blinded (D01, D02, ...) while measured.
+Each step is written to a step log as it happens. Max in the back reads the log as the tunnels get built;
+when something stumbles or passes he calls a jinx and the jinx is actually run.
+
+Honesty rules built in:
+  * every lens is scored against momentum-matched fakes (same trend, same wobble, no pattern)
+  * the fakes go through the exact same EQ as the real data, so the knobs can't invent a pattern
+  * a fake arm runs through the whole pipeline as if it were real (frame check)
+  * Max only reads finished steps; his jinxes become new runs, never edits to old ones
+"""
+from __future__ import annotations
+
+import numpy as np
+
+from .engine import ar_fit, ar_sim
+
+# ---------------------------------------------------------------- EQ
+
+REF_NYQUIST = 22050.0                     # bands are read as if the series were audio at 44.1 kHz
+EQ_BANDS = [125, 500, 1000, 2000, 4000, 7000, 8000, 16000]
+FLAT = {f: 0.0 for f in EQ_BANDS}
+ZACH_CURVE = {**FLAT, 2000: -1.5, 4000: 0.5, 7000: 1.0, 8000: 0.15, 16000: 0.2}
+EQ_WIDTH_OCT = 0.7                        # bell width of each band, in octaves
+
+
+def eq_gain(n: int, curve: dict) -> np.ndarray:
+    """Amplitude gain for each FFT bin of an n-point series."""
+    fr = np.fft.rfftfreq(n) * 2 * REF_NYQUIST          # bin position in 'reference Hz'
+    db = np.zeros_like(fr)
+    for f0, g in curve.items():
+        if g:
+            with np.errstate(divide="ignore"):
+                oct_ = np.log2(np.maximum(fr, 1e-9) / f0)
+            db += g * np.exp(-0.5 * (oct_ / EQ_WIDTH_OCT) ** 2)
+    db[0] = 0.0
+    return 10 ** (db / 20)
+
+
+def is_flat(curve: dict) -> bool:
+    return not any(abs(v) > 1e-12 for v in curve.values())
+
+
+def apply_eq(X: np.ndarray, curve: dict) -> np.ndarray:
+    """EQ along axis 0 (works on one series or a stack of fakes). Trend is kept outside the EQ."""
+    if is_flat(curve):
+        return X
+    n = X.shape[0]
+    t = np.arange(n)
+    A = np.column_stack([np.ones(n), t])
+    coef, *_ = np.linalg.lstsq(A, X, rcond=None)
+    trend = A @ coef
+    g = eq_gain(n, curve)
+    g = g if X.ndim == 1 else g[:, None]
+    return np.fft.irfft(np.fft.rfft(X - trend, axis=0) * g, n=n, axis=0) + trend
+
+
+# ---------------------------------------------------------------- lenses
+
+def _detrend(X):
+    n = X.shape[0]
+    t = np.arange(n)
+    A = np.column_stack([np.ones(n), t])
+    coef, *_ = np.linalg.lstsq(A, X, rcond=None)
+    return X - A @ coef
+
+
+def _orbit(X):
+    """Quarter turn: each point -> (level, step). Returns the unwrapped angle path, per column."""
+    c = _detrend(X)
+    u, v = c[1:], np.diff(c, axis=0)
+    s = c.std(0) + 1e-12
+    return np.unwrap(np.arctan2(v / s, u / s), axis=0)
+
+
+def lens_regular(X):
+    """q1 regular: strongest repeating cycle, as a share of the series' wobble."""
+    c = _detrend(X)
+    n = c.shape[0]
+    w = np.hanning(n)[:, None] if c.ndim == 2 else np.hanning(n)
+    m = 4 * n                                    # zero-padded so a cycle between two slices isn't missed
+    P = np.abs(np.fft.rfft(c * w, n=m, axis=0)) ** 2
+    k = np.arange(P.shape[0])
+    per = np.where(k > 0, m / np.maximum(k, 1), np.inf)
+    ok = (per >= 2) & (per <= n / 3)
+    return P[ok].max(0) / (P[1:].sum(0) + 1e-12)
+
+
+def lens_quarter(X):
+    """q2 quarter turn: how often the orbit turns back on itself mid-curve."""
+    return (np.diff(_orbit(X), axis=0) < 0).mean(0)
+
+
+def lens_superposed(X):
+    """q3 |theta|: how hard the orbit spins, direction ignored."""
+    return np.abs(np.diff(_orbit(X), axis=0)).mean(0)
+
+
+def lens_inverse(X):
+    """q4 -theta: turn-back forward minus turn-back with time run backwards (arrow of time)."""
+    return lens_quarter(X) - lens_quarter(X[::-1])
+
+
+LENSES = {
+    "q1 Regular": dict(fn=lens_regular, sided="up", what="strongest cycle share"),
+    "q2 Quarter turn": dict(fn=lens_quarter, sided="both", what="turn-back rate"),
+    "q3 Superposed |θ|": dict(fn=lens_superposed, sided="both", what="spin"),
+    "q4 Inverse −θ": dict(fn=lens_inverse, sided="both", what="forward minus backward turn-back"),
+}
+
+
+# ---------------------------------------------------------------- fakes
+
+def fakes_for(x: np.ndarray, n_fakes: int, rng) -> np.ndarray:
+    """Momentum-matched fakes: same straight-line trend + simulated wobble with the same momentum."""
+    n = len(x)
+    t = np.arange(n)
+    A = np.column_stack([np.ones(n), t])
+    coef, *_ = np.linalg.lstsq(A, x, rcond=None)
+    trend = A @ coef
+    a, s = ar_fit(x - trend)
+    return trend[:, None] + ar_sim(a, s, n, n_fakes, rng)
+
+
+def _verdict(real, fs, sided, bar_pct):
+    if sided == "up":
+        bar = float(np.percentile(fs, bar_pct))
+        return bool(real > bar), bar, float(np.mean(fs < real) * 100)
+    lo, hi = np.percentile(fs, [(100 - bar_pct) / 2, 100 - (100 - bar_pct) / 2])
+    pct = float(np.mean(fs < real) * 100)
+    return bool(real < lo or real > hi), (float(lo), float(hi)), pct
+
+
+def measure(x, curve, lens, n_fakes, rng, bar_pct=99.0):
+    """One tunnel step: one series, one EQ state, one lens, scored against EQ'd fakes. Plus a fake arm."""
+    L = LENSES[lens]
+    F = fakes_for(x, n_fakes + 1, rng)
+    Xe = apply_eq(np.asarray(x, float), curve)
+    Fe = apply_eq(F, curve)
+    real = float(L["fn"](Xe[:, None])[0])
+    fs = L["fn"](Fe[:, :n_fakes])
+    passed, bar, pct = _verdict(real, fs, L["sided"], bar_pct)
+    fake_arm = float(L["fn"](Fe[:, n_fakes:])[0])
+    fa_passed = _verdict(fake_arm, fs, L["sided"], bar_pct)[0]
+    return dict(stat=round(real, 5), bar=bar, percentile=round(pct, 2), passed=passed,
+                fake_arm_passed=bool(fa_passed), sided=L["sided"])
+
+
+# ---------------------------------------------------------------- Max in the back
+
+MAX_LINES = {
+    "power outage": "HEY, it's not like the power's gonna go out or anything.",
+    "static": "Good thing nobody's running a blender next to the antenna.",
+    "one bad shot": "Glad we never take a bad shot. That'd be crazy.",
+    "short day": "We'll definitely have time to finish the whole run.",
+    "eq nudge": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+    "frame trip": "Huh. The fake one passed too. That's fine. That's totally fine.",
+    "near miss": "So close. Not like that's how every luck-pile story starts.",
+    "error": "It's not like a step can just fall over— oh.",
+    "flip": "Funny how the EQ moved that one. Wonder which band it was hiding in.",
+}
+
+
+def _jinxes(x, rng, curve):
+    n = len(x)
+    out = {}
+    k = max(2, int(0.15 * n))
+    s0 = int(rng.integers(0, n - k))
+    out["power outage"] = (np.r_[x[:s0], x[s0 + k:]], curve)
+    resid = _detrend(np.asarray(x, float)[:, None])[:, 0]
+    out["static"] = (x + rng.normal(0, 0.10 * resid.std() + 1e-12, n), curve)
+    st = np.abs(np.diff(x))
+    j = int(np.argmax(st)) + 1
+    y = np.array(x, float)
+    if 0 < j < n - 1:
+        y[j] = (y[j - 1] + y[j + 1]) / 2
+    out["one bad shot"] = (y, curve)
+    out["short day"] = (x[: int(0.75 * n)], curve)
+    if not is_flat(curve):
+        out["eq nudge"] = (x, {f: g + (rng.uniform(-0.5, 0.5) if g else 0.0) for f, g in curve.items()})
+    return out
+
+
+class Max:
+    """Reads the step log as it grows. Keeps his own notes so he never re-reads old steps."""
+
+    def __init__(self, jinx_fakes: int = 200, bar_pct: float = 99.0, seed: int = 4401):
+        self.rng = np.random.default_rng(seed)
+        self.jinx_fakes, self.bar_pct = jinx_fakes, bar_pct
+        self.notes: list[dict] = []
+        self.seen = 0
+
+    def note(self, step, kind, text, **extra):
+        self.notes.append(dict(step=step, kind=kind, line=MAX_LINES.get(kind, ""), note=text, **extra))
+
+    def watch(self, log: list[dict], series: dict):
+        """Look at every step finished since last time."""
+        new = log[self.seen:]
+        self.seen = len(log)
+        for e in new:
+            sid = e["step"]
+            if e.get("error"):
+                self.note(sid, "error", f"{e['dataset']} / {e['lens']} / {e['eq']} fell over: {e['error']}")
+                continue
+            if e["fake_arm_passed"]:
+                self.note(sid, "frame trip", f"{e['dataset']} / {e['lens']} / {e['eq']}: the fake arm passed too, "
+                                              "so this tunnel's frame is suspect; a pass here doesn't count.")
+            p = e["percentile"]
+            near = (e["sided"] == "up" and 97 <= p < 99) or (e["sided"] == "both" and (0.5 < p <= 1.5 or 98.5 <= p < 99.5))
+            if near and not e["passed"]:
+                self.note(sid, "near miss", f"{e['dataset']} / {e['lens']} / {e['eq']} sat at the {p:.1f}th percentile, just "
+                                             "under the bar. Watching it, not counting it.")
+            if e["passed"] and not e["fake_arm_passed"]:
+                e["max"] = self.jinx(e, series[e["dataset"]])
+        return self.notes
+
+    def jinx(self, e, x):
+        res = {}
+        for name, (y, crv) in _jinxes(np.asarray(x, float), self.rng, e["curve"]).items():
+            try:
+                r = measure(y, crv, e["lens"], self.jinx_fakes, self.rng, self.bar_pct)
+                res[name] = bool(r["passed"])
+                self.note(e["step"], name, f"{e['dataset']} / {e['lens']} / {e['eq']}: "
+                                           f"{'still passes' if r['passed'] else 'BROKE'} after {name} "
+                                           f"(percentile {r['percentile']:.1f}).", survived=bool(r["passed"]))
+            except Exception as ex:          # a jinx that can't run is logged, not hidden
+                res[name] = None
+                self.note(e["step"], "error", f"jinx {name} couldn't run: {ex}")
+        broke = [k for k, v in res.items() if v is False]
+        return dict(jinxes=res, broke=broke, standing="sturdy (Max couldn't break it)" if not broke else
+                    f"luck pile (broke on {', '.join(broke)})")
+
+
+# ---------------------------------------------------------------- the rotation
+
+def blind(names: list[str], seed: int):
+    order = np.random.default_rng(seed).permutation(len(names))
+    key = {f"D{i + 1:02d}": names[j] for i, j in enumerate(order)}
+    return key
+
+
+def rotate(series: dict, curve: dict | None = None, n_fakes: int = 500, bar_pct: float = 99.0,
+           seed: int = 20261026, max_on: bool = True, on_step=None):
+    """series: {name: 1-D array}. curve: EQ dict (None = flat only). Flat always runs as the control.
+
+    Returns dict(key, log, max_notes, survivors, luck_pile, containment, settings)."""
+    rng = np.random.default_rng(seed)
+    key = blind(list(series), seed)
+    blinded = {lab: np.asarray(series[name], float) for lab, name in key.items()}
+    eq_states = [("flat", FLAT)] + ([("curve", dict(curve))] if curve and not is_flat(curve) else [])
+    log: list[dict] = []
+    mx = Max(bar_pct=bar_pct, seed=seed + 1) if max_on else None
+    total = len(blinded) * len(eq_states) * len(LENSES)
+    for lab, x in blinded.items():
+        for eqn, crv in eq_states:
+            for lens in LENSES:
+                e = dict(step=len(log) + 1, dataset=lab, eq=eqn, lens=lens, curve=crv)
+                try:
+                    if len(x) < 24 or not np.all(np.isfinite(x)):
+                        raise ValueError("needs at least 24 clean points")
+                    e.update(measure(x, crv, lens, n_fakes, rng, bar_pct))
+                except Exception as ex:
+                    e.update(error=str(ex), passed=False, fake_arm_passed=False, percentile=float("nan"), sided="up")
+                log.append(e)
+                if mx:
+                    mx.watch(log, blinded)
+                if on_step:
+                    on_step(len(log), total, e)
+        # flips between flat and curve, per lens: where did the EQ move things?
+        if mx and len(eq_states) == 2:
+            for lens in LENSES:
+                a = [g for g in log if g["dataset"] == lab and g["lens"] == lens]
+                if len(a) == 2 and a[0]["passed"] != a[1]["passed"]:
+                    mx.note(a[1]["step"], "flip", f"{lab} / {lens}: {'passed flat, lost it' if a[0]['passed'] else 'failed flat, passed'} "
+                                                  "with the EQ curve. The pattern lives in (or is hidden by) the bands you moved.")
+    tests = len(blinded) * len(eq_states) * len(LENSES)
+    strict = 100 - (100 - bar_pct) / (len(eq_states) * len(LENSES))
+    survivors, luck = [], []
+    for e in log:
+        if e["passed"] and not e["fake_arm_passed"]:
+            row = dict(dataset=e["dataset"], name=key[e["dataset"]], lens=e["lens"], eq=e["eq"], percentile=e["percentile"])
+            m = e.get("max")
+            if m and m["broke"]:
+                luck.append({**row, "why": m["standing"]})
+            else:
+                survivors.append({**row, "standing": (m or {}).get("standing", "not jinxed")})
+        elif e["passed"] and e["fake_arm_passed"]:
+            luck.append(dict(dataset=e["dataset"], name=key[e["dataset"]], lens=e["lens"], eq=e["eq"],
+                             percentile=e["percentile"], why="frame trip (fake arm passed)"))
+    containment = {}
+    for lab in blinded:
+        hits = [e for e in log if e["dataset"] == lab and e["passed"] and not e["fake_arm_passed"]]
+        strong = [e for e in hits if (e["sided"] == "up" and e["percentile"] >= strict) or
+                  (e["sided"] == "both" and (e["percentile"] <= 100 - strict or e["percentile"] >= strict))]
+        containment[lab] = dict(name=key[lab], passes=len(hits), passes_after_correction=len(strong))
+    for e in log:
+        e.pop("curve", None)
+    return dict(key=key, log=log, max_notes=mx.notes if mx else [], survivors=survivors, luck_pile=luck,
+                containment=containment,
+                settings=dict(n_fakes=n_fakes, bar_pct=bar_pct, seed=seed, eq_states=[n for n, _ in eq_states],
+                              curve=curve or FLAT, lenses=list(LENSES), tests=tests,
+                              corrected_bar_pct=round(strict, 4), eq_reference="bands read as audio at 44.1 kHz"))
