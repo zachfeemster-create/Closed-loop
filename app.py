@@ -428,8 +428,11 @@ src = st.selectbox("Where's your data?", SOURCES, disabled=locked, key="src",
 df0, raw = None, None
 try:
     if src == SOURCES[0]:
-        up = st.file_uploader("CSV or Excel file", type=["csv", "tsv", "txt", "xlsx", "xls"], disabled=locked, key="upl")
+        # No browser-side type filter: Android pickers grey out CSVs they haven't tagged as CSV.
+        up = st.file_uploader("CSV or Excel file", type=None, disabled=locked, key="upl")
         if up is not None:
+            if not up.name.lower().endswith((".csv", ".tsv", ".txt", ".xlsx", ".xls")):
+                raise ValueError("pick a CSV, TSV, TXT or Excel file.")
             raw = up.getvalue()
             if up.name.lower().endswith((".xlsx", ".xls")):
                 sheets = S.excel_sheets(raw)
