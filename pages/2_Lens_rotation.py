@@ -17,6 +17,10 @@ from closedloop import rotation as R      # noqa: E402
 from closedloop import runlog as RL       # noqa: E402
 from closedloop import sources as S       # noqa: E402
 from closedloop import thumbs as T        # noqa: E402
+from closedloop import eqcurve as EQ      # noqa: E402
+from closedloop import bandview as BV     # noqa: E402
+from closedloop import globe as G         # noqa: E402
+from closedloop import embed as EM        # noqa: E402
 
 st.set_page_config(page_title="Lens rotation · Closed Loop", page_icon="🔁", layout="centered")
 ss = st.session_state
@@ -76,19 +80,76 @@ with tab_run:
 
     # ------------------------------------------------ EQ with the amalgamation handles
     st.subheader("EQ pass")
-    preset = st.radio("Curve", ["Flat only", "Zach's curve", "Custom"], index=1, horizontal=True)
-    base = R.FLAT if preset == "Flat only" else R.ZACH_CURVE
-    keys = [f"eqband{i}" for i in range(len(R.EQ_BANDS))]
-    st.markdown(T.slider_css(keys), unsafe_allow_html=True)
-    curve = {}
-    for i, fhz in enumerate(R.EQ_BANDS):
-        with st.container(key=keys[i]):
-            label = f"{fhz / 1000:g} kHz" if fhz >= 1000 else f"{fhz} Hz"
-            curve[fhz] = st.slider(label, -6.0, 6.0, float(base[fhz]), 0.05, format="%+.2f dB",
-                                   disabled=(preset != "Custom"), key=f"eqv_{preset}_{fhz}")
+    preset = st.radio("Curve", ["Flat only", "Zach's curve", "Phone curve", "Custom"], index=1, horizontal=True)
+    if "eq_custom" not in ss:
+        ss["eq_custom"] = [R.PHONE_CURVE[f] for f in R.EQ_BANDS]
+    if preset == "Custom":
+        ss["eq_custom"] = EQ.eq_curve(ss["eq_custom"], key="eq_drag_custom")
+        curve = EQ.as_curve(ss["eq_custom"])
+        if st.button("Start custom from the phone curve"):
+            ss["eq_custom"] = [R.PHONE_CURVE[f] for f in R.EQ_BANDS]
+            st.rerun()
+    else:
+        base = {"Flat only": R.FLAT, "Zach's curve": R.ZACH_CURVE, "Phone curve": R.PHONE_CURVE}[preset]
+        EQ.eq_curve(R.curve_at(base) if preset == "Zach's curve" else [base[f] for f in R.EQ_BANDS],
+                    key=f"eq_show_{preset}", disabled=True)
+        curve = base
     st.caption("Bands are read as if each series were audio at 44.1 kHz, so a 2 kHz cut always hits the same "
                "relative slice (about 9% of the way to the top) whatever the time scale. Short series have few "
-               "slices, so the low bands may not touch anything.")
+               "slices, so the low bands may not touch anything. Zach's curve keeps its original handles "
+               "(it's drawn here at the ten dots). In Custom, drag a sigil up or down for gain and twist it to shape "
+               "the band: each quarter turn doubles (clockwise) or halves (counter-clockwise) how wide it reaches.")
+
+    # ------------------------------------------------ band spiral (look only, nothing here is scored)
+    with st.expander("Band spiral: each band spiraling across the dB plane", expanded=False):
+        if series:
+            pick = st.selectbox("Series", list(series), key="spiral_pick")
+            mode = st.radio("Radius", ["Time (staircase out)", "dB level (orbit)"], horizontal=True, key="spiral_mode")
+            st.altair_chart(BV.parametric_chart(series[pick], curve), width="stretch")
+            bands = R.band_split(series[pick])
+            st.altair_chart(BV.spiral_chart(bands, by_time=mode.startswith("Time")), width="stretch")
+            lock = R.octave_lock(bands)
+            if lock:
+                st.caption("Octave interlock (1 = teeth locked like a zipper, 0 = no relation): "
+                           + " · ".join(f"{k} **{v:.2f}**" for k, v in lock.items()))
+            st.caption("For looking, not scoring. A band only counts if it passes in the rotation against the fakes.")
+        else:
+            st.caption("Load some data first.")
+
+    # ------------------------------------------------ plasma globe (bands as cones, pins where a band beats its fakes)
+    st.subheader("Plasma globe")
+    if series:
+        g1, g2 = st.columns(2)
+        gpick = g1.selectbox("Series in the globe", list(series), key="globe_pick")
+        zpick = g2.selectbox("Zipper with", ["(none)"] + [s for s in series if s != gpick], key="globe_zip")
+        knobs = json.dumps(R.curve_json(curve), sort_keys=True)
+        seen = ss.setdefault("globe_seen", {}).setdefault(gpick, set())
+        seen.add(knobs)
+        payload, dings = G.band_check(series[gpick], curve, looks=len(seen))
+        payload["name"] = gpick
+        other, cross = None, None
+        if zpick != "(none)":
+            seen_b = ss["globe_seen"].setdefault(zpick, set())
+            seen_b.add(knobs)
+            other, dings_b = G.band_check(series[zpick], curve, looks=len(seen_b))
+            other["name"] = zpick
+            dings = dings + [dict(d, who=zpick) for d in dings_b]
+            cross = G.cross_teeth(series[gpick], series[zpick], curve)
+        EM.show(G.render(payload, other, cross), height=470)
+        st.caption(
+            "The ring around the middle is your EQ: the flat line is the circle, ups push out, downs pull in. "
+            "The glowing shell is the data, each band at its own spot around the circle, rippling with that band's "
+            "energy over time. Pick a second series and its rings zip in between the first one's; teeth light up "
+            "where the same band locks across the two (green in step, yellow a quarter turn, pink opposite). "
+            "Drag to spin, tap a pin to see why it dinged. "
+            f"**Looks on this series: {len(seen)}.** Every new knob setting is another look, so the bar gets stricter "
+            "each time. A pin is a flag, not a finding, until it holds on frozen settings, fresh fakes, Max, and new data.")
+        if dings:
+            st.markdown("**Pins:** " + " · ".join(
+                f"{d.get('who', gpick)}: {d['hz'] // 1000 if d['hz'] >= 1000 else d['hz']}{'k' if d['hz'] >= 1000 else ' Hz'} "
+                f"(rows {d['rows'][0]}–{d['rows'][1]}, {d['pct']}th pct)" for d in dings))
+    else:
+        st.caption("Load some data first.")
 
     if st.button("Rotate", type="primary", disabled=len(series) == 0):
         prog = st.progress(0.0, text="Building tunnels…")
