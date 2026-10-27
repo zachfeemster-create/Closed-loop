@@ -96,11 +96,26 @@ with tab_resp:
     st.markdown("Two sides measured over the same time steps (weekly spending, prices, moves). The lens asks how "
                 "each side's next change follows the other side's last change, with its own momentum held fixed. "
                 "Fakes swap the side being answered for one with the **same rhythm and shocks** but no link.")
-    src = st.radio("Data", ["Demo (made up)", "Upload a CSV", "Paste from a spreadsheet", "FRED series IDs"],
-                   horizontal=True, key="r_src")
+    src = st.radio("Data", ["Demo (made up)", "FEC outside spending (real, weekly)", "Upload a CSV",
+                            "Paste from a spreadsheet", "FRED series IDs"], horizontal=True, key="r_src")
     df, A, B, names = None, None, None, ("A", "B")
     try:
-        if src.startswith("Demo"):
+        if src.startswith("FEC"):
+            _wk_path = os.path.join(ROOT, "samples", "fec_weekly_2016_2024.csv")
+            if not os.path.exists(_wk_path):
+                st.info("The FEC tables are missing. Rebuild them with experiments/fec/build_fec.py.")
+                st.stop()
+            wk = pd.read_csv(_wk_path)
+            cyc = st.selectbox("Cycle", sorted(wk.cycle.unique(), reverse=True), key="r_fec_cyc")
+            pv = wk[wk.cycle == cyc].pivot_table(index="week", columns="side", values="spend").sort_index()
+            df = pv.reset_index()
+            A, B, names = pv["D-side"].values + 1e4, pv["R-side"].values + 1e4, ("D-side", "R-side")
+            st.caption("National independent expenditures in House and Senate general elections, January to "
+                       "Election Day, from FEC's processed filings (rebuilt by experiments/fec/build_fec.py). "
+                       "$10k is added to every week so empty early weeks can still be read in percent terms. "
+                       "Heads up: national weekly totals are short, so expect a detection floor; the race-level "
+                       "check in experiments/fec/lead_check.py pools 245 races and has far more power.")
+        elif src.startswith("Demo"):
             rng = np.random.default_rng(11)
             n = 160
             dA = rng.normal(0, 1, n)
@@ -209,11 +224,26 @@ with tab_blotto:
                 "side skipped (spend 0). In equilibrium the stronger side spreads money evenly-at-random up to a cap "
                 "and contests nearly every front; the weaker side gives up a share of fronts and competes on the rest; "
                 "and neither side follows the other front by front.")
-    bsrc = st.radio("Data", ["Demo (made up)", "Upload a CSV", "Paste from a spreadsheet"], horizontal=True,
-                    key="b_src")
+    bsrc = st.radio("Data", ["Demo (made up)", "FEC outside spending (real, by race)", "Upload a CSV",
+                             "Paste from a spreadsheet"], horizontal=True, key="b_src")
     fronts = None
     try:
-        if bsrc.startswith("Demo"):
+        if bsrc.startswith("FEC"):
+            _fr_path = os.path.join(ROOT, "samples", "fec_fronts_2016_2024.csv")
+            if not os.path.exists(_fr_path):
+                st.info("The FEC tables are missing. Rebuild them with experiments/fec/build_fec.py.")
+                st.stop()
+            fronts = pd.read_csv(_fr_path)
+            a_col, b_col, grp_col = "d_side", "r_side", "cycle"
+            vpick = st.selectbox("Race value", ["538 forecast margin, Aug–Nov average (2016 Senate, 2018–2022)",
+                                                "Final result margin (2016–2022)", "(none)"], key="b_fec_val")
+            val_col = ("fc_margin_close" if vpick.startswith("538") else
+                       "closeness" if vpick.startswith("Final") else None)
+            st.caption("One row per House or Senate race with $10k+ of outside money, 2016–2024, each side's general-"
+                       "election independent expenditures from FEC's processed filings. Races without the chosen "
+                       "value are left out (2024 has neither yet; 2016 has forecasts for Senate only). The forecast "
+                       "value is what spenders could see; the final margin is partly a result of the spending.")
+        elif bsrc.startswith("Demo"):
             rng = np.random.default_rng(5)
             n = 140
             close = rng.beta(2, 5, n)
@@ -257,7 +287,9 @@ with tab_blotto:
                        "than one that shows up once.")
         work = work[[c for c in [a_col, b_col, val_col] if c]].dropna()
         st.caption(f"{len(work)} fronts · {a_col} total {work[a_col].sum():,.0f} · {b_col} total {work[b_col].sum():,.0f}")
-        if st.button("Run the Blotto check", type="primary", key="b_go"):
+        if len(work) < 10:
+            st.warning("Fewer than 10 fronts have the value picked. Pick another group, or set the value to (none).")
+        elif st.button("Run the Blotto check", type="primary", key="b_go"):
             try:
                 with st.spinner("Drawing equilibrium play to compare against…"):
                     bres = GT.blotto_test(work[a_col].values, work[b_col].values, names=(str(a_col), str(b_col)),
