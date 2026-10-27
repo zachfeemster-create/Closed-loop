@@ -19,6 +19,8 @@ from closedloop import sources as S       # noqa: E402
 from closedloop import thumbs as T        # noqa: E402
 from closedloop import eqcurve as EQ      # noqa: E402
 from closedloop import bandview as BV     # noqa: E402
+from closedloop import globe as G         # noqa: E402
+import streamlit.components.v1 as components  # noqa: E402
 
 st.set_page_config(page_title="Lens rotation · Closed Loop", page_icon="🔁", layout="centered")
 ss = st.session_state
@@ -112,6 +114,27 @@ with tab_run:
             st.caption("For looking, not scoring. A band only counts if it passes in the rotation against the fakes.")
         else:
             st.caption("Load some data first.")
+
+    # ------------------------------------------------ plasma globe (bands as cones, pins where a band beats its fakes)
+    st.subheader("Plasma globe")
+    if series:
+        gpick = st.selectbox("Series in the globe", list(series), key="globe_pick")
+        seen = ss.setdefault("globe_seen", {}).setdefault(gpick, set())
+        seen.add(json.dumps({str(k): round(float(v), 2) for k, v in sorted(curve.items())}))
+        payload, dings = G.band_check(series[gpick], curve, looks=len(seen))
+        components.html(G.render(payload), height=470)
+        st.caption(
+            "Each band is a cone; it swells with that band's energy and with your EQ. The 25–90 Hz bands throw "
+            "crests out of the core. Drag to spin, tap a pin to see why it dinged. Zipper teeth between neighbor "
+            "bands light up where they lock: green in step, yellow a quarter turn, pink opposite. "
+            f"**Looks on this series: {len(seen)}.** Every new knob setting is another look, so the bar gets stricter "
+            "each time. A pin is a flag, not a finding, until it holds on frozen settings, fresh fakes, Max, and new data.")
+        if dings:
+            st.markdown("**Pins:** " + " · ".join(
+                f"{d['hz'] // 1000 if d['hz'] >= 1000 else d['hz']}{'k' if d['hz'] >= 1000 else ' Hz'} "
+                f"(rows {d['rows'][0]}–{d['rows'][1]}, {d['pct']}th pct)" for d in dings))
+    else:
+        st.caption("Load some data first.")
 
     if st.button("Rotate", type="primary", disabled=len(series) == 0):
         prog = st.progress(0.0, text="Building tunnels…")
