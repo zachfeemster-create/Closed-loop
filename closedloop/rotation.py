@@ -22,10 +22,24 @@ from .engine import ar_fit, ar_sim
 # ---------------------------------------------------------------- EQ
 
 REF_NYQUIST = 22050.0                     # bands are read as if the series were audio at 44.1 kHz
-EQ_BANDS = [125, 500, 1000, 2000, 4000, 7000, 8000, 16000]
+EQ_BANDS = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]     # the ten drag dots (octave ladder)
 FLAT = {f: 0.0 for f in EQ_BANDS}
-ZACH_CURVE = {**FLAT, 2000: -1.5, 4000: 0.5, 7000: 1.0, 8000: 0.15, 16000: 0.2}
+# Zach's original handles (kept exactly, so the nightly/weekly runs stay comparable with earlier logs)
+ZACH_CURVE = {125: 0.0, 500: 0.0, 1000: 0.0, 2000: -1.5, 4000: 0.5, 7000: 1.0, 8000: 0.15, 16000: 0.2}
+# Zach's phone EQ, Oct 27 2026 screenshot
+PHONE_CURVE = dict(zip(EQ_BANDS, [-0.9, -0.2, -0.8, 0.7, 1.0, -1.4, -0.4, -0.2, 1.6, 0.1]))
 EQ_WIDTH_OCT = 0.7                        # bell width of each band, in octaves
+# one color per band, low to high (Parametric EQ 2 style); hues match the recolored sigil handles
+BAND_HUES = [15, 35, 55, 95, 140, 185, 220, 255, 285, 315]
+BAND_COLORS = [f"hsl({h},90%,60%)" for h in BAND_HUES]
+
+
+def curve_at(curve: dict, freqs=EQ_BANDS) -> list[float]:
+    """The dB a curve actually gives at each frequency (so any curve can be drawn on the ten dots)."""
+    out = []
+    for f in freqs:
+        out.append(float(sum(g * np.exp(-0.5 * (np.log2(f / f0) / EQ_WIDTH_OCT) ** 2) for f0, g in curve.items())))
+    return out
 
 
 def eq_gain(n: int, curve: dict) -> np.ndarray:
@@ -57,6 +71,57 @@ def apply_eq(X: np.ndarray, curve: dict) -> np.ndarray:
     g = eq_gain(n, curve)
     g = g if X.ndim == 1 else g[:, None]
     return np.fft.irfft(np.fft.rfft(X - trend, axis=0) * g, n=n, axis=0) + trend
+
+
+# ---------------------------------------------------------------- band view (the spiral across the dB plane)
+
+def band_split(x: np.ndarray) -> dict:
+    """Split a series into the ten EQ bands (octave slices, read as audio at 44.1 kHz).
+    Returns {band_hz: dict(env_db, phase, share)}; bands too low for the series' length come back empty."""
+    x = np.asarray(x, float)
+    n = len(x)
+    c = _detrend(x[:, None])[:, 0]
+    F = np.fft.fft(c)
+    fr = np.abs(np.fft.fftfreq(n)) * 2 * REF_NYQUIST
+    edges = [0.0] + [np.sqrt(a * b) for a, b in zip(EQ_BANDS[:-1], EQ_BANDS[1:])] + [REF_NYQUIST + 1]
+    pos = np.fft.fftfreq(n) > 0
+    total = float((np.abs(F[pos]) ** 2).sum()) + 1e-12
+    out = {}
+    for i, f0 in enumerate(EQ_BANDS):
+        m = pos & (fr >= edges[i]) & (fr < edges[i + 1])
+        if not m.any():
+            out[f0] = None
+            continue
+        a = np.fft.ifft(np.where(m, 2 * F, 0))        # analytic signal of this band only
+        env = np.abs(a)
+        out[f0] = dict(env_db=20 * np.log10(env + 1e-9 * env.max() + 1e-300),
+                       phase=np.unwrap(np.angle(a)), share=float((np.abs(F[m]) ** 2).sum() / total),
+                       bins=int(m.sum()))
+    return out
+
+
+def octave_lock(bands: dict) -> dict:
+    """How tightly each band locks to the next one up (one turn of the low band = two of the high band).
+    1 = locked like teeth in a zipper, 0 = no relation."""
+    out = {}
+    for lo, hi in zip(EQ_BANDS[:-1], EQ_BANDS[1:]):
+        a, b = bands.get(lo), bands.get(hi)
+        if a and b and a["bins"] >= 3 and b["bins"] >= 3:      # a one- or two-slice band locks by itself
+            out[f"{lo}->{hi}"] = float(np.abs(np.mean(np.exp(1j * (2 * a["phase"] - b["phase"])))))
+    return out
+
+
+def spectrum_db(x: np.ndarray, points: int = 160):
+    """Smoothed spectrum of a series on the EQ's frequency axis (for the Parametric-style view)."""
+    x = np.asarray(x, float)
+    n = len(x)
+    c = _detrend(x[:, None])[:, 0] * np.hanning(n)
+    P = np.abs(np.fft.rfft(c, n=4 * n)) ** 2
+    fr = np.fft.rfftfreq(4 * n) * 2 * REF_NYQUIST
+    grid = np.geomspace(20, 20000, points)
+    keep = fr > 0
+    db = 10 * np.log10(np.interp(np.log(grid), np.log(fr[keep]), P[keep]) + 1e-12)
+    return grid, db - db.max()
 
 
 # ---------------------------------------------------------------- lenses
@@ -101,15 +166,21 @@ def lens_superposed(X):
 
 
 def lens_inverse(X):
-    """q4 -theta: turn-back forward minus turn-back with time run backwards (arrow of time)."""
-    return lens_quarter(X) - lens_quarter(X[::-1])
+    """q4 -theta: arrow of time. How lopsided the steps are run forward versus run backward
+    (slow climbs and sharp drops score one way, the reverse scores the other).
+    The old version compared turn-backs forward and backward, which are always equal, so it was stuck at 0."""
+    d = np.diff(_detrend(X), axis=0)
+    d = d - d.mean(0)
+    sd = d.std(0) + 1e-12
+    fwd = (d ** 3).mean(0) / sd ** 3
+    return fwd - (-fwd)                      # running time backward flips every step's sign
 
 
 LENSES = {
     "q1 Regular": dict(fn=lens_regular, sided="up", what="strongest cycle share"),
     "q2 Quarter turn": dict(fn=lens_quarter, sided="both", what="turn-back rate"),
     "q3 Superposed |θ|": dict(fn=lens_superposed, sided="both", what="spin"),
-    "q4 Inverse −θ": dict(fn=lens_inverse, sided="both", what="forward minus backward turn-back"),
+    "q4 Inverse −θ": dict(fn=lens_inverse, sided="both", what="forward vs backward step lopsidedness"),
 }
 
 

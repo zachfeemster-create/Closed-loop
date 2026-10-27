@@ -12,7 +12,7 @@ from PIL import Image
 MARK = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "amalgamation_mark.png")
 
 # one metal color per EQ band (low to high), hue in degrees
-BAND_HUES = [30, 50, 95, 140, 185, 220, 270, 315]
+BAND_HUES = [15, 35, 55, 95, 140, 185, 220, 255, 285, 315]     # same as rotation.BAND_HUES
 
 
 def _rgb_to_hsv(a):
