@@ -138,6 +138,7 @@ HTML = r"""
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const A = __A__, B = __B__, X = __X__;           // dataset A, optional dataset B, A-vs-B zipper teeth
+const esc = v => String(v).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));   // names come from people's data
 const wrap = document.getElementById('wrap'), cv = document.getElementById('c'), H = 440, W = () => wrap.clientWidth;
 const renderer = new THREE.WebGLRenderer({canvas: cv, antialias: true, alpha: true});
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
@@ -237,7 +238,7 @@ function frame(now) {
   pins.forEach(p => { const d = p.userData.d, inWin = t >= d.t0 && t <= d.t1, th = bandAng(p.userData.i);
     const q = pt(R0 + .25, p.userData.lift, th); p.position.set(q[0], q[1], q[2]);
     p.scale.setScalar((inWin ? .75 : .42) * (1 + .15 * Math.sin(now / 200))); p.material.color.copy(inWin ? new THREE.Color(0xffffff) : COLS[p.userData.i]); });
-  hud.innerHTML = `${A.name}${B ? ' ⟷ ' + B.name : ''} · t ${(t * 100).toFixed(0)}% · looks ${A.looks} · bar ${A.bar}th<br>` +
+  hud.innerHTML = `${esc(A.name)}${B ? ' ⟷ ' + esc(B.name) : ''} · t ${(t * 100).toFixed(0)}% · looks ${A.looks} · bar ${A.bar}th<br>` +
     `${pins.length} pin(s)` + (lockedNow.length ? ` · zipped: ${lockedNow.join(' · ')}` : '');
   renderer.render(scene, cam);
   if (!fallback) requestAnimationFrame(frame);
@@ -254,11 +255,11 @@ cv.addEventListener('pointerup', e => { const tap = drag && !drag.moved; drag = 
   if (!hit) { pinBox.style.display = 'none'; return; }
   const u = hit.object.userData, d = u.d, lab = d.hz >= 1000 ? (d.hz / 1000) + 'k' : d.hz;
   pinBox.style.display = 'block';
-  pinBox.innerHTML = `<b style="color:${A.colors[u.i]}">${lab} band dinged</b> in ${u.who} · flag, not a finding<br>` +
+  pinBox.innerHTML = `<b style="color:${A.colors[u.i]}">${lab} band dinged</b> in ${esc(u.who)} · flag, not a finding<br>` +
     `Holds ${(d.real_share * 100).toFixed(1)}% of the wobble; fakes held ${(d.fake_range[0] * 100).toFixed(1)}–${(d.fake_range[1] * 100).toFixed(1)}%.<br>` +
     `Beat the fakes at the ${d.pct}th percentile (bar ${d.bar}, after ${d.looks} look${d.looks > 1 ? 's' : ''}).<br>` +
     `Strongest stretch: rows ${d.rows[0]}–${d.rows[1]} (${(d.t0 * 100).toFixed(0)}–${(d.t1 * 100).toFixed(0)}% through).<br>` +
-    `<span style="color:#9a93c4">Knobs frozen: ${Object.entries(d.settings).map(([k, v]) => { const g = Array.isArray(v) ? v[0] : v; return k + ' Hz ' + (g > 0 ? '+' : '') + g + (Array.isArray(v) ? ' (w ' + v[1] + ')' : ''); }).join(', ')}</span>`;
+    `<span style="color:#9a93c4">Knobs frozen: ${Object.entries(d.settings).map(([k, v]) => { const g = Array.isArray(v) ? v[0] : v; return esc(k) + ' Hz ' + (g > 0 ? '+' : '') + esc(g) + (Array.isArray(v) ? ' (w ' + v[1] + ')' : ''); }).join(', ')}</span>`;
   t = (d.t0 + d.t1) / 2; playing = false; playBtn.textContent = '▶'; });
 requestAnimationFrame(frame);
 // some embedded views never fire animation frames; fall back to a plain timer so the globe still moves
@@ -269,5 +270,6 @@ setTimeout(() => { if (!ticked) { fallback = true; setInterval(() => frame(perfo
 
 def render(a: dict, b: dict | None = None, cross: list | None = None) -> str:
     """a, b: payloads from band_check (with a 'name' added); cross: cross_teeth(a, b)."""
-    return (HTML.replace("__A__", json.dumps(a)).replace("__B__", json.dumps(b) if b else "null")
-            .replace("__X__", json.dumps(cross or [])))
+    from .embed import safe_json
+    return (HTML.replace("__A__", safe_json(json.dumps(a))).replace("__B__", safe_json(json.dumps(b)) if b else "null")
+            .replace("__X__", safe_json(json.dumps(cross or []))))
