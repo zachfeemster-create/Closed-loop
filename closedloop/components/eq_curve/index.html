@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  html,body{margin:0;padding:0;background:transparent;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-user-select:none;user-select:none;touch-action:none}
+  #card{background:radial-gradient(120% 90% at 50% 0%,#24262c 0%,#141519 70%);border-radius:18px;padding:10px 6px 8px;
+    box-shadow:0 0 0 1px #2c2f36 inset,0 8px 30px rgba(0,0,0,.45)}
+  #card.off{opacity:.62}
+  svg{display:block;width:100%;touch-action:none}
+  .val{font-size:13px;font-weight:600;text-anchor:middle;font-variant-numeric:tabular-nums}
+  .hz{font-size:12px;fill:#c9ccd3;text-anchor:middle}
+  .hint{color:#8a8f99;font-size:11px;text-align:center;margin-top:4px}
+</style>
+</head>
+<body>
+<div id="card"><svg id="eq"></svg><div class="hint" id="hint"></div></div>
+<script>
+const NS = "http://www.w3.org/2000/svg";
+const send = (type, extra) => window.parent.postMessage(Object.assign({isStreamlitMessage: true, type}, extra), "*");
+let A = null, vals = [], drag = -1, W = 360;
+const H = 300, TOP = 34, BOT = 34, PADX = 22;
+
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+const fmt = v => (v > 0 ? "+" : "") + v.toFixed(1);
+const xAt = i => PADX + i * (W - 2 * PADX) / (vals.length - 1);
+const yAt = v => TOP + (A.max - v) / (A.max - A.min) * (H - TOP - BOT);
+const vAt = y => Math.round(Math.max(A.min, Math.min(A.max, A.max - (y - TOP) / (H - TOP - BOT) * (A.max - A.min))) * 10) / 10;
+
+function smoothPath(pts) {          // Catmull-Rom through every dot, as cubic Beziers
+  let d = `M${pts[0][0]},${pts[0][1]}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
+    d += ` C${p1[0] + (p2[0] - p0[0]) / 6},${p1[1] + (p2[1] - p0[1]) / 6} ${p2[0] - (p3[0] - p1[0]) / 6},${p2[1] - (p3[1] - p1[1]) / 6} ${p2[0]},${p2[1]}`;
+  }
+  return d;
+}
+
+function draw() {
+  const svg = document.getElementById("eq");
+  W = Math.max(300, svg.parentNode.clientWidth - 12);
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("height", H);
+  svg.innerHTML = "";
+  const defs = el("defs", {}, svg);
+  const glow = el("filter", {id: "glow", x: "-30%", y: "-30%", width: "160%", height: "160%"}, defs);
+  el("feGaussianBlur", {stdDeviation: "4", result: "b"}, glow);
+  const m = el("feMerge", {}, glow); el("feMergeNode", {in: "b"}, m); el("feMergeNode", {in: "b"}, m); el("feMergeNode", {in: "SourceGraphic"}, m);
+  const fill = el("linearGradient", {id: "fill", x1: 0, y1: 0, x2: 1, y2: 0}, defs);
+  A.colors.forEach((c, i) => el("stop", {offset: i / (A.colors.length - 1), "stop-color": c, "stop-opacity": .28}, fill));
+  const line = el("linearGradient", {id: "line", x1: 0, y1: 0, x2: 1, y2: 0}, defs);
+  A.colors.forEach((c, i) => el("stop", {offset: i / (A.colors.length - 1), "stop-color": c}, line));
+  A.colors.forEach((c, i) => {
+    const g = el("radialGradient", {id: "halo" + i}, defs);
+    el("stop", {offset: 0, "stop-color": c, "stop-opacity": .85}, g);
+    el("stop", {offset: 1, "stop-color": c, "stop-opacity": 0}, g);
+  });
+
+  // grid: a line every 2 dB, brighter at 0
+  for (let v = Math.ceil(A.min / 2) * 2; v <= A.max; v += 2)
+    el("line", {x1: PADX - 8, x2: W - PADX + 8, y1: yAt(v), y2: yAt(v), stroke: v === 0 ? "#5d626c" : "#2b2e35", "stroke-width": v === 0 ? 1.4 : 1}, svg);
+
+  // each band's own bell, faint and glowing (Parametric EQ 2 style)
+  const zero = yAt(0), sx = (W - 2 * PADX) / (vals.length - 1);
+  vals.forEach((v, i) => {
+    if (Math.abs(v) < 0.05) return;
+    const x = xAt(i), y = yAt(v);
+    el("path", {d: `M${x - 1.6 * sx},${zero} C${x - .7 * sx},${zero} ${x - .5 * sx},${y} ${x},${y} C${x + .5 * sx},${y} ${x + .7 * sx},${zero} ${x + 1.6 * sx},${zero} Z`,
+      fill: A.colors[i], "fill-opacity": .16, stroke: A.colors[i], "stroke-opacity": .55, "stroke-width": 1.2, filter: "url(#glow)"}, svg);
+  });
+
+  // the combined curve: filled, then a glowing line
+  const pts = vals.map((v, i) => [xAt(i), yAt(v)]);
+  const path = smoothPath(pts);
+  el("path", {d: `${path} L${xAt(vals.length - 1)},${H - BOT} L${xAt(0)},${H - BOT} Z`, fill: "url(#fill)"}, svg);
+  el("path", {d: path, fill: "none", stroke: "url(#line)", "stroke-width": 7, "stroke-opacity": .35, filter: "url(#glow)"}, svg);
+  el("path", {d: path, fill: "none", stroke: "url(#line)", "stroke-width": 2.6}, svg);
+
+  // readouts on top, band names at the bottom
+  vals.forEach((v, i) => {
+    const t = el("text", {x: xAt(i), y: 20, class: "val", fill: A.colors[i]}, svg); t.textContent = fmt(v);
+    const h = el("text", {x: xAt(i), y: H - 10, class: "hz"}, svg); h.textContent = A.labels[i];
+  });
+
+  // the sigil handles, each with a halo in its band color
+  const S = A.size;
+  vals.forEach((v, i) => {
+    const g = el("g", {"data-i": i, style: A.disabled ? "" : "cursor:grab"}, svg);
+    el("circle", {cx: xAt(i), cy: yAt(v), r: S * (drag === i ? 1.05 : .8), fill: `url(#halo${i})`}, g);
+    el("image", {href: A.sigils[i], x: xAt(i) - S / 2, y: yAt(v) - S / 2, width: S, height: S,
+      style: `filter:drop-shadow(0 0 ${drag === i ? 9 : 5}px ${A.colors[i]})`}, g);
+    el("circle", {cx: xAt(i), cy: yAt(v), r: S * .75, fill: "transparent"}, g);   // bigger touch target
+  });
+}
+
+function nearest(evt) {
+  const svg = document.getElementById("eq"), r = svg.getBoundingClientRect();
+  const x = (evt.clientX - r.left) * W / r.width, y = (evt.clientY - r.top) * H / r.height;
+  let best = 0, bd = 1e9;
+  vals.forEach((v, i) => { const d = Math.abs(xAt(i) - x); if (d < bd) { bd = d; best = i; } });
+  return {i: best, y};
+}
+
+const svgEl = document.getElementById("eq");
+svgEl.addEventListener("pointerdown", e => {
+  if (A.disabled) return;
+  const n = nearest(e); drag = n.i; svgEl.setPointerCapture(e.pointerId);
+  vals[drag] = vAt(n.y); draw();
+});
+svgEl.addEventListener("pointermove", e => {
+  if (drag < 0) return;
+  vals[drag] = vAt(nearest(e).y); draw();
+});
+const finish = () => {
+  if (drag < 0) return;
+  drag = -1; draw();
+  send("streamlit:setComponentValue", {value: vals.slice(), dataType: "json"});
+};
+svgEl.addEventListener("pointerup", finish);
+svgEl.addEventListener("pointercancel", finish);
+svgEl.addEventListener("dblclick", e => {
+  if (A.disabled) return;
+  vals[nearest(e).i] = 0; draw();
+  send("streamlit:setComponentValue", {value: vals.slice(), dataType: "json"});
+});
+
+window.addEventListener("message", e => {
+  if (!e.data || e.data.type !== "streamlit:render") return;
+  const first = A === null || JSON.stringify(e.data.args.values) !== JSON.stringify(A.values);
+  A = e.data.args;
+  if (first && drag < 0) vals = A.values.slice();
+  document.getElementById("card").classList.toggle("off", !!A.disabled);
+  document.getElementById("hint").textContent = A.disabled ? "Preset (pick Custom to drag)" : "Drag a sigil up or down · double-tap to zero it";
+  draw();
+  send("streamlit:setFrameHeight", {height: document.body.scrollHeight + 4});
+});
+window.addEventListener("resize", () => { if (A) draw(); });
+send("streamlit:componentReady", {apiVersion: 1});
+</script>
+</body>
+</html>
