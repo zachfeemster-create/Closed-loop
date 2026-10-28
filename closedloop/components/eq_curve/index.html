@@ -21,12 +21,13 @@
 </head>
 <body>
 <div id="card"><svg id="eq"></svg>
-  <div id="turns"><button id="ccw">↺ ¼ turn</button><span id="sel"></span><button id="cw">↻ ¼ turn</button></div>
+  <div id="turns"><button id="ccw">↺ ¼ turn</button><span id="sel"></span><button id="cw">↻ ¼ turn</button><button id="kind" style="display:none">bell</button></div>
   <div class="hint" id="hint"></div></div>
 <script>
 const NS = "http://www.w3.org/2000/svg";
 const send = (type, extra) => window.parent.postMessage(Object.assign({isStreamlitMessage: true, type}, extra), "*");
-let A = null, vals = [], drag = -1, sel = 0, twist = null, W = 360;
+let A = null, vals = [], drag = -1, sel = 0, twist = null, W = 360, grab = null;
+const KINDS = ["bell", "low shelf", "high shelf"];
 const H = 300, TOP = 34, BOT = 34, PADX = 22, W0 = 0.7, WMIN = 0.1, WMAX = 3.0;
 const pointers = new Map();
 
@@ -44,11 +45,18 @@ const vAt = y => Math.round(Math.max(A.min, Math.min(A.max, A.max - (y - TOP) / 
 const turnsOf = w => Math.log2(w / W0);                              // quarter turns: each one doubles or halves the width
 const angOf = w => 90 * turnsOf(w);
 const clampW = w => Math.max(WMIN, Math.min(WMAX, w));
-const norm = vs => JSON.stringify(vs.map(v => Array.isArray(v) ? [Number(v[0]), Number(v[1])] : [Number(v), W0]));
+// every band is kept as [gain, width, position, kind]; position is in band steps (0..9), kind 0 bell / 1 low shelf / 2 high shelf
+const full = vs => vs.map((v, i) => Array.isArray(v) ? [Number(v[0]), Number(v[1] ?? W0), Number(v[2] ?? i), Number(v[3] ?? 0)] : [Number(v), W0, i, 0]);
+const norm = vs => JSON.stringify(full(vs));
+const extended = () => A && (A.slide || A.shelves);
 const sent = new Set();                // values we sent ourselves; the page echoes them back a rerun late, so don't reset to those
-const send_ = () => { const v = vals.map(v => [v[0], Math.round(v[1] * 1000) / 1000]); sent.add(norm(v)); send("streamlit:setComponentValue", {value: v, dataType: "json"}); };
+const send_ = () => { const v = vals.map(v => extended() ? [v[0], Math.round(v[1] * 1000) / 1000, Math.round(v[2] * 1000) / 1000, v[3]] : [v[0], Math.round(v[1] * 1000) / 1000]);
+  sent.add(norm(v)); send("streamlit:setComponentValue", {value: v, dataType: "json"}); };
 // what the bands add up to at a point (in band-steps = octaves)
-const resp = u => vals.reduce((s, [g, w], i) => s + g * Math.exp(-0.5 * ((u - i) / w) ** 2), 0);
+const shape = (x, [g, w, c, k]) => k === 1 ? g / (1 + Math.exp((x - c) / (0.6 * w))) : k === 2 ? g / (1 + Math.exp(-(x - c) / (0.6 * w)))
+  : g * Math.exp(-0.5 * ((x - c) / w) ** 2);
+const resp = u => vals.reduce((s, v) => s + shape(u, v), 0);
+const xU = u => PADX + u * sx();
 
 function draw() {
   const svg = document.getElementById("eq");
@@ -75,11 +83,13 @@ function draw() {
 
   // each band's own bell at its real width, faint and glowing (Parametric EQ 2 style)
   const zero = yAt(0), STEPS = 120;
-  vals.forEach(([g, w], i) => {
+  vals.forEach((v, i) => {
+    const [g, w, c, kd] = v;
     if (Math.abs(g) < 0.05 && i !== sel) return;
+    const lo = kd === 2 ? c - 3 * w : kd === 1 ? -0.3 : c - 3 * w, hi = kd === 1 ? c + 3 * w : kd === 2 ? vals.length - 0.7 : c + 3 * w;
     let d = "";
-    for (let k = 0; k <= STEPS; k++) { const u = i - 3 * w + 6 * w * k / STEPS; d += (k ? " L" : "M") + `${PADX + u * sx()},${yAt(g * Math.exp(-0.5 * ((u - i) / w) ** 2))}`; }
-    el("path", {d: `${d} L${PADX + (i + 3 * w) * sx()},${zero} L${PADX + (i - 3 * w) * sx()},${zero} Z`, fill: A.colors[i],
+    for (let k = 0; k <= STEPS; k++) { const u = lo + (hi - lo) * k / STEPS; d += (k ? " L" : "M") + `${xU(u)},${yAt(Math.max(A.min, Math.min(A.max, shape(u, v))))}`; }
+    el("path", {d: `${d} L${xU(hi)},${zero} L${xU(lo)},${zero} Z`, fill: A.colors[i],
       "fill-opacity": i === sel ? .24 : .14, stroke: A.colors[i], "stroke-opacity": i === sel ? .9 : .5, "stroke-width": i === sel ? 1.6 : 1.1, filter: "url(#glow)"}, svg);
   });
 
@@ -90,30 +100,32 @@ function draw() {
   el("path", {d: path, fill: "none", stroke: "url(#line)", "stroke-width": 7, "stroke-opacity": .35, filter: "url(#glow)"}, svg);
   el("path", {d: path, fill: "none", stroke: "url(#line)", "stroke-width": 2.6}, svg);
 
-  vals.forEach(([g], i) => {
-    const t = el("text", {x: xAt(i), y: 20, class: "val", fill: A.colors[i]}, svg); t.textContent = fmt(g);
+  vals.forEach(([g, , c], i) => {
+    const t = el("text", {x: xU(c), y: 20, class: "val", fill: A.colors[i]}, svg); t.textContent = fmt(g);
     const h = el("text", {x: xAt(i), y: H - 10, class: "hz"}, svg); h.textContent = A.labels[i];
   });
 
   // the sigil handles: halo in the band color, and the sigil turned by its quarter turns
   const S = A.size;
-  vals.forEach(([g, w], i) => {
-    const x = xAt(i), y = yAt(g), on = drag === i || i === sel;
+  vals.forEach(([g, w, c], i) => {
+    const x = xU(c), y = yAt(g), on = drag === i || i === sel;
     const grp = el("g", {style: A.disabled ? "" : "cursor:grab"}, svg);
     el("circle", {cx: x, cy: y, r: S * (on ? 1.05 : .8), fill: `url(#halo${i})`}, grp);
     if (i === sel && !A.disabled) el("circle", {cx: x, cy: y, r: S * .72, fill: "none", stroke: A.colors[i], "stroke-width": 1.2, "stroke-dasharray": "3 4", opacity: .9}, grp);
     el("image", {href: A.sigils[i], x: x - S / 2, y: y - S / 2, width: S, height: S, transform: `rotate(${angOf(w)} ${x} ${y})`,
       style: `filter:drop-shadow(0 0 ${on ? 9 : 5}px ${A.colors[i]})`}, grp);
   });
-  const [g, w] = vals[sel] || [0, W0];
-  document.getElementById("sel").innerHTML = `<b style="color:${A.colors[sel]}">${A.labels[sel]}</b> · width ${w.toFixed(2)} oct · ${turnsOf(w) >= 0 ? "+" : ""}${turnsOf(w).toFixed(2)} turns`;
+  const [g, w, c, kd] = vals[sel] || [0, W0, 0, 0];
+  const where = A.slide && Math.abs(c - sel) > 0.02 ? ` @ ${A.unit ? (44100 / (A.base * Math.pow(2, c))).toFixed(1) + " " + A.unit + " cycle" : (c >= sel ? "+" : "") + (c - sel).toFixed(2) + " oct"}` : "";
+  document.getElementById("sel").innerHTML = `<b style="color:${A.colors[sel]}">${A.labels[sel]}</b>${where} · ${A.shelves ? KINDS[kd] + " · " : ""}width ${w.toFixed(2)} oct · ${turnsOf(w) >= 0 ? "+" : ""}${turnsOf(w).toFixed(2)} turns`;
+  const kb = document.getElementById("kind"); kb.style.display = A.shelves && !A.disabled ? "" : "none"; kb.textContent = "shape: " + KINDS[kd];
 }
 
 function local(evt) {
   const svg = document.getElementById("eq"), r = svg.getBoundingClientRect();
   return {x: (evt.clientX - r.left) * W / r.width, y: (evt.clientY - r.top) * H / r.height};
 }
-const nearest = x => vals.reduce((b, _, i) => Math.abs(xAt(i) - x) < Math.abs(xAt(b) - x) ? i : b, 0);
+const nearest = x => vals.reduce((b, v, i) => Math.abs(xU(v[2]) - x) < Math.abs(xU(vals[b][2]) - x) ? i : b, 0);
 const angle2 = () => { const [a, b] = [...pointers.values()]; return Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI; };
 
 const svgEl = document.getElementById("eq");
@@ -121,7 +133,7 @@ svgEl.addEventListener("pointerdown", e => {
   if (A.disabled) return;
   svgEl.setPointerCapture(e.pointerId);
   pointers.set(e.pointerId, local(e));
-  if (pointers.size === 1) { const p = local(e); drag = sel = nearest(p.x); vals[drag][0] = vAt(p.y); }
+  if (pointers.size === 1) { const p = local(e); drag = sel = nearest(p.x); vals[drag][0] = vAt(p.y); grab = {x: p.x, c: vals[drag][2]}; }
   else if (pointers.size === 2) {                                   // two fingers: twist to rotate the band's shape
     const [a, b] = [...pointers.values()]; drag = -1; sel = nearest((a.x + b.x) / 2);
     twist = {a0: angle2(), w0: vals[sel][1]};
@@ -132,7 +144,8 @@ svgEl.addEventListener("pointermove", e => {
   if (!pointers.has(e.pointerId)) return;
   pointers.set(e.pointerId, local(e));
   if (twist && pointers.size === 2) { let d = angle2() - twist.a0; d = ((d + 540) % 360) - 180; vals[sel][1] = clampW(twist.w0 * Math.pow(2, d / 90)); draw(); }
-  else if (drag >= 0 && pointers.size === 1) { vals[drag][0] = vAt(local(e).y); draw(); }
+  else if (drag >= 0 && pointers.size === 1) { const p = local(e); vals[drag][0] = vAt(p.y);
+    if (A.slide && grab) vals[drag][2] = Math.max(-0.5, Math.min(vals.length - 0.5, grab.c + (p.x - grab.x) / sx())); draw(); }
 });
 const lift = e => {
   if (!pointers.has(e.pointerId)) return;
@@ -143,7 +156,7 @@ svgEl.addEventListener("pointerup", lift);
 svgEl.addEventListener("pointercancel", lift);
 svgEl.addEventListener("dblclick", e => {
   if (A.disabled) return;
-  const i = nearest(local(e).x); vals[i] = [0, W0]; sel = i; draw(); send_();
+  const i = nearest(local(e).x); vals[i] = [0, W0, i, 0]; sel = i; draw(); send_();
 });
 svgEl.addEventListener("wheel", e => {                              // mouse wheel turns the selected band too
   if (A.disabled) return; e.preventDefault();
@@ -153,6 +166,7 @@ svgEl.addEventListener("wheel", e => {                              // mouse whe
 const quarter = dir => { if (A.disabled) return; vals[sel][1] = clampW(vals[sel][1] * Math.pow(2, dir)); draw(); send_(); };
 document.getElementById("cw").onclick = () => quarter(1);
 document.getElementById("ccw").onclick = () => quarter(-1);
+document.getElementById("kind").onclick = () => { if (A.disabled) return; vals[sel][3] = (vals[sel][3] + 1) % 3; draw(); send_(); };
 
 window.addEventListener("message", e => {
   if (!e.data || e.data.type !== "streamlit:render") return;
@@ -161,7 +175,8 @@ window.addEventListener("message", e => {
   if (first && drag < 0 && !twist) { vals = JSON.parse(incoming); sent.clear(); }
   document.getElementById("card").classList.toggle("off", !!A.disabled);
   document.getElementById("hint").textContent = A.disabled ? "Preset (pick Custom to shape it)"
-    : "Drag a sigil up or down · twist two fingers (or the ¼ turn buttons) to shape it · double-tap to reset";
+    : (A.slide ? "Drag a sigil up/down for gain and left/right to move it" : "Drag a sigil up or down")
+      + " · twist two fingers (or the ¼ turn buttons) to shape it" + (A.shelves ? " · 'shape' switches bell / shelf" : "") + " · double-tap to reset";
   draw();
   send("streamlit:setFrameHeight", {height: document.body.scrollHeight + 4});
 });
