@@ -44,32 +44,60 @@ def bells(curve: dict) -> list[tuple[float, float, float]]:
     return out
 
 
+def _kind(v) -> int:
+    """0 bell, 1 low shelf, 2 high shelf, 3 high pass, 4 low pass, 5 notch (a band's value can carry it as a third number)."""
+    return int(v[2]) if isinstance(v, (list, tuple)) and len(v) > 2 else 0
+
+
+def shaped(curve: dict) -> list[tuple[float, float, float, int]]:
+    """(center Hz, gain dB, width in octaves, kind) for every band."""
+    return [(f, g, w, _kind(v)) for (f, g, w), v in zip(bells(curve), curve.values())]
+
+
+PASS_CUT_DB = -30.0                      # how deep high/low passes and notches cut (their gain handle isn't used)
+
+
+def _shape_db(oct_, g: float, w: float, k: int):
+    if k == 3:
+        return PASS_CUT_DB / (1 + np.exp(oct_ / (0.3 * w)))
+    if k == 4:
+        return PASS_CUT_DB / (1 + np.exp(-oct_ / (0.3 * w)))
+    if k == 5:
+        return PASS_CUT_DB * np.exp(-0.5 * (oct_ / w) ** 2)
+    if k == 1:
+        return g / (1 + np.exp(oct_ / (0.6 * w)))
+    if k == 2:
+        return g / (1 + np.exp(-oct_ / (0.6 * w)))
+    return g * np.exp(-0.5 * (oct_ / w) ** 2)
+
+
 def curve_json(curve: dict) -> dict:
     """The curve as plain rounded numbers, for logs and for counting looks."""
-    return {f"{round(f, 1):g}": (round(g, 2) if abs(w - EQ_WIDTH_OCT) < 1e-9 else [round(g, 2), round(w, 3)])
-            for f, g, w in sorted(bells(curve))}
+    return {f"{round(f, 1):g}": ([round(g, 2), round(w, 3), k] if k else
+                                 round(g, 2) if abs(w - EQ_WIDTH_OCT) < 1e-9 else [round(g, 2), round(w, 3)])
+            for f, g, w, k in sorted(shaped(curve))}
 
 
 def curve_at(curve: dict, freqs=EQ_BANDS) -> list[float]:
     """The dB a curve actually gives at each frequency (so any curve can be drawn on the ten dots)."""
-    return [float(sum(g * np.exp(-0.5 * (np.log2(f / f0) / w) ** 2) for f0, g, w in bells(curve))) for f in freqs]
+    return [float(sum(_shape_db(np.log2(f / f0), g, w, k) for f0, g, w, k in shaped(curve))) for f in freqs]
 
 
 def eq_gain(n: int, curve: dict) -> np.ndarray:
     """Amplitude gain for each FFT bin of an n-point series."""
     fr = np.fft.rfftfreq(n) * 2 * REF_NYQUIST          # bin position in 'reference Hz'
     db = np.zeros_like(fr)
-    for f0, g, w in bells(curve):
-        if g:
+    for f0, g, w, k in shaped(curve):
+        if g or k >= 3:
             with np.errstate(divide="ignore"):
                 oct_ = np.log2(np.maximum(fr, 1e-9) / f0)
-            db += g * np.exp(-0.5 * (oct_ / w) ** 2)
+            db += _shape_db(oct_, g, w, k)
     db[0] = 0.0
     return 10 ** (db / 20)
 
 
 def is_flat(curve: dict) -> bool:
-    return not any(abs(g) > 1e-12 for _, g, _ in bells(curve))
+    return not any(abs(g) > 1e-12 or k >= 3 for _, g, _, k in shaped(curve))
 
 
 def apply_eq(X: np.ndarray, curve: dict) -> np.ndarray:
@@ -265,7 +293,8 @@ def _jinxes(x, rng, curve):
     out["one bad shot"] = (y, curve)
     out["short day"] = (x[: int(0.75 * n)], curve)
     if not is_flat(curve):
-        out["eq nudge"] = (x, {f: [g + (rng.uniform(-0.5, 0.5) if g else 0.0), w] for f, g, w in bells(curve)})
+        out["eq nudge"] = (x, {f: [g + (rng.uniform(-0.5, 0.5) if g else 0.0), w] + ([k] if k else [])
+                               for f, g, w, k in shaped(curve)})
     return out
 
 
