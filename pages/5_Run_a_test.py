@@ -29,7 +29,7 @@ TESTS = {
         label="Real vs fakes", kind="panel", star=True,
         what="Can a standard six-measure toolkit tell your series apart from matched fakes (noise, random walks, "
              "spiky walks, shuffled steps)? Passes only if it beats both hard ones: walks and shuffled steps.",
-        record="World Bank: beat noise (~0.27), near chance against walks. Needs 10+ series."),
+        record="World Bank: beat noise (~0.27), near chance against walks. Fewer than 10 series get cut into windows."),
     "leftovers": dict(
         label="Shared baseline and leftovers", kind="panel", star=False,
         what="Takes out the path every series shares, then asks which pairs' leftovers still move together "
