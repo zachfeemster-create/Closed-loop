@@ -21,6 +21,9 @@ from closedloop import eqcurve as EQ      # noqa: E402
 from closedloop import bandview as BV     # noqa: E402
 from closedloop import globe as G         # noqa: E402
 from closedloop import embed as EM        # noqa: E402
+import importlib, inspect      # noqa: E401,E402
+if "slide" not in inspect.signature(EQ.eq_curve).parameters:     # the server may still hold the old drag code in memory
+    EQ = importlib.reload(EQ)
 
 st.set_page_config(page_title="Lens rotation · Closed Loop", page_icon="🔁", layout="centered")
 ss = st.session_state
@@ -88,7 +91,7 @@ with tab_run:
     if "eq_custom" not in ss:
         ss["eq_custom"] = [R.PHONE_CURVE[f] for f in R.EQ_BANDS]
     if preset == "Custom":
-        ss["eq_custom"] = EQ.eq_curve(ss["eq_custom"], key="eq_drag_custom")
+        ss["eq_custom"] = EQ.eq_curve(ss["eq_custom"], key="eq_drag_custom", slide=True, shelves=True)
         curve = EQ.as_curve(ss["eq_custom"])
         if st.button("Start custom from the phone curve"):
             ss["eq_custom"] = [R.PHONE_CURVE[f] for f in R.EQ_BANDS]
@@ -101,8 +104,8 @@ with tab_run:
     st.caption("Bands are read as if each series were audio at 44.1 kHz, so a 2 kHz cut always hits the same "
                "relative slice (about 9% of the way to the top) whatever the time scale. Short series have few "
                "slices, so the low bands may not touch anything. Zach's curve keeps its original handles "
-               "(it's drawn here at the ten dots). In Custom, drag a sigil up or down for gain and twist it to shape "
-               "the band: each quarter turn doubles (clockwise) or halves (counter-clockwise) how wide it reaches.")
+               "(it's drawn here at the ten dots). In Custom, drag a sigil up or down for gain, left or right to move it, twist it to shape it, and tap shape to switch a band between bell and shelf. "
+               "Each quarter turn doubles (clockwise) or halves (counter-clockwise) how wide it reaches.")
 
     # ------------------------------------------------ band spiral (look only, nothing here is scored)
     with st.expander("Band spiral: each band spiraling across the dB plane", expanded=False):
