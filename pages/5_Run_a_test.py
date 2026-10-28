@@ -31,9 +31,9 @@ TESTS = {
              "spiky walks, shuffled steps)? Passes only if it beats both hard ones: walks and shuffled steps.",
         record="World Bank: beat noise (~0.27), near chance against walks. Fewer than 10 series get cut into windows."),
     "leftovers": dict(
-        label="Shared baseline and leftovers", kind="panel", star=False,
-        what="Takes out the path every series shares, then asks which pairs' leftovers still move together "
-             "beyond chance (each series slid in time as the control, false-discovery corrected).",
+        label="Who moves with whom (leftovers)", kind="panel", star=False,
+        what="Which pairs of series move together step by step (same step, or one leading the other by a step) "
+             "beyond what independent look-alike fakes give? False-discovery corrected. Optionally take out a shared path first.",
         record="World Bank leftovers tied through the economy (inflation-trade, GDP-unemployment)."),
     "turnback": dict(
         label="Turn-back beyond momentum", kind="panel", star=True,
@@ -145,6 +145,16 @@ def _link(url):
     return S.fetch_link(url)
 
 
+@st.cache_data(show_spinner="Reading the file…", max_entries=3)
+def _read_csv(raw):
+    return S.read_csv_bytes(raw)
+
+
+@st.cache_data(show_spinner="Reading the file…", max_entries=3)
+def _read_xlsx(raw, sheet):
+    return S.read_excel(raw, sheet)
+
+
 @st.cache_data(show_spinner=False)
 def _sample(name):
     return S.load_sample(name)
@@ -163,6 +173,7 @@ def _demo_cycles(seed_=7):
 
 data_desc = ""
 payload = None      # what goes into the test
+MAX_ROWS = 5000     # beyond this, long files keep every k-th row by default
 
 if T["kind"] == "panel":
     st.subheader("1. Data")
@@ -188,9 +199,9 @@ if T["kind"] == "panel":
                 if f.name.lower().endswith((".xlsx", ".xls")):
                     sheets = S.excel_sheets(raw)
                     sh = st.selectbox("Sheet", sheets) if len(sheets) > 1 else sheets[0]
-                    df = S.read_excel(raw, sh)
+                    df = _read_xlsx(raw, sh)
                 else:
-                    df = S.read_csv_bytes(raw)
+                    df = _read_csv(raw)
                 data_desc = f"upload: {f.name}"
         elif src == "Paste":
             txt = st.text_area("Paste cells copied from a spreadsheet (header row first)", height=160)
@@ -250,11 +261,21 @@ if T["kind"] == "panel":
                 st.warning("Logs skip columns with zero or negative values: " + ", ".join(map(str, bad[bad].index[:8])))
                 sub = sub.loc[:, ~bad]
             sub = np.log(sub)
+        avg_note = ""
+        if len(sub) > MAX_ROWS:
+            k = int(np.ceil(len(sub) / MAX_ROWS))
+            if st.toggle(f"Long file: keep every {k}th row so it runs on the free server", value=True,
+                         help=f"Over {MAX_ROWS:,} rows the tests get slow on the free server. Keeping every {k}th row "
+                              "(not averaging, which smooths the steps and fools the fakes) keeps the data honest. "
+                              "Turn it off to run every row; big files may be slow."):
+                sub = sub.iloc[::k]
+                avg_note = f" · every {k}th row kept"
         st.caption(f"{sub.shape[1]} series × {sub.shape[0]} complete rows go in.")
         if sub.shape[1] and sub.shape[0]:
-            st.line_chart(((sub - sub.mean()) / sub.std().replace(0, 1)).iloc[:, :12], height=180)
+            view = ((sub - sub.mean()) / sub.std().replace(0, 1)).iloc[:, :12]
+            st.line_chart(view.iloc[::max(1, len(view) // 800)], height=180)   # thin it so phones don't stall
         payload = sub
-        data_desc += f" · {sub.shape[1]} series × {sub.shape[0]} rows" + (" · logs" if use_log else "")
+        data_desc += f" · {sub.shape[1]} series × {sub.shape[0]} rows" + (" · logs" if use_log else "") + avg_note
 
 elif T["kind"] == "scores":
     st.subheader("1. Scores")
@@ -303,12 +324,16 @@ else:
 extra = {}
 use_groups = False
 if pick in ("leftovers", "orbit", "interlock", "step_flip"):
-    opts = ["Across all series", "Within groups"] + (["Off"] if pick in ("orbit", "step_flip") else [])
+    opts = ["Across all series", "Within groups"] + (["Off"] if pick in ("orbit", "step_flip", "leftovers") else [])
     base_mode = st.radio("Shared baseline to take out first", opts, horizontal=True,
+                         index=opts.index("Off") if pick == "leftovers" else 0,
                          help="Within groups = each group's own average path, where a group is the part of the series "
                               "name before '|' or ':' (like an indicator). That's how the World Bank runs were done.")
-    if pick in ("orbit", "step_flip"):
+    if pick in ("orbit", "step_flip", "leftovers"):
         extra["remove_shared"] = base_mode != "Off"
+    if pick == "leftovers" and base_mode != "Off":
+        st.caption("Only for many series of the same kind (one indicator across countries). On mixed series, taking out "
+                   "the shared path ties every leftover to the busiest one and fakes a crowd of links.")
     if base_mode == "Within groups":
         if isinstance(payload, pd.DataFrame) and LB.group_labels(payload.columns) is not None:
             use_groups = True
@@ -361,7 +386,7 @@ def _run():
         if pick == "real_vs_fakes":
             return LB.real_vs_fakes(X, **kw)
         if pick == "leftovers":
-            return LB.leftovers(X, names=names, n_slides=max(int(n_fakes), 300), groups=grp, **kw)
+            return LB.leftovers(X, names=names, n_slides=max(int(n_fakes), 300), groups=grp, **kw, **opt)
         if pick == "step_flip":
             return LB.step_flip(X, n_slides=int(n_fakes), groups=grp, **kw, **opt)
         if pick == "orbit":

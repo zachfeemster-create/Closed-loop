@@ -5,7 +5,7 @@ Every test from the Oct 23-27 2026 run logs, rebuilt as plain functions in [`clo
 | Test | What it asks | Where it stood in the runs |
 |---|---|---|
 | `real_vs_fakes` | Can a six-measure toolkit tell your series from noise, walks, spiky walks and shuffled steps? Passes only on the hard ones (walks and shuffled). | Beat noise, near chance vs walks (World Bank) |
-| `leftovers` | After the shared path is removed, which leftovers still move together? | Leftovers tie through the economy |
+| `leftovers` | Which pairs move together step by step, or one a step ahead of the other, beyond independent look-alike fakes? (Shared path off by default.) | Leftovers tie through the economy |
 | `turnback` | More mid-curve reversals than each series' own momentum explains? | Survivor (countries, names yes; states, rivers no) |
 | `orbit` | Do remainders cycle more regularly than momentum-matched fakes? Spiral out or in? | Survivor (both World Bank sets, per-indicator baseline) |
 | `interlock` | Do orbits lock together across series? A quarter turn apart (zipper)? | Interlock survivor; zipper offset missed |
@@ -37,6 +37,9 @@ Series tests want one column per series with time down the rows. `--groups` take
 ## Checks run before release (Oct 28 2026)
 
 - False passes on pure random walks at the 95th-percentile bar, 20 seeds: real vs fakes 0/20, interlock 0/20, step flip 0/20, turn-back 2/20, vortex 2/20, orbit 3/20.
+- Long files (60,000 rows, every 12th kept): turn-back, orbit, interlock, real vs fakes, step flip 0/10; vortex 1/10. Memory stays near 300 MB on a 100,000-row file (fakes are built a few at a time).
+- Leftovers on unrelated mixed shapes (walks, noise, cycles, trends), 30 seeds: 0/30 with the shared path off, 30/30 with it on, which is why off is the default. A planted shared shock between two of eight series is the only pair that survives; on the planted demo it finds driver ↔ response and leader → followers.
+- Long files are thinned by keeping every k-th row, not averaged: averaging smooths the steps and fooled the fakes in testing.
 - Charged lepton masses reproduce A = 1.41420, delta = 0.22223, Koide Q = 0.66666, 0 of 500,000 fakes.
 - Dopamine inputs reproduce Emax 77.2, ED50 10.9 mg, n 1.82, leftover 22.8.
 - A fresh World Bank pull (life expectancy, infant mortality, urban share, log population, trade; 2000-2022 every 2 years) gives turn-back, interlock (no zipper offset), step flip and vortex passes, and orbit steadiness with an outward spiral under the per-indicator baseline, in line with the logs.
