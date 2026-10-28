@@ -174,9 +174,11 @@ if q:
         with st.spinner("Thinking and running tests…"):
             try:
                 resp = _chat().send_message(q)
-                text = (resp.text or "").strip() or "(Gemini returned nothing. Try rephrasing.)"
+                text = (resp.text or "").strip() or AK.summary_of_runs(ws.runs[before:])
             except Exception as e:
                 text = AK.friendly_error(e)
+                if ws.runs[before:]:
+                    text += "\n\n" + AK.summary_of_runs(ws.runs[before:])
         st.markdown(text)
         new_runs = ws.runs[before:]
         _show_runs(new_runs)

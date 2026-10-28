@@ -39,6 +39,14 @@ How you work:
 - Don't inflate. Never call a result robust, structural, a fingerprint or a finding off one test. Say the plain
   reason a pass usually happens (for real_vs_fakes: momentum or smoothness that walks and shuffles lack) and name
   the next test that would rule that out. When series were cut into windows, say so and that it weakens the pass.
+- Budget: the user is on a small free daily allowance and every tool call spends part of it. Run at most two tests
+  per question unless asked for more, never rerun a test you already ran with the same settings, and answer from
+  results you already have when you can.
+- Only describe the data you have. Its dates, length and frequency come from describe_data (the span field); never
+  claim a longer stretch than that. If the user wants a longer history, say so and suggest a source.
+- The tests only see the numbers loaded. If a question is about news, headlines, narratives or anything else not in
+  the data, say plainly that the loaded numbers can't answer that part and what data would. Never present
+  speculation about news or causes as if a test showed it.
 - Shared baseline: leave it off for the leftovers test unless the series are many and of one kind (one indicator
   across many countries), because on mixed series taking out a shared path manufactures links.
 """
@@ -136,8 +144,10 @@ class Workspace:
                 s = num[c]
                 cols[str(c)] = dict(first=float(s.iloc[0]), last=float(s.iloc[-1]), min=float(s.min()),
                                     max=float(s.max()), mean=float(s.mean()))
+            t0 = ws.df.iloc[:, 0]
+            span = dict(first_column=str(ws.df.columns[0]), starts=str(t0.iloc[0])[:10], ends=str(t0.iloc[-1])[:10])
             return _jsonable(dict(loaded=True, source=ws.source, rows=int(len(ws.df)), usable_rows=int(len(num)),
-                                  numeric_columns=int(num.shape[1]), first_column=str(ws.df.columns[0]),
+                                  numeric_columns=int(num.shape[1]), span=span,
                                   columns=cols, more_columns=max(0, num.shape[1] - 60)))
 
         def peek_rows(how_many: int = 8, from_end: bool = False) -> dict:
@@ -248,7 +258,8 @@ class Workspace:
 
 
 def make_chat(api_key: str, model: str, ws: Workspace, persona: str = "", history=None):
-    """A Gemini chat that can call the workspace tools on its own (up to 8 tool calls per question).
+    """A Gemini chat that can call the workspace tools on its own (up to 4 tool calls per question, to save the
+    free daily allowance).
     Returns (client, chat); hold on to both."""
     from google import genai
     from google.genai import types
@@ -256,7 +267,7 @@ def make_chat(api_key: str, model: str, ws: Workspace, persona: str = "", histor
     system = RULES + (("\nStanding instructions from the user:\n" + persona.strip()) if persona and persona.strip() else "")
     cfg = types.GenerateContentConfig(
         system_instruction=system, tools=ws.tools(), temperature=0.4,
-        automatic_function_calling=types.AutomaticFunctionCallingConfig(maximum_remote_calls=8))
+        automatic_function_calling=types.AutomaticFunctionCallingConfig(maximum_remote_calls=4))
     chat = client.chats.create(model=model, config=cfg, history=history or [])
     return client, chat          # keep the client alive with the chat; if it's dropped, the connection closes
 
@@ -271,6 +282,18 @@ def list_models(api_key: str) -> List[str]:
         if not acts or "generateContent" in acts:
             out.append(m.name.replace("models/", ""))
     return sorted(out)
+
+
+def summary_of_runs(runs: list) -> str:
+    """Plain list of what was run, for when Gemini stops before writing an answer (no extra request spent)."""
+    if not runs:
+        return "(Gemini returned nothing. Try asking a shorter, more specific question.)"
+    lines = ["Gemini ran these tests but stopped before writing an answer. Here are the verdicts straight from the bench:"]
+    for r in runs:
+        res = r.get("result", {})
+        lines.append(f"- **{r.get('kind')}** on {res.get('data', 'the data')}: {res.get('verdict', res.get('error', '?'))}")
+    lines.append("Ask \"what do those mean?\" for the read on them.")
+    return "\n".join(lines)
 
 
 def friendly_error(e: Exception) -> str:
