@@ -141,9 +141,13 @@ if "zip_res" in ss and series:
     if invalid:
         st.error("This run is invalid: the fake distribution is too small to support a meaningful p-value.")
     fake_count = res[0][2]["n_fakes"]
+    p_resolution = 1 / fake_count
     st.markdown(f"**{len(sig)} of {len(res)} pairs** zip beyond their fakes. About **{0.05 * len(res):.1f}** would by luck. "
                 f"Fakes: {res[0][2]['fake_kind']} · **{fake_count} fakes** · "
                 f"window **{res[0][2]['W']}/{n} ({res[0][2]['window_fraction']:.0%})**.")
+    if any(o["p"] == 0.0 for _, _, o in res):
+        st.warning(f"Some p-values are shown as 0.000, but this null has finite resolution: "
+                   f"they mean p < {p_resolution:.3f}, not literal zero.")
     tab = pd.DataFrame([dict(pair=f"{a} × {b}", p=round(o["p"], 3), zipped_windows=len(o["zip_idx"]),
                              strongest=f"{lab[int(o['r'].argmax())]}–{lab[min(len(lab) - 1, int(o['r'].argmax()) + W - 1)]}",
                              lock=round(float(o["r"].max()), 2)) for a, b, o in res]).sort_values("p")
