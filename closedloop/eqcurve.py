@@ -41,12 +41,27 @@ def eq_curve(values: list, key: str, disabled: bool = False, lo: float = -6.0, h
         vals = [[round(g, 2), round(w, 3)] for g, w in map(_pair, values)]
     out = _eq(values=vals, labels=[_label(f) for f in R.EQ_BANDS], colors=R.BAND_COLORS, sigils=sigils,
               min=lo, max=hi, size=size, disabled=disabled, key=key, default=None,
-              slide=slide, shelves=shelves, unit=unit, base=float(R.EQ_BANDS[0]))
+              slide=slide, shelves=shelves, unit=unit, base=31.25)
     if slide or shelves:
         return [_full(v, i) for i, v in enumerate(out)] if out else vals
     return [_pair(v) for v in out] if out else vals
 
 
+def pos_hz(c: float, i: int | None = None) -> float:
+    """Where a band sits, in reference Hz, from its position in band steps (0 = 31, 9 = 16k, one step = one octave).
+    A band that hasn't been moved keeps its exact ladder value."""
+    if i is not None and abs(c - i) < 1e-6:
+        return float(R.EQ_BANDS[i])
+    return 31.25 * 2 ** float(c)
+
+
 def as_curve(values: list) -> dict:
-    """[[gain, width], ...] for the ten bands -> a curve dict the rotation understands."""
-    return {f: _pair(v) for f, v in zip(R.EQ_BANDS, values)}
+    """[[gain, width], ...] (or [gain, width, position, kind] once bands can move) -> a curve dict the rotation
+    understands, keyed by each band's center. Shelf kinds aren't used by the rotation, so they're read as bells."""
+    out = {}
+    for i, (f, v) in enumerate(zip(R.EQ_BANDS, values)):
+        if isinstance(v, (list, tuple)) and len(v) > 2:
+            out[pos_hz(float(v[2]), i)] = [float(v[0]), float(v[1])]
+        else:
+            out[f] = _pair(v)
+    return out
