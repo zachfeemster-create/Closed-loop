@@ -256,8 +256,21 @@ def real_vs_fakes(X, n_reps: int = 5, n_chance: int = 40, seed: int = 20261028, 
     (0 = can't tell at all, 1 = perfect). Chance band = the same with labels shuffled inside each pair."""
     X = _clean(X)
     T, N = X.shape
-    if N < 10 or T < 20:
-        raise ValueError(f"needs at least 10 series and 20 rows (has {N} series, {T} rows).")
+    split_note = []
+    if N < 10:
+        # Few series but long ones: cut each into windows so there are enough pieces to score.
+        k = min(math.ceil(30 / max(N, 1)), T // 20)
+        if N * k < 10:
+            raise ValueError(f"needs 10+ series, or fewer series long enough to cut into 10+ windows of 20 rows "
+                             f"(has {N} series, {T} rows).")
+        w = T // k
+        X = np.column_stack([X[i * w:(i + 1) * w, j] for j in range(N) for i in range(k)])
+        X = _clean(X)
+        split_note.append(f"Only {N} series, so each was cut into {k} windows of {w} rows ({X.shape[1]} pieces scored). "
+                          "Pieces of the same series share its character, so read a pass a notch more cautiously.")
+        T, N = X.shape
+    if T < 20:
+        raise ValueError(f"needs at least 20 rows (has {T}).")
     rng = np.random.default_rng(seed)
     F_real = _features(X)
     rows, details = [], {}
@@ -282,7 +295,7 @@ def real_vs_fakes(X, n_reps: int = 5, n_chance: int = 40, seed: int = 20261028, 
                 verdict=f"{n_pass} of {len(rows)} fake kinds told apart; "
                 + ("PASS: beats both hard ones (walks and shuffled steps)" if hard else
                    "FAIL: doesn't beat both hard ones (walks and shuffled steps)"),
-                notes=["Rule: pass only if it beats both hard fakes (walks and shuffled steps). Noise and spiky walks are "
+                notes=split_note + ["Rule: pass only if it beats both hard fakes (walks and shuffled steps). Noise and spiky walks are "
                        "reported but easy: plain random walks themselves get told apart from those.",
                        "In the World Bank runs the toolkit beat noise (~0.27) but sat near chance against walks."],
                 details=dict(series=N, rows=T, reps=n_reps, **details))
