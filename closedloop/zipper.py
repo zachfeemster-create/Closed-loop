@@ -14,7 +14,7 @@ import numpy as np
 
 from . import rotation as R
 
-KINDS = ["bell", "low shelf", "high shelf"]
+KINDS = ["bell", "low shelf", "high shelf", "high pass", "low pass", "notch"]
 
 
 def bands(vals: list) -> list[dict]:
@@ -23,7 +23,8 @@ def bands(vals: list) -> list[dict]:
     for i, v in enumerate(vals):
         g = float(v[0]); w = float(v[1]) if len(v) > 1 else R.EQ_WIDTH_OCT
         c = float(v[2]) if len(v) > 2 else float(i); k = int(v[3]) if len(v) > 3 else 0
-        out.append(dict(gain=g, width=max(0.08, w), hz=float(R.EQ_BANDS[0]) * 2 ** c, kind=k))
+        hz = float(R.EQ_BANDS[i]) if i < len(R.EQ_BANDS) and abs(c - i) < 1e-6 else 31.25 * 2 ** c
+        out.append(dict(gain=g, width=max(0.08, w), hz=hz, kind=k))
     return out
 
 
@@ -36,15 +37,10 @@ def response_db(fr_hz: np.ndarray, bl: list[dict]) -> np.ndarray:
     db = np.zeros_like(fr_hz, dtype=float)
     with np.errstate(divide="ignore"):
         for b in bl:
-            if not b["gain"]:
+            if not b["gain"] and b["kind"] < 3:
                 continue
             o = np.log2(np.maximum(fr_hz, 1e-9) / b["hz"])
-            if b["kind"] == 1:
-                db += b["gain"] / (1 + np.exp(o / (0.6 * b["width"])))
-            elif b["kind"] == 2:
-                db += b["gain"] / (1 + np.exp(-o / (0.6 * b["width"])))
-            else:
-                db += b["gain"] * np.exp(-0.5 * (o / b["width"]) ** 2)
+            db += R._shape_db(o, b["gain"], b["width"], b["kind"])     # same shapes as the rotation's EQ
     return db
 
 
@@ -57,7 +53,12 @@ def listen_weight(n: int, bl: list[dict]) -> np.ndarray:
 
 
 def boosted(bl: list[dict]) -> list[dict]:
-    return [b for b in bl if b["gain"] > 0.05]
+    return [b for b in bl if b["gain"] > 0.05 and b["kind"] < 3]
+
+
+def carving(bl: list[dict]) -> list[dict]:
+    """High/low passes and notches: they don't add anything to listen to, they cut parts away."""
+    return [b for b in bl if b["kind"] >= 3]
 
 
 def uses_shelf(bl: list[dict]) -> bool:

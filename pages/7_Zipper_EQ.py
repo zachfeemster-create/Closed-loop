@@ -18,6 +18,9 @@ from closedloop import eqcurve as EQ      # noqa: E402
 from closedloop import rotation as R      # noqa: E402
 from closedloop import sources as S       # noqa: E402
 from closedloop import zipper as Z        # noqa: E402
+import importlib, inspect      # noqa: E401,E402
+if "slide" not in inspect.signature(EQ.eq_curve).parameters:     # the server may still hold the old drag code in memory
+    EQ = importlib.reload(EQ)
 
 st.set_page_config(page_title="Zipper EQ · Closed Loop", page_icon="🎚️", layout="centered")
 ss = st.session_state
@@ -103,7 +106,9 @@ on = Z.boosted(bl)
 if on:
     st.caption("Listening to: " + " · ".join(
         f"{Z.KINDS[b['kind']]} at a {Z.cycle_of(b['hz']):.1f}-row cycle (+{b['gain']:.1f} dB, {b['width']:.2f} oct)" for b in on)
-        + ". Cycle length = 44,100 ÷ the band's Hz, in rows (rows are years for yearly data).")
+        + "".join(f" · cutting with a {Z.KINDS[b['kind']]} at a {Z.cycle_of(b['hz']):.1f}-row cycle" for b in Z.carving(bl))
+        + ". Cycle length = 44,100 ÷ the band's Hz, in rows (rows are years for yearly data). High/low passes and "
+          "notches cut parts away; they don't add anything to listen to, so boost something too.")
 else:
     st.warning("Boost at least one band (drag a sigil above the line). The finder only listens to boosted parts.")
 
