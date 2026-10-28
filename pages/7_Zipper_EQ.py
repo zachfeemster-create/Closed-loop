@@ -117,9 +117,12 @@ if series and on and n >= 24:
     names = list(series)
     pick = st.multiselect("Series to check against each other", names, default=names[:12])
     W_auto = Z.auto_window(bl, n)
-    W = st.slider("Window (rows)", 12, max(13, n - 5), min(W_auto, max(13, n - 5)),
-                  help=f"Auto: {W_auto} rows (4 cycles of the slowest boosted bell, 5x a low shelf's cycle).")
-    if len(pick) >= 2 and st.button("Find zippers", type="primary"):
+    W_max = max(13, n // 3)
+    W = st.slider("Window (rows)", 12, W_max, min(W_auto, W_max),
+                  help=f"Auto: {W_auto} rows, capped at {W_max} for this dataset so the null has enough shifts.")
+    window_fraction = W / n
+    st.caption(f"Window uses **{W}/{n} rows ({window_fraction:.0%})**. The run is blocked above one-third of the data.")
+    if len(pick) >= 2 and st.button("Find zippers", type="primary", disabled=W > n // 3):
         res = []
         bar = st.progress(0.0)
         pairs = list(itertools.combinations(pick, 2))
@@ -132,10 +135,15 @@ if series and on and n >= 24:
 
 if "zip_res" in ss and series:
     Rz = ss["zip_res"]; res, W, lab = Rz["res"], Rz["W"], Rz["labels"]
-    sig = [(a, b, o) for a, b, o in res if o["p"] < 0.05]
+    sig = [(a, b, o) for a, b, o in res if o.get("valid", False) and o["p"] < 0.05]
     st.subheader("Zippers")
+    invalid = [o for _, _, o in res if not o.get("valid", False)]
+    if invalid:
+        st.error("This run is invalid: the fake distribution is too small to support a meaningful p-value.")
+    fake_count = res[0][2]["n_fakes"]
     st.markdown(f"**{len(sig)} of {len(res)} pairs** zip beyond their fakes. About **{0.05 * len(res):.1f}** would by luck. "
-                f"Fakes: {res[0][2]['fake_kind']} ({'shelf boosted' if res[0][2]['fake_kind'] == 'phase-scrambled' else 'bells only'}).")
+                f"Fakes: {res[0][2]['fake_kind']} · **{fake_count} fakes** · "
+                f"window **{res[0][2]['W']}/{n} ({res[0][2]['window_fraction']:.0%})**.")
     tab = pd.DataFrame([dict(pair=f"{a} × {b}", p=round(o["p"], 3), zipped_windows=len(o["zip_idx"]),
                              strongest=f"{lab[int(o['r'].argmax())]}–{lab[min(len(lab) - 1, int(o['r'].argmax()) + W - 1)]}",
                              lock=round(float(o["r"].max()), 2)) for a, b, o in res]).sort_values("p")
