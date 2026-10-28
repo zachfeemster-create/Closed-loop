@@ -73,7 +73,7 @@ def main():
             if a.test == "real_vs_fakes":
                 res = LB.real_vs_fakes(X, **kw)
             elif a.test == "leftovers":
-                res = LB.leftovers(X, names=names, n_slides=max(a.fakes, 300), groups=grp, **kw)
+                res = LB.leftovers(X, names=names, n_slides=max(a.fakes, 300), groups=grp, remove_shared=a.groups, **kw)
             elif a.test == "step_flip":
                 res = LB.step_flip(X, n_slides=a.fakes, groups=grp, **kw)
             elif a.test in ("orbit", "interlock"):

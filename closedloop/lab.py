@@ -156,6 +156,7 @@ def corners_sign(X: np.ndarray, funnel: bool = True, radius: float = 1.0) -> np.
 def fakes_ar1(X: np.ndarray, nsim: int, rng) -> np.ndarray:
     """Momentum-matched fakes: each series' steps refit as AR(1) (same drift, size and step memory),
     rebuilt from the same start. Returns (nsim, T, N)."""
+    from scipy.signal import lfilter
     T, N = X.shape
     D = np.diff(X, axis=0)
     mu = D.mean(0)
@@ -164,12 +165,26 @@ def fakes_ar1(X: np.ndarray, nsim: int, rng) -> np.ndarray:
     phi = np.clip(np.nan_to_num(phi), -0.95, 0.95)
     sd = Dc.std(0) * np.sqrt(1 - phi ** 2)
     e = rng.normal(size=(nsim, T - 1, N)) * sd
+    e[:, 0] = e[:, 0] / np.sqrt(np.maximum(1 - phi ** 2, 1e-6))      # start at the stationary spread
     steps = np.empty_like(e)
-    steps[:, 0] = Dc[0] * 0 + e[:, 0] / np.sqrt(np.maximum(1 - phi ** 2, 1e-6))
-    for t in range(1, T - 1):
-        steps[:, t] = phi * steps[:, t - 1] + e[:, t]
+    for j in range(N):
+        steps[:, :, j] = lfilter([1.0], [1.0, -phi[j]], e[:, :, j], axis=1)
     steps += mu
     return np.concatenate([np.broadcast_to(X[0], (nsim, 1, N)), X[0] + np.cumsum(steps, axis=1)], axis=1)
+
+
+def _batches(maker, X: np.ndarray, n: int, rng, budget: float = 4e6):
+    """Yield fakes one at a time, built in small batches so memory stays flat however long the data is."""
+    T, N = X.shape
+    size = int(max(1, min(n, budget // max(T * N, 1))))
+    done = 0
+    while done < n:
+        k = min(size, n - done)
+        F = maker(X, k, rng)
+        for i in range(k):
+            yield F[i]
+        done += k
+        del F
 
 
 def fakes_walk(X: np.ndarray, nsim: int, rng, spiky: bool = False) -> np.ndarray:
@@ -304,10 +319,30 @@ def real_vs_fakes(X, n_reps: int = 5, n_chance: int = 40, seed: int = 20261028, 
 # ================================================================ 2. shared baseline and leftovers
 
 
-def leftovers(X, names=None, n_slides: int = 500, seed: int = 20261028, bar_pct: float = 95.0, top: int = 12,
-              groups=None, max_series: int = 300) -> dict:
-    """Take out the shared baseline, then ask which series' leftovers still move together beyond chance.
-    Control: slide each series by its own random offset (keeps each series' rhythm, breaks the timing)."""
+def _step_link(Rm: np.ndarray, lags: int):
+    """Strongest |correlation| between two leftovers' steps at any lag from -lags to +lags, plus the signed value
+    and the lag where it peaks (positive lag = the second series follows the first)."""
+    D = np.diff(Rm, axis=0)
+    D = (D - D.mean(0)) / np.where(D.std(0) > 0, D.std(0), 1.0)
+    T = D.shape[0]
+    best = np.zeros((D.shape[1], D.shape[1]))
+    at = np.zeros_like(best)
+    for L in range(-lags, lags + 1):
+        A, B = (D[:T - L], D[L:]) if L >= 0 else (D[-L:], D[:T + L])
+        Cm = (A.T @ B) / A.shape[0]
+        better = np.abs(Cm) > np.abs(best)
+        best = np.where(better, Cm, best)
+        at = np.where(better, L, at)
+    return np.abs(best), best, at
+
+
+def leftovers(X, names=None, n_slides: int = 300, seed: int = 20261028, bar_pct: float = 95.0, top: int = 12,
+              groups=None, max_series: int = 300, lags: int = 1, remove_shared: bool = False) -> dict:
+    """Which series' leftovers move together beyond chance? Optionally take out the shared baseline first
+    (off by default: on series of different shapes it manufactures links).
+    Fakes: independent momentum-matched series run through the exact same steps (baseline removal included),
+    so the drifting look-alike correlations that long trending series always have are in the fakes too.
+    (n_slides is the number of fake sets; the name is kept from the earlier slide control.)"""
     X0 = np.asarray(X, float)
     names = list(names) if names is not None else [f"S{i + 1}" for i in range(X0.shape[1])]
     X, kept = _clean(X0, list(zip(names, groups if groups is not None else [None] * len(names))))
@@ -318,22 +353,27 @@ def leftovers(X, names=None, n_slides: int = 500, seed: int = 20261028, bar_pct:
         raise ValueError(f"needs at least 3 series and 10 rows (has {N}, {T}).")
     rng = np.random.default_rng(seed)
     capped = []
+    pick = np.arange(N)
     if N > max_series:
-        Rm_all, share = remainder(X, True, groups)          # baseline from every series, then sample
         pick = np.sort(rng.choice(N, max_series, replace=False))
-        Rm, names = Rm_all[:, pick], [names[i] for i in pick]
-        N = max_series
-        capped.append(f"Baseline taken from all series; random {max_series} scored to keep it quick.")
-    else:
-        Rm, share = remainder(X, True, groups)
-    C = np.corrcoef(Rm.T)
-    iu = np.triu_indices(N, 1)
-    real = np.abs(C[iu])
-    ge = np.zeros_like(real)
-    for _ in range(n_slides):
-        Cs = np.corrcoef(_roll_cols(Rm, rng, 2).T)
-        ge += np.abs(Cs[iu]) >= real
-    p = (ge + 1) / (n_slides + 1)
+        capped.append(f"Random {max_series} of {N} series scored to keep it quick"
+                      + (" (shared path taken from all of them)." if remove_shared else "."))
+    Rm_all, share = remainder(X, remove_shared, groups)
+    Rm = Rm_all[:, pick]
+    names = [names[i] for i in pick]
+    n = len(pick)
+    absC, C, at = _step_link(Rm, lags)
+    iu = np.where(~np.eye(n, dtype=bool)) if lags else np.triu_indices(n, 1)     # with lags, A->B and B->A differ
+    real = absC[iu]
+    bins = np.linspace(0, 1.0000001, 20001)
+    hist = np.zeros(bins.size - 1)
+    for f in _batches(fakes_ar1, X, n_slides, rng):
+        Af, _, _ = _step_link(remainder(f, remove_shared, groups)[0][:, pick], lags)
+        hist += np.histogram(np.clip(Af[iu], 0, 1), bins=bins)[0]
+    tail = np.cumsum(hist[::-1])[::-1]                       # fakes at or above each bin, pooled over every pair
+    total = hist.sum()
+    idx = np.clip(np.searchsorted(bins, real, side="right") - 1, 0, hist.size - 1)
+    p = (tail[idx] + 1) / (total + 1)
     m = p.size
     order = np.argsort(p)
     q = np.empty(m)
@@ -341,14 +381,25 @@ def leftovers(X, names=None, n_slides: int = 500, seed: int = 20261028, bar_pct:
     alpha = (100 - bar_pct) / 100
     surv = q <= alpha
     show = np.argsort(p)[:top]
-    rows = [dict(stat=f"{names[iu[0][k]]} ~ {names[iu[1][k]]}", real=_r(C[iu][k], 3), percentile=None,
-                 p=_r(p[k], 4), q=_r(q[k], 4), passed=bool(surv[k]), note="leftover correlation") for k in show]
-    return dict(test="leftovers", question="After the shared baseline is removed, which leftovers still tie together?",
+    def _lbl(k):
+        a, b, L = names[iu[0][k]], names[iu[1][k]], int(at[iu][k])
+        return f"{a} → {b} (next step)" if L > 0 else (f"{b} → {a} (next step)" if L < 0 else f"{a} ~ {b} (same step)")
+    rows = [dict(stat=_lbl(k), real=_r(C[iu][k], 3), percentile=None,
+                 p=_r(p[k], 4), q=_r(q[k], 4), passed=bool(surv[k]), note="link between the leftovers' steps") for k in show]
+    return dict(test="leftovers", question="Which series move together step by step (or one a step ahead) beyond chance?",
                 rows=rows, passed=bool(surv.any()),
                 verdict=f"{int(surv.sum())} of {m} pairs survive (false-discovery control at {alpha:.0%})",
-                notes=capped + [f"Shared baseline = {share:.0%} of the variation (taken out before scoring).",
-                       "A surviving pair is a pattern, not a cause: shared world events tie a lot of series together."],
-                details=dict(series=N, rows=T, slides=n_slides, shared_share=round(share, 3), pairs=int(m)))
+                notes=capped + [(f"Shared baseline = {share:.0%} of the variation (taken out before scoring)." if remove_shared
+                                 else "Shared baseline left in, so links that run through everything count too.")
+                                + f" Links are scored on the leftovers' steps, same step or up to {lags} step(s) apart, because "
+                                "drifting levels fake strong-looking correlations on their own.",
+                                *(["Taking out a shared path from series of different shapes ties every leftover to the "
+                                   "busiest series (it fooled the check on unrelated series every time), so use it only on "
+                                   "many series of the same kind, like one indicator across countries."] if remove_shared else []),
+                                f"Fakes from every pair are pooled into one yardstick ({n_slides} fake sets × {m:,} pairs), "
+                                "so a strong link can clear the many-pairs correction.",
+                                "A surviving pair is a pattern, not a cause: shared world events tie a lot of series together."],
+                details=dict(series=n, rows=T, fakes=n_slides, shared_share=round(share, 3), pairs=int(m)))
 
 
 # ================================================================ 3. turn-back beyond momentum
@@ -364,10 +415,8 @@ def turnback(X, n_fakes: int = 300, seed: int = 20261028, bar_pct: float = 95.0)
     rng = np.random.default_rng(seed)
     rare = lambda C: float(np.isin(C, (2, 5)).mean())
     real = rare(corners_median(X))
-    F = fakes_ar1(X, n_fakes, rng)
-    fs = np.array([rare(corners_median(F[i])) for i in range(n_fakes)])
-    W = fakes_walk(X, min(n_fakes, 100), rng)
-    walk = float(np.mean([rare(corners_median(W[i])) for i in range(W.shape[0])]))
+    fs = np.array([rare(corners_median(f)) for f in _batches(fakes_ar1, X, n_fakes, rng)])
+    walk = float(np.mean([rare(corners_median(f)) for f in _batches(fakes_walk, X, min(n_fakes, 100), rng)]))
     row = _row("share in turn-back corners (010 + 101)", real, fs, "high", bar_pct)
     return dict(test="turnback", question="Do these series turn back mid-curve more than their own momentum explains?",
                 rows=[row], passed=row["passed"],
@@ -405,8 +454,8 @@ def orbit(X, n_fakes: int = 300, seed: int = 20261028, bar_pct: float = 95.0, re
     rng = np.random.default_rng(seed)
     Rm, share = remainder(X, remove_shared, groups)
     steady, oneway, slope, _ = _orbit_stats(Rm)
-    F = fakes_ar1(X, n_fakes, rng)
-    fs = np.array([_orbit_stats(remainder(F[i], remove_shared, groups)[0])[:3] for i in range(n_fakes)])
+    fs = np.array([_orbit_stats(remainder(f, remove_shared, groups)[0])[:3]
+                   for f in _batches(fakes_ar1, X, n_fakes, rng)])
     r1 = _row("orbit steadiness", steady, fs[:, 0], "high", bar_pct)
     r2 = _row("spiral (log-radius slope)", slope, fs[:, 2], "both", bar_pct,
               note="outward" if slope > 0 else "inward")
@@ -452,8 +501,7 @@ def interlock(X, n_fakes: int = 200, seed: int = 20261028, bar_pct: float = 95.0
     shared = X.shape[1] >= 3
     th_of = lambda A: _orbit_stats(remainder(A, shared, groups)[0])[3]
     lock, off, instep = _plv(th_of(X))
-    F = fakes_ar1(X, n_fakes, rng)
-    fs = np.array([_plv(th_of(F[i])) for i in range(n_fakes)])
+    fs = np.array([_plv(th_of(f)) for f in _batches(fakes_ar1, X, n_fakes, rng)])
     r1 = _row("interlock (average lock strength)", lock, fs[:, 0], "high", bar_pct)
     r2 = _row("zipper offset (1 = quarter turn apart)", off, fs[:, 1], "high", bar_pct)
     r3 = _row("share of pairs locked in step", instep, fs[:, 2], "high", bar_pct)
@@ -553,8 +601,7 @@ def vortex(X, n_fakes: int = 200, seed: int = 20261028, bar_pct: float = 95.0) -
         raise ValueError(f"needs at least 10 rows (has {T}).")
     rng = np.random.default_rng(seed)
     real = _stays(corners_median(X))
-    F = fakes_walk(X, n_fakes, rng)
-    fs = np.array([_stays(corners_median(F[i])) for i in range(n_fakes)])
+    fs = np.array([_stays(corners_median(f)) for f in _batches(fakes_walk, X, n_fakes, rng)])
     row = _row("rare-corner stay length / other stays", real, fs, "low", bar_pct)
     return dict(test="vortex", question="Do series pass through the rare corners faster than walks would?",
                 rows=[row], passed=row["passed"],
