@@ -99,7 +99,14 @@ def _scramble(x: np.ndarray, rng) -> np.ndarray:
 def pair(x, y, bl: list[dict], W: int | None = None, n_fakes: int = 300, seed: int = 28) -> dict:
     """Slide through time and find where x and y lock inside the boosted part of the EQ."""
     x = np.asarray(x, float); y = np.asarray(y, float); n = len(x)
-    W = W or auto_window(bl, n)
+    W = int(W or auto_window(bl, n))
+    if W < 12:
+        raise ValueError("The zipper window must be at least 12 rows.")
+    if W > max(12, n // 3):
+        raise ValueError(
+            f"Window {W} is too large for {n} rows. Use at most {max(12, n // 3)} rows "
+            "so the scan has independent-looking windows and enough null shifts."
+        )
     w = listen_weight(n, bl)
     ax, ay = _filt(x, w), _filt(y, w)
     r = _slide_corr(ax, ay, W)
@@ -108,13 +115,16 @@ def pair(x, y, bl: list[dict], W: int | None = None, n_fakes: int = 300, seed: i
         fakes = np.array([_slide_corr(ax, _filt(_scramble(y - y.mean(), rng), w), W) for _ in range(n_fakes)])
         fake_kind = "phase-scrambled"
     else:
-        shifts = list(range(W, n - W + 1)) or [n // 2]
+        # Use every non-zero circular shift. The old W..n-W range becomes empty
+        # when W is large and silently fell back to one fake.
+        shifts = list(range(1, n))
         fakes = np.array([_slide_corr(ax, np.roll(ay, s), W) for s in shifts])
         fake_kind = "time-slid"
     mx = fakes.max(1)
     thr = float(np.quantile(mx, 0.95))
     return dict(r=r, W=W, threshold=thr, p=float((mx >= r.max()).mean()), zip_idx=np.where(r > thr)[0],
-                fake_kind=fake_kind, n_fakes=len(fakes))
+                fake_kind=fake_kind, n_fakes=len(fakes), window_fraction=W / n,
+                valid=len(fakes) >= 20)
 
 
 def snapshot(x, y, i: int, W: int) -> dict:
