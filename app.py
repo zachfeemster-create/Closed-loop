@@ -282,7 +282,7 @@ def show_result(node, data, mask, base_seed):
                      and not (m[0] == "half_series" and node["spec"]["type"] in ("cycle", "asymmetry"))]
             cols = st.columns(2)
             for i, (key, title, helptext) in enumerate(moves):
-                if cols[i % 2].button(title, key=f"n{node['id']}_{key}", help=helptext, use_container_width=True):
+                if cols[i % 2].button(title, key=f"n{node['id']}_{key}", help=helptext, width="stretch"):
                     with st.spinner("Locking and running…"):
                         add_node(child_spec(node, key), node["id"], data, mask, base_seed)
                     st.rerun()
@@ -340,11 +340,11 @@ def show_saved(plan, tree, prefix):
     c1, c2, c3 = st.columns(3)
     pid = plan.get("plan_id", "plan")
     c1.download_button("Plan", json.dumps(plan, indent=2, default=str), file_name=f"closed_loop_plan_{pid}.json",
-                       key=f"{prefix}_dp", use_container_width=True)
+                       key=f"{prefix}_dp", width="stretch")
     c2.download_button("Results", json.dumps(dict(plan=plan, runs=tree), indent=2, default=str),
-                       file_name=f"closed_loop_results_{pid}.json", key=f"{prefix}_dr", use_container_width=True)
+                       file_name=f"closed_loop_results_{pid}.json", key=f"{prefix}_dr", width="stretch")
     c3.download_button("Report", report_md(plan, tree), file_name=f"closed_loop_report_{pid}.md",
-                       key=f"{prefix}_dm", use_container_width=True)
+                       key=f"{prefix}_dm", width="stretch")
     st.caption("To keep climbing this tree, load the same data again and lock the same question — "
                "the data fingerprint shows it's the same data.")
 
@@ -395,9 +395,9 @@ if _runs:
                             f"<small>{str(_e.get('saved_at', ''))[:16].replace('T', ' ')} UTC · {len(_t)} run(s) · {_passes} pass(es)</small>",
                             unsafe_allow_html=True)
                 _a, _b = st.columns(2)
-                if _a.button("Open", key=f"dv_open_{_i}", use_container_width=True):
+                if _a.button("Open", key=f"dv_open_{_i}", width="stretch"):
                     ss.device_view = None if ss.get("device_view") == _p.get("plan_id") else _p.get("plan_id")
-                if _b.button("Delete", key=f"dv_del_{_i}", use_container_width=True):
+                if _b.button("Delete", key=f"dv_del_{_i}", width="stretch"):
                     ss.device_runs = _runs[:_i] + _runs[_i + 1:]
                     st.rerun()
                 if ss.get("device_view") == _p.get("plan_id"):
@@ -636,7 +636,7 @@ if not locked:
     ready = bool(specs) and bool(intake["keystone"].strip())
     if not intake["keystone"].strip():
         st.caption("Write the keystone before locking.")
-    if c1.button("🔒 Lock the plan", type="primary", disabled=not ready, use_container_width=True):
+    if c1.button("🔒 Lock the plan", type="primary", disabled=not ready, width="stretch"):
         now = datetime.now(timezone.utc)
         plan = dict(intake=intake, event_windows=ss.event_windows, specs=specs, data_hash=ss.data_hash, share_data=share_data,
                     seed=int(now.timestamp()), locked_at=now.isoformat(timespec="seconds"),
@@ -649,8 +649,8 @@ else:
     st.success(f"Locked · plan `{p['plan_id']}` · {p['locked_at']} UTC · seed {p['seed']}. "
                "Nothing above changes now — any change starts a new plan.")
     c1.download_button("Download locked plan (.json)", json.dumps(p, indent=2, default=str),
-                       file_name=f"closed_loop_plan_{p['plan_id']}.json", use_container_width=True)
-    if c2.button("Unlock (start a new plan)", use_container_width=True):
+                       file_name=f"closed_loop_plan_{p['plan_id']}.json", width="stretch")
+    if c2.button("Unlock (start a new plan)", width="stretch"):
         ss.locked, ss.plan, ss.tree, ss.ran = False, None, [], False
         st.rerun()
 
@@ -659,7 +659,7 @@ if ss.locked:
     st.header("4 · Run")
     p = ss.plan
     if not ss.ran:
-        if st.button("▶️ Run the locked plan", type="primary", use_container_width=True):
+        if st.button("▶️ Run the locked plan", type="primary", width="stretch"):
             with st.spinner("Running against the fakes…"):
                 for s in p["specs"]:
                     add_node(s, None, data, mask_all, p["seed"])
@@ -675,9 +675,9 @@ if ss.locked:
         res = dict(plan=p, runs=ss.tree)
         c1, c2 = st.columns(2)
         c1.download_button("Results (.json)", json.dumps(res, indent=2, default=str),
-                           file_name=f"closed_loop_results_{p['plan_id']}.json", use_container_width=True)
+                           file_name=f"closed_loop_results_{p['plan_id']}.json", width="stretch")
         c2.download_button("Report (.md)", report_md(), file_name=f"closed_loop_report_{p['plan_id']}.md",
-                           use_container_width=True)
+                           width="stretch")
         st.caption("A result climbs from survivor → sturdy survivor → lead on its own runs here. "
                    "It only becomes a finding when someone else reproduces it — send them the locked plan file.")
 
