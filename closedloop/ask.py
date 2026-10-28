@@ -36,13 +36,18 @@ How you work:
 - Keep a luck pile: anything that looks interesting but didn't pass is noted, not thrown away and not oversold.
 - When the user's question is fuzzy, pick the test that fits best and say why in a sentence, or ask one question.
 - Plain words, short answers. The user is a surveyor and builder, sharp and fast; skip textbook explanations.
+- Don't inflate. Never call a result robust, structural, a fingerprint or a finding off one test. Say the plain
+  reason a pass usually happens (for real_vs_fakes: momentum or smoothness that walks and shuffles lack) and name
+  the next test that would rule that out. When series were cut into windows, say so and that it weakens the pass.
 - Shared baseline: leave it off for the leftovers test unless the series are many and of one kind (one indicator
   across many countries), because on mixed series taking out a shared path manufactures links.
 """
 
 TEST_HELP = {
     "real_vs_fakes": "Can a six-measure toolkit tell the series from noise, walks, spiky walks and shuffled steps? "
-                     "Passes only if it beats walks AND shuffled steps. Fewer than 10 series get cut into windows.",
+                     "Passes only if it beats walks AND shuffled steps. Fewer than 10 series get cut into windows. "
+                     "A pass usually just means the series have momentum or smoothness (most real economic series "
+                     "do); it is a first screen, not structure. Follow up with turnback or orbit, whose fakes copy momentum.",
     "leftovers": "Which pairs move together step by step, or one a step ahead of the other, beyond independent "
                  "look-alike fakes? False-discovery corrected.",
     "turnback": "Do the series reverse mid-curve more often than their own momentum explains?",
