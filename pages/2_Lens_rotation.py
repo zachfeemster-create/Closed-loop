@@ -204,7 +204,7 @@ with tab_run:
             st.caption("Empty this round.")
 
         with st.expander("Containment (every lens and EQ state per dataset)"):
-            st.dataframe(pd.DataFrame(res["containment"]).T, use_container_width=True)
+            st.dataframe(pd.DataFrame(res["containment"]).T, width="stretch")
             st.caption(f"'After correction' uses the stricter bar {res['settings']['corrected_bar_pct']}th percentile, "
                        "because each dataset gets several looks.")
         with st.expander("Step log (the tunnels, step by step)"):
