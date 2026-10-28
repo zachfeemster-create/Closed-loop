@@ -102,7 +102,7 @@ else:
             df = df[df.result.isin(["survivor", "luck", "frame"])]
         elif only == "Only misses":
             df = df[df.result.isin(["miss", "near", "error"])]
-        st.dataframe(df, hide_index=True, use_container_width=True)
+        st.dataframe(df, hide_index=True, width="stretch")
         tally = pd.Series([r["result"] for r in rows]).value_counts()
         st.caption("This run: " + " · ".join(f"{k} {v}" for k, v in tally.items()) +
                    ". A miss means the series looked like its own momentum-matched fakes; that's an answer, not a failure.")
