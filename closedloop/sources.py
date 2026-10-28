@@ -106,6 +106,7 @@ FRED_PRESETS = {
     "Unemployment, inflation, interest rate (monthly)": "UNRATE, CPIAUCSL, FEDFUNDS",
     "Housing starts, mortgage rate, home prices (monthly)": "HOUST, MORTGAGE30US, CSUSHPINSA",
     "Retail sales, consumer sentiment (monthly)": "RSAFS, UMCSENT",
+    "Nasdaq and news panic (daily, since 1985)": "NASDAQCOM, WLEMUINDXD, USEPUINDXD, VIXCLS",
 }
 FRED_NAMES = {"GASREGW": "gas_retail", "WCOILWTICO": "wti_crude", "CPIAUCSL": "cpi",
               "GASREGECW": "east_coast", "GASREGMWW": "midwest", "GASREGGCW": "gulf_coast",

@@ -14,6 +14,7 @@ import streamlit as st
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
+from closedloop import events as EV       # noqa: E402
 from closedloop import lab as LB          # noqa: E402
 from closedloop import runlog as RL       # noqa: E402
 from closedloop import sources as S       # noqa: E402
@@ -70,6 +71,12 @@ TESTS = {
         what="Three positive values. Solves the amplitude and phase of the three-point cycle, then counts how many "
              "random triplets land as close to the target amplitude AND to a simple phase.",
         record="Charged leptons: root two and 2/9, 0 of 500,000 fakes (a rediscovery). Quarks and neutrinos miss."),
+    "panic_before_drops": dict(
+        label="Panic before drops", kind="event", star=False,
+        what="Finds every big market drop, then asks whether a signal (news panic, fear gauge) was already unusual "
+             "in the months BEFORE, beyond what the same windows at random times give. Also shows during and after.",
+        record="New (Oct 28): Nasdaq 1985-2026, 51 drops of 10%+. Newspaper uncertainty counts: nothing before, big "
+               "spike after. VIX: higher before (98th pct), partly drops landing in already-shaky markets."),
     "dose_response": dict(
         label="Dose-response leftover", kind="dose", star=False,
         what="Fits a Hill curve to dose and response pairs and reads how much of the ceiling the curve never "
@@ -304,6 +311,28 @@ elif T["kind"] == "triplet":
     payload = dict(values=[v1, v2, v3], target_A=tA, target_delta=tD, lo=lo, hi=hi)
     data_desc = f"triplet {v1:g}, {v2:g}, {v3:g}"
 
+elif T["kind"] == "event":
+    st.subheader("1. Market and signal (from FRED)")
+    MKTS = {"Nasdaq Composite (since 1971)": "NASDAQCOM", "S&P 500 (last 10 years)": "SP500",
+            "Dow Jones (last 10 years)": "DJIA"}
+    SIGS = {"News: stock-market uncertainty (daily since 1985)": "WLEMUINDXD",
+            "News: economic policy uncertainty (daily since 1985)": "USEPUINDXD",
+            "VIX fear gauge (daily since 1990, from option prices)": "VIXCLS",
+            "Consumer sentiment (monthly)": "UMCSENT"}
+    c = st.columns(2)
+    mk = c[0].selectbox("Market", list(MKTS) + ["Other FRED ID"])
+    mk_id = c[0].text_input("Market FRED ID", "NASDAQCOM") if mk == "Other FRED ID" else MKTS[mk]
+    sg = c[1].selectbox("Signal", list(SIGS) + ["Other FRED ID"])
+    sg_id = c[1].text_input("Signal FRED ID", "WLEMUINDXD") if sg == "Other FRED ID" else SIGS[sg]
+    c = st.columns(2)
+    drop_pct = c[0].select_slider("Drop that counts", [5.0, 7.5, 10.0, 15.0, 20.0], 10.0, format_func=lambda v: f"{v:g}%")
+    lead = c[1].select_slider("Lead-up window", [21, 42, 63, 126], 63,
+                              format_func=lambda v: f"{v} trading days (~{round(v * 1.45)} calendar)")
+    st.caption("Drops = the market falls that much within 60 trading days. The signal is read against its own previous "
+               "year, so a slow climb over decades doesn't count as panic.")
+    payload = dict(market=mk_id.strip().upper(), signal=sg_id.strip().upper(), drop_pct=drop_pct, lead=lead)
+    data_desc = f"FRED {payload['market']} vs {payload['signal']}, drops {drop_pct:g}%, lead {lead} days"
+
 else:
     st.subheader("1. Dose and response")
     txt = st.text_area("Two columns: dose, response (one pair per line)", "5, 12\n10, 40\n20, 54\n40, 72\n60, 74", height=160)
@@ -398,6 +427,11 @@ def _run():
         return LB.leaderboard(payload, n_fakes=max(int(n_fakes) * 50, 10000), **kw)
     if pick == "three_point":
         return LB.three_point(**payload, n_fakes=500_000, **kw)
+    if pick == "panic_before_drops":
+        df = _fred(f"{payload['market']}, {payload['signal']}")
+        return EV.lead_up(df[payload["market"]].values, df[payload["signal"]].values, dates=df["date"].values,
+                          names=(payload["market"], payload["signal"]), drop_pct=payload["drop_pct"],
+                          before=payload["lead"], n_fakes=max(int(n_fakes) * 5, 1000), **kw)
     return LB.dose_response(payload["doses"], payload["responses"], ceiling=payload["ceiling"],
                             targets=payload["targets"], n_boot=max(int(n_fakes) * 5, 1000), **kw)
 
@@ -426,6 +460,11 @@ if out and out["plan"]["test"] == pick:
     st.dataframe(tbl, hide_index=True, width="stretch")
     for n_ in res.get("notes", []):
         st.markdown(f"- {n_}")
+    if res.get("events"):
+        with st.expander(f"The drops ({len(res['events'])} shown) and the signal before and during each"):
+            st.dataframe(pd.DataFrame(res["events"]), hide_index=True, width="stretch")
+            st.caption("before_z / during_z: how far the signal sat above (+) or below (−) its own previous year, "
+                       "in standard deviations.")
     st.caption("A pass is a pattern that beat these fakes, not a finding. The ladder: pattern → survivor → sturdy "
                "survivor (holds under another measure) → lead (holds on fresh data) → finding (someone else reproduces it).")
     with st.expander("Details"):

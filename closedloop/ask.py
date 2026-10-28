@@ -17,6 +17,7 @@ from typing import List, Optional
 import numpy as np
 import pandas as pd
 
+from closedloop import events as EV
 from closedloop import lab as LB
 from closedloop import sources as S
 
@@ -47,6 +48,11 @@ How you work:
 - The tests only see the numbers loaded. If a question is about news, headlines, narratives or anything else not in
   the data, say plainly that the loaded numbers can't answer that part and what data would. Never present
   speculation about news or causes as if a test showed it.
+- Questions about panic, fear or news before market drops: use panic_before_drops. Signals that are newspaper
+  article counts: WLEMUINDXD (stock-market uncertainty in the news) and USEPUINDXD (economic policy uncertainty in
+  the news), daily since 1985. VIXCLS is the market's own fear gauge (since 1990), made from option prices, not news,
+  so a VIX lead partly reflects drops arriving when markets are already shaky. NASDAQCOM goes back to 1971; SP500 on
+  FRED only covers the last 10 years. Only the BEFORE and climbing rows speak to warning; DURING and AFTER are reaction.
 - Shared baseline: leave it off for the leftovers test unless the series are many and of one kind (one indicator
   across many countries), because on mixed series taking out a shared path manufactures links.
 """
@@ -163,7 +169,9 @@ class Workspace:
             return dict(series_tests=TEST_HELP,
                         other_tests=dict(three_point="three positive values: amplitude and phase vs 500,000 random triplets",
                                          leaderboard="a top list of scores: do the gaps bunch or keep a rhythm",
-                                         dose_response="dose and response pairs: Hill curve and the leftover under the ceiling"))
+                                         dose_response="dose and response pairs: Hill curve and the leftover under the ceiling",
+                                         panic_before_drops="is a news-panic or fear signal already unusual before big "
+                                                            "market drops, beyond random timing (FRED IDs, 40 years)"))
 
         def run_test(test: str, columns: Optional[List[str]] = None, shared_baseline: str = "off",
                      fakes: int = 200, bar_percent: float = 95.0) -> dict:
@@ -253,8 +261,29 @@ class Workspace:
             ws._log("dose_response", dict(points=len(doses), ceiling=ceiling), out)
             return out
 
+        def panic_before_drops(market: str = "NASDAQCOM", signal: str = "WLEMUINDXD", drop_percent: float = 10.0,
+                               lead_days: int = 63) -> dict:
+            """Is a signal (news panic, fear gauge) already unusual BEFORE big market drops, beyond random timing?
+            market and signal are FRED series IDs (market examples: NASDAQCOM since 1971, SP500 last 10 years;
+            signal examples: WLEMUINDXD news stock-market uncertainty, USEPUINDXD news policy uncertainty, VIXCLS).
+            drop_percent: size of drop that counts (falls that much within 60 trading days).
+            lead_days: trading days before each drop to read the signal (63 is about 90 calendar days)."""
+            try:
+                df = S.fetch_fred(f"{market}, {signal}", rename=False)
+                m, g = str(market).strip().upper(), str(signal).strip().upper()
+                res = EV.lead_up(df[m].values, df[g].values, dates=df["date"].values, names=(m, g),
+                                 drop_pct=float(drop_percent), before=int(max(10, min(int(lead_days), 250))),
+                                 n_fakes=2000)
+            except Exception as e:
+                return {"error": str(e)}
+            out = _compact(res)
+            out["drops"] = res.get("events", [])[:25]
+            out["data"] = f"{m} and {g}, {str(df['date'].iloc[0])[:10]} to {str(df['date'].iloc[-1])[:10]}, {len(df):,} rows"
+            ws._log("panic_before_drops", dict(market=m, signal=g, drop_percent=drop_percent, lead_days=lead_days), out)
+            return out
+
         return [describe_data, peek_rows, list_tests, run_test, load_fred, load_worldbank,
-                three_point, leaderboard, dose_response]
+                three_point, leaderboard, dose_response, panic_before_drops]
 
 
 def make_chat(api_key: str, model: str, ws: Workspace, persona: str = "", history=None):
