@@ -16,6 +16,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 from closedloop import events as EV       # noqa: E402
 from closedloop import lab as LB          # noqa: E402
+from closedloop import pulse as PL        # noqa: E402
 from closedloop import runlog as RL       # noqa: E402
 from closedloop import sources as S       # noqa: E402
 
@@ -61,6 +62,12 @@ TESTS = {
         label="Vortex short stays", kind="panel", star=False,
         what="Are visits to the rare corners shorter than visits elsewhere, more than random walks would give?",
         record="Countries and states passed, names and rivers didn't; read a pass as 'turns back quickly'."),
+    "pulse": dict(
+        label="Pulse sweep (cycles and what you could have heard)", kind="panel", star=False,
+        what="Reads one series for a cycle, then plants waves of known period and height into its fakes to show the "
+             "smallest wave each lens can hear. Name a period in advance (seasons, orbits, elections) to make it sharper. "
+             "A miss then reads 'nothing taller than X at period P'.",
+        record="New (Oct 29): weekly gas 1990-2026 has a yearly cycle (100th pct); Nasdaq has no 4-year cycle (27th pct)."),
     "leaderboard": dict(
         label="Leaderboard gaps", kind="scores", star=False,
         what="A top list (high scores, rankings, records). Do the gaps between neighbor ranks bunch, or keep a "
@@ -371,6 +378,15 @@ if pick in ("leftovers", "orbit", "interlock", "step_flip"):
             st.warning("No groups in these series names (nothing before '|' or ':'), so it'll use all series.")
 if pick == "step_flip":
     extra["funnel"] = st.toggle("Funnel only (ignore points near the middle)", value=True)
+if pick == "pulse" and isinstance(payload, pd.DataFrame) and payload.shape[1]:
+    c = st.columns(2)
+    extra["column"] = c[0].selectbox("Series to read", list(map(str, payload.columns)))
+    named = c[1].number_input("Named period in rows (0 = none, scan everything)", min_value=0.0, value=0.0, step=1.0,
+                              help="Pick it from a reason before looking: 52 for yearly in weekly data, 12 in monthly, "
+                                   "4 in quarterly. Naming it after a peek turns it into a scan you didn't pay for.")
+    extra["named_period"] = float(named) if named >= 3 else None
+    extra["shape"] = st.radio("Planted wave shape", ["steady", "burst"], horizontal=True,
+                              help="steady runs the whole length; burst is a wave packet over about a fifth of it.")
 
 # ---------------------------------------------------------------- lock
 st.subheader("2. Lock the plan")
@@ -412,6 +428,10 @@ def _run():
         names = list(map(str, payload.columns))
         grp = LB.group_labels(names) if use_groups else None
         opt = {k: v for k, v in extra.items() if k in ("remove_shared", "funnel")}
+        if pick == "pulse":
+            return PL.pulse_test(payload[extra["column"]].values, named_period=extra.get("named_period"),
+                                 shape=extra.get("shape", "steady"), bar_pct=float(bar_pct), seed=int(seed),
+                                 name=extra["column"])
         if pick == "real_vs_fakes":
             return LB.real_vs_fakes(X, **kw)
         if pick == "leftovers":
@@ -460,6 +480,9 @@ if out and out["plan"]["test"] == pick:
     st.dataframe(tbl, hide_index=True, width="stretch")
     for n_ in res.get("notes", []):
         st.markdown(f"- {n_}")
+    if res.get("floor_table"):
+        st.markdown("**Smallest wave each lens heard 80% of the time** (in typical steps; columns are periods in rows)")
+        st.dataframe(pd.DataFrame(res["floor_table"]), hide_index=True, width="stretch")
     if res.get("events"):
         with st.expander(f"The drops ({len(res['events'])} shown) and the signal before and during each"):
             st.dataframe(pd.DataFrame(res["events"]), hide_index=True, width="stretch")
