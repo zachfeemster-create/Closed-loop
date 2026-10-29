@@ -1,0 +1,7 @@
+definition_version: "1"
+streamlit:
+  name: "my_existing_app"
+  stage: "streamlit_stage"
+  main_file: "streamlit_app.py"
+  # Optional: Include if you have an environment.yml for extra libraries
+  query_warehouse: "my_warehouse" 
