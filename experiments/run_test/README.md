@@ -13,6 +13,7 @@ Every test from the Oct 23-27 2026 run logs, rebuilt as plain functions in [`clo
 | `vortex` | Shorter stays in the rare corners than walks give? | Countries and states yes; names and rivers no |
 | `leaderboard` | Do top-list gaps bunch or keep a rhythm beyond a smooth tail? | Donkey Kong top 50: inside the fakes |
 | `three_point` | Amplitude and phase of a three-value cycle vs 500,000 random triplets (Koide / Brannen form) | Charged leptons: root two and 2/9, 0 of 500k (a rediscovery) |
+| `pulse` (`closedloop/pulse.py`) | Does one series carry a cycle? Plants waves of known period and height into its fakes to map the smallest wave each lens hears; a named period decides when given, otherwise the scanner | Weekly gas: yearly cycle (100th pct); Nasdaq: no 4-year cycle |
 | `dose_response` | Hill fit and the leftover under the ceiling, with a bootstrap range | Dopamine: ~23%, range too wide to pin |
 
 Two tests from the logs already had homes: **who answers whom** (`closedloop/games.py`, Game theory page) and **raw vs modeled** (`demo/modeling_fingerprint`, Modeling fingerprint page).
@@ -40,6 +41,7 @@ Series tests want one column per series with time down the rows. `--groups` take
 - Long files (60,000 rows, every 12th kept): turn-back, orbit, interlock, real vs fakes, step flip 0/10; vortex 1/10. Memory stays near 300 MB on a 100,000-row file (fakes are built a few at a time).
 - Leftovers on unrelated mixed shapes (walks, noise, cycles, trends), 30 seeds: 0/30 with the shared path off, 30/30 with it on, which is why off is the default. A planted shared shock between two of eight series is the only pair that survives; on the planted demo it finds driver ↔ response and leader → followers.
 - Long files are thinned by keeping every k-th row, not averaged: averaging smooths the steps and fooled the fakes in testing.
+- Pulse sweep: false alarms with nothing planted 2-7% per lens; on 30 plain walks the verdict passed 1/30 (named period) and 2/30 (scanner); a planted 3-step wave at 52 rows is caught. Quarter-turn and turn-back lenses are deaf to clean waves (they read curve shape).
 - Charged lepton masses reproduce A = 1.41420, delta = 0.22223, Koide Q = 0.66666, 0 of 500,000 fakes.
 - Dopamine inputs reproduce Emax 77.2, ED50 10.9 mg, n 1.82, leftover 22.8.
 - A fresh World Bank pull (life expectancy, infant mortality, urban share, log population, trade; 2000-2022 every 2 years) gives turn-back, interlock (no zipper offset), step flip and vortex passes, and orbit steadiness with an outward spiral under the per-indicator baseline, in line with the logs.

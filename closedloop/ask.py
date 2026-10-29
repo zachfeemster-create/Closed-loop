@@ -19,6 +19,7 @@ import pandas as pd
 
 from closedloop import events as EV
 from closedloop import lab as LB
+from closedloop import pulse as PL
 from closedloop import sources as S
 
 RULES = """You are the data partner inside Closed Loop, a method for telling real patterns from chance:
@@ -53,6 +54,9 @@ How you work:
   the news), daily since 1985. VIXCLS is the market's own fear gauge (since 1990), made from option prices, not news,
   so a VIX lead partly reflects drops arriving when markets are already shaky. NASDAQCOM goes back to 1971; SP500 on
   FRED only covers the last 10 years. Only the BEFORE and climbing rows speak to warning; DURING and AFTER are reaction.
+- Cycles, rhythms, resonance, "is there a pulse": use pulse_sweep on one column. If the user has a reason for a
+  period (52 weeks in weekly data, 12 months, a sidereal day, an election cycle), name it before running: that lens
+  decides and is sharper. Report the floor ("nothing taller than X typical steps at period P") when it misses.
 - Shared baseline: leave it off for the leftovers test unless the series are many and of one kind (one indicator
   across many countries), because on mixed series taking out a shared path manufactures links.
 """
@@ -171,7 +175,9 @@ class Workspace:
                                          leaderboard="a top list of scores: do the gaps bunch or keep a rhythm",
                                          dose_response="dose and response pairs: Hill curve and the leftover under the ceiling",
                                          panic_before_drops="is a news-panic or fear signal already unusual before big "
-                                                            "market drops, beyond random timing (FRED IDs, 40 years)"))
+                                                            "market drops, beyond random timing (FRED IDs, 40 years)",
+                                         pulse_sweep="does one series carry a cycle, and the smallest wave each lens "
+                                                     "could hear at each period"))
 
         def run_test(test: str, columns: Optional[List[str]] = None, shared_baseline: str = "off",
                      fakes: int = 200, bar_percent: float = 95.0) -> dict:
@@ -282,8 +288,24 @@ class Workspace:
             ws._log("panic_before_drops", dict(market=m, signal=g, drop_percent=drop_percent, lead_days=lead_days), out)
             return out
 
+        def pulse_sweep(column: str, named_period: float = 0.0, shape: str = "steady") -> dict:
+            """Does one loaded series carry a cycle, and how small a wave could the lenses have heard?
+            column: a column of the loaded data. named_period: a period in rows chosen for a reason BEFORE looking
+            (0 = none, scan every period). shape: 'steady' (whole length) or 'burst' (a wave packet)."""
+            try:
+                sub = ws.numeric([column])
+                res = PL.pulse_test(sub[str(column)].values, named_period=float(named_period) or None,
+                                    shape="burst" if str(shape).lower().startswith("b") else "steady", name=str(column))
+            except Exception as e:
+                return {"error": str(e)}
+            out = _compact(res)
+            out["floor_table"] = res["floor_table"]
+            out["data"] = f"{column}, {res['details']['rows']:,} rows"
+            ws._log("pulse_sweep", dict(column=column, named_period=named_period, shape=shape), out)
+            return out
+
         return [describe_data, peek_rows, list_tests, run_test, load_fred, load_worldbank,
-                three_point, leaderboard, dose_response, panic_before_drops]
+                three_point, leaderboard, dose_response, panic_before_drops, pulse_sweep]
 
 
 def make_chat(api_key: str, model: str, ws: Workspace, persona: str = "", history=None):

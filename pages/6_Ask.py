@@ -150,6 +150,9 @@ def _show_runs(runs):
                     tbl["bar"] = tbl["bar"].map(lambda b: f"{b[0]:.4g} to {b[1]:.4g}" if isinstance(b, (list, tuple))
                                                 else ("" if b is None else f"{b:.4g}"))
                 st.dataframe(tbl, hide_index=True, width="stretch")
+            if isinstance(res, dict) and res.get("floor_table"):
+                st.caption("Smallest wave each lens heard 80% of the time (typical steps; columns are periods in rows)")
+                st.dataframe(pd.DataFrame(res["floor_table"]), hide_index=True, width="stretch")
             st.json(r, expanded=False)
 
 
