@@ -421,7 +421,7 @@ if LOGCFG:
 
 # ---- 1. Data
 st.header("1 · Data")
-SOURCES = ["Upload a file (CSV or Excel)", "Google Sheets link", "Paste from a spreadsheet",
+SOURCES = ["Upload a file (CSV, Excel or JSON)", "Google Sheets link", "Paste from a spreadsheet",
            "Link to a data file", "Public data (FRED, World Bank)", "Samples and a demo"]
 src = st.selectbox("Where's your data?", SOURCES, disabled=locked, key="src",
                    help="No file? Pick public data or a sample — or paste cells straight from any spreadsheet.")
@@ -429,15 +429,18 @@ df0, raw = None, None
 try:
     if src == SOURCES[0]:
         # No browser-side type filter: Android pickers grey out CSVs they haven't tagged as CSV.
-        up = st.file_uploader("CSV or Excel file", type=None, disabled=locked, key="upl")
+        up = st.file_uploader("CSV, Excel or JSON file", type=None, disabled=locked, key="upl")
         if up is not None:
-            if not up.name.lower().endswith((".csv", ".tsv", ".txt", ".xlsx", ".xls")):
-                raise ValueError("pick a CSV, TSV, TXT or Excel file.")
+            low = up.name.lower()
+            if not low.endswith((".csv", ".tsv", ".txt", ".xlsx", ".xls", ".json")):
+                raise ValueError("pick a CSV, TSV, TXT, Excel or JSON file.")
             raw = up.getvalue()
-            if up.name.lower().endswith((".xlsx", ".xls")):
+            if low.endswith((".xlsx", ".xls")):
                 sheets = S.excel_sheets(raw)
                 sheet = st.selectbox("Sheet", sheets, disabled=locked, key="sheet") if len(sheets) > 1 else sheets[0]
                 df0 = S.read_excel(raw, sheet)
+            elif low.endswith(".json"):
+                df0 = S.read_json_bytes(raw)
             else:
                 df0 = S.read_csv_bytes(raw)
     elif src == SOURCES[1]:

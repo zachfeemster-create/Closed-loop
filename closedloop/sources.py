@@ -1,6 +1,6 @@
 """Six ways to get data into the Closed Loop — no CSV needed.
 
-1. Upload a file (CSV or Excel)   2. Google Sheets link   3. Paste from a spreadsheet
+1. Upload a file (CSV, Excel or JSON)   2. Google Sheets link   3. Paste from a spreadsheet
 4. Link to a data file            5. Public data (FRED, World Bank)   6. Samples and a planted demo
 
 Every function returns a pandas DataFrame whose first column is time (date or year).
@@ -28,18 +28,76 @@ def _get(url: str, timeout: int = 45) -> bytes:
 
 # ---------------------------------------------------------------- 1. files
 
+XLS_MAGIC = b"\xd0\xcf\x11\xe0"      # old binary .xls (OLE2 container)
+ZIP_MAGIC = b"PK"                    # .xlsx and .ods are zipped
+
+
 def read_csv_bytes(raw: bytes) -> pd.DataFrame:
     """CSV, TSV or semicolon files — the separator is detected."""
     text = raw.decode("utf-8-sig", errors="replace")
     return read_pasted(text)
 
 
+def read_json_bytes(raw: bytes) -> pd.DataFrame:
+    """JSON rows, a {"data": [...]} wrapper, a dict of columns, or one object per line.
+
+    The data step and the lens page only want a table, so anything nested is flattened
+    into dotted column names by pandas.
+    """
+    text = raw.decode("utf-8-sig", errors="replace").strip()
+    if not text:
+        raise ValueError("That JSON file is empty.")
+    try:
+        obj = json.loads(text)
+    except json.JSONDecodeError:
+        try:                                     # one record per line (NDJSON / JSON Lines)
+            obj = [json.loads(line) for line in text.splitlines() if line.strip()]
+        except json.JSONDecodeError as e:
+            raise ValueError(f"That doesn't parse as JSON: {e.msg} at line {e.lineno}.") from e
+    return _tidy(_json_to_frame(obj))
+
+
+def _json_to_frame(obj) -> pd.DataFrame:
+    """Find the rows inside whatever shape the JSON happens to use."""
+    if isinstance(obj, list):
+        if not obj:
+            raise ValueError("That JSON file has no rows in it.")
+        return pd.json_normalize(obj) if isinstance(obj[0], (dict, list)) else pd.DataFrame({"value": obj})
+    if isinstance(obj, dict):
+        for key in ("data", "value", "rows", "results", "records"):   # common API wrappers
+            if isinstance(obj.get(key), list):
+                return _json_to_frame(obj[key])
+        if obj and all(isinstance(v, list) for v in obj.values()):      # {"date": [...], "sales": [...]}
+            return pd.DataFrame(obj)
+        return pd.json_normalize(obj)
+    raise ValueError("That JSON is a single value, not a table — it needs a list of rows or an object.")
+
+
+def _excel_engine(raw: bytes) -> str | None:
+    """Pick the reader from the bytes, not the name — .xls/.xlsx get mislabelled all the time."""
+    if raw[:4] == XLS_MAGIC:
+        return "xlrd"
+    if raw[:2] == ZIP_MAGIC:
+        return "openpyxl"
+    return None
+
+
 def excel_sheets(raw: bytes) -> list[str]:
-    return list(pd.ExcelFile(io.BytesIO(raw)).sheet_names)
+    return list(pd.ExcelFile(io.BytesIO(raw), engine=_excel_engine(raw)).sheet_names)
 
 
 def read_excel(raw: bytes, sheet=0) -> pd.DataFrame:
-    df = pd.read_excel(io.BytesIO(raw), sheet_name=sheet)
+    try:
+        df = pd.read_excel(io.BytesIO(raw), sheet_name=sheet, engine=_excel_engine(raw))
+    except ImportError as e:
+        raise ValueError("This is an old-style .xls file and its reader isn't installed. "
+                         "Run `pip install xlrd` (it's in requirements.txt) or re-save the file as .xlsx.") from e
+    except Exception as e:
+        head = raw[:400].lstrip().lower()
+        if head.startswith((b"<", b"<?xml")) or b"<html" in head:
+            raise ValueError("That file is an HTML or XML page with an .xls name, not a real spreadsheet "
+                             "(common with bank and government exports). Open it and re-save as .xlsx or .csv.") from e
+        raise
     return _tidy(df)
 
 
@@ -94,7 +152,7 @@ def fetch_link(url: str) -> pd.DataFrame:
     if path.endswith((".xlsx", ".xls")) or raw[:2] == b"PK":
         return read_excel(raw)
     if path.endswith(".json"):
-        return _tidy(pd.json_normalize(json.loads(raw)))
+        return read_json_bytes(raw)
     return read_csv_bytes(raw)
 
 

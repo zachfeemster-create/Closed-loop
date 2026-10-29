@@ -50,7 +50,7 @@ with st.sidebar:
 
 # ---------------------------------------------------------------- run tab
 with tab_run:
-    src = st.radio("Data", ["Demo (noise + one planted cycle)", "Upload a CSV", "FRED series IDs"], horizontal=True)
+    src = st.radio("Data", ["Demo (noise + one planted cycle)", "Upload a file", "FRED series IDs"], horizontal=True)
     series: dict[str, np.ndarray] = {}
     if src.startswith("Demo"):
         rng = np.random.default_rng(7)
@@ -62,12 +62,19 @@ with tab_run:
         st.caption("Nine series of plain noise and one with a cycle hidden in it. The blind labels hide which is which.")
     elif src.startswith("Upload"):
         # No browser-side type filter: Android pickers grey out CSVs they haven't tagged as CSV.
-        f = st.file_uploader("CSV: one column per series (a date column is fine, it's skipped)", type=None)
-        if f is not None and not f.name.lower().endswith((".csv", ".tsv", ".txt")):
-            st.error("Pick a CSV, TSV or TXT file.")
+        f = st.file_uploader("One column per series — CSV, Excel or JSON (a date column is fine, it's skipped)",
+                             type=None)
+        if f is not None and not f.name.lower().endswith((".csv", ".tsv", ".txt", ".xlsx", ".xls", ".json")):
+            st.error("Pick a CSV, TSV, TXT, Excel or JSON file.")
             st.stop()
         if f is not None:
-            df = S.read_csv_bytes(f.getvalue())
+            low = f.name.lower()
+            if low.endswith((".xlsx", ".xls")):
+                df = S.read_excel(f.getvalue())
+            elif low.endswith(".json"):
+                df = S.read_json_bytes(f.getvalue())
+            else:
+                df = S.read_csv_bytes(f.getvalue())
             num = df.select_dtypes("number")
             for c in num.columns:
                 v = num[c].dropna().values.astype(float)
