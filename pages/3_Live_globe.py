@@ -90,6 +90,9 @@ else:
         p = LG.payload(shown)
         EM.show(LG.render(p), height=480)
 
+        from closedloop import luckgraph as LK
+        LK.show(shown)
+
         st.subheader("Fails and misses, explained")
         labels = [f"{r['when']:%Y-%m-%d %H:%M} · {r['source']} · {r['id']}" for r in sorted(shown, key=lambda r: r["when"], reverse=True)]
         which = st.selectbox("Run", labels)
