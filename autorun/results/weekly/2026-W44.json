@@ -1,0 +1,898 @@
+{
+ "kind": "weekly",
+ "ran_at": "2026-11-01T10:02:20+00:00",
+ "window_days": 120,
+ "headlines": [
+  "Cross-feed bunching PASSED: busiest days 2026-10-23, 2026-09-16, 2026-09-21. Check it against the calendar before trusting it.",
+  "Luck pile this week: 61 items, by lens {'q4 Inverse \u2212\u03b8': 37, 'q3 Superposed |\u03b8|': 19, 'q2 Quarter turn': 5}. 32 cleared the strict 99.9 bar (Max's jinxes still broke them, so they stay in the pile; strong-but-fragile usually means one big event).",
+  "Held 5 of 7 nights: FRED INDPRO | q4 Inverse \u2212\u03b8 | flat. Ready to lock as a lead and test on the next weeks.",
+  "Held 5 of 7 nights: FRED INDPRO | q4 Inverse \u2212\u03b8 | curve. Ready to lock as a lead and test on the next weeks.",
+  "Held 5 of 7 nights: FRED PAYEMS | q4 Inverse \u2212\u03b8 | flat. Ready to lock as a lead and test on the next weeks.",
+  "Held 5 of 7 nights: FRED PAYEMS | q4 Inverse \u2212\u03b8 | curve. Ready to lock as a lead and test on the next weeks."
+ ],
+ "cross_feed": {
+  "series": [
+   "FRED DGS10",
+   "FRED T10Y2Y",
+   "FRED DCOILWTICO",
+   "FRED VIXCLS",
+   "WSPR 160m",
+   "WSPR 80m",
+   "WSPR 60m",
+   "WSPR 40m",
+   "WSPR 30m",
+   "WSPR 20m",
+   "WSPR 17m",
+   "WSPR 15m",
+   "WSPR 12m",
+   "WSPR 10m"
+  ],
+  "rows": 85,
+  "new_this_week": 5,
+  "lead": {
+   "question": "Does one series move first?",
+   "stat": "largest |lead|",
+   "real": 0.22961,
+   "bar": 0.29201,
+   "percentile": 89.66666666666666,
+   "verdict": "no",
+   "details": {
+    "rows_used": 84,
+    "strongest": "WSPR 10m",
+    "strongest_direction": "lags",
+    "lead_by_series": {
+     "FRED DGS10": -0.027,
+     "FRED T10Y2Y": -0.039,
+     "FRED DCOILWTICO": 0.0729,
+     "FRED VIXCLS": 0.1487,
+     "WSPR 160m": 0.0498,
+     "WSPR 80m": -0.0727,
+     "WSPR 60m": 0.0838,
+     "WSPR 40m": 0.0763,
+     "WSPR 30m": 0.0444,
+     "WSPR 20m": 0.0283,
+     "WSPR 17m": 0.0121,
+     "WSPR 15m": -0.0126,
+     "WSPR 12m": -0.1352,
+     "WSPR 10m": -0.2296
+    }
+   },
+   "notes": []
+  },
+  "bunching": {
+   "question": "Do the leftover turns bunch at the same moments?",
+   "stat": "bunching (variance / mean of turns per step)",
+   "real": 1.4562,
+   "bar": 1.2185,
+   "percentile": 100.0,
+   "verdict": "PASS",
+   "details": {
+    "traffic_components_removed": 2,
+    "busiest_rows": [
+     79,
+     52,
+     55
+    ],
+    "busiest_counts": [
+     9,
+     8,
+     8
+    ]
+   },
+   "notes": [
+    "Busiest moments that match known world events are a real 'shared clock' (time link), not a direct link.",
+    "Blind spot: big shared moves are removed as traffic before turns are counted, so a clean event that hits everything (or a large group) at once gets removed rather than counted. This test registers loosely synchronized turns, not clean shared shocks.",
+    "Detection limit for bunching isn't built yet."
+   ]
+  },
+  "drift": {
+   "question": "Do the links between series keep shifting over time?",
+   "stat": "R1 recurrence (low = drift)",
+   "real": 0.67339,
+   "bar": 0.50831,
+   "percentile": 15.333333333333332,
+   "verdict": "no",
+   "details": {
+    "R2_decay": 0.03794,
+    "R2_bar": 0.32986,
+    "R2_passed": false,
+    "series": 14,
+    "rows": 85
+   },
+   "notes": [
+    "Detection limit for drift isn't built yet \u2014 a miss here means 'not seen', not 'not there'.",
+    "Very smooth series (modelled or interpolated data) can make the fake arm pass; then the result doesn't count.",
+    "A pass means the links recur less than a steady world would allow \u2014 that can be drifting links or no stable links at all."
+   ]
+  }
+ },
+ "lens_of_time": {
+  "FRED T10Y2Y": 0.0621,
+  "FRED DGS10": 0.0478,
+  "FRED DCOILWTICO": 0.0383,
+  "WSPR 17m": 0.0353,
+  "WSPR 40m": 0.0339,
+  "WSPR 80m": 0.0278,
+  "WSPR 15m": 0.0274,
+  "WSPR 20m": 0.0271,
+  "WSPR 160m": 0.0269,
+  "WSPR 10m": 0.0211,
+  "FRED VIXCLS": 0.021,
+  "WSPR 12m": 0.018,
+  "WSPR 30m": 0.0096,
+  "WSPR 60m": 0.0052
+ },
+ "luck_pass": [
+  {
+   "name": "FRED UNRATE",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on short day)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED UNRATE",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on short day)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED UNRATE",
+   "lens": "q2 Quarter turn",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on power outage, short day)",
+    "luck pile (broke on short day)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED UNRATE",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on short day)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED UNRATE",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "frame trip (fake arm passed)",
+    "luck pile (broke on short day)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED VIXCLS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on power outage, static, one bad shot)",
+    "luck pile (broke on static, one bad shot)"
+   ],
+   "strict_percentile": 0.1,
+   "strict_pass": false
+  },
+  {
+   "name": "FRED VIXCLS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "frame trip (fake arm passed)",
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on static, one bad shot)"
+   ],
+   "strict_percentile": 0.1,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth Mexico",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on power outage, one bad shot, short day)",
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 99.3,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth Mexico",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 4,
+   "why": [
+    "frame trip (fake arm passed)",
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on one bad shot, short day, eq nudge)",
+    "luck pile (broke on power outage, static, one bad shot, short day)"
+   ],
+   "strict_percentile": 99.8,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth United Kingdom",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on power outage, short day)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth United Kingdom",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot, short day)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth Germany",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth Germany",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on power outage, one bad shot)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth United States",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 1,
+   "why": [
+    "luck pile (broke on power outage, static, one bad shot, short day, eq nudge)"
+   ],
+   "strict_percentile": 98.8,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth France",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot, short day)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth France",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on short day)"
+   ],
+   "strict_percentile": 0.1,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth France",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on power outage, one bad shot, short day)",
+    "luck pile (broke on short day)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth Korea, Rep.",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on one bad shot, short day)"
+   ],
+   "strict_percentile": 99.5,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth Korea, Rep.",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on one bad shot, short day, eq nudge)",
+    "luck pile (broke on power outage, static, one bad shot, short day, eq nudge)",
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 99.5,
+   "strict_pass": false
+  },
+  {
+   "name": "WSPR 15m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on power outage)",
+    "luck pile (broke on power outage, one bad shot)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WSPR 15m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 2,
+   "why": [
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on power outage)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth Indonesia",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on short day)",
+    "luck pile (broke on static, one bad shot, short day)",
+    "luck pile (broke on static, short day)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth Indonesia",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on power outage, one bad shot)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth Indonesia",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on power outage, short day)",
+    "luck pile (broke on power outage, static, one bad shot, short day)",
+    "luck pile (broke on static, one bad shot, short day)",
+    "luck pile (broke on static, short day)"
+   ],
+   "strict_percentile": 0.2,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth Indonesia",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on power outage, one bad shot)"
+   ],
+   "strict_percentile": 0.1,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED INDPRO",
+   "lens": "q2 Quarter turn",
+   "eq": "flat",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on power outage, one bad shot, short day)",
+    "luck pile (broke on power outage, static, one bad shot, short day)",
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 0.4,
+   "strict_pass": false
+  },
+  {
+   "name": "FRED INDPRO",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on power outage, static, one bad shot, short day)",
+    "luck pile (broke on static)",
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 0.5,
+   "strict_pass": false
+  },
+  {
+   "name": "FRED INDPRO",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "nights_in_pile": 3,
+   "why": [
+    "luck pile (broke on power outage, static, one bad shot)",
+    "luck pile (broke on static, one bad shot)",
+    "luck pile (broke on static, short day)"
+   ],
+   "strict_percentile": 0.8,
+   "strict_pass": false
+  },
+  {
+   "name": "WSPR 10m",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "nights_in_pile": 3,
+   "why": [
+    "luck pile (broke on power outage, static)",
+    "luck pile (broke on static, one bad shot)"
+   ],
+   "strict_percentile": 0.3,
+   "strict_pass": false
+  },
+  {
+   "name": "WSPR 10m",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "nights_in_pile": 3,
+   "why": [
+    "luck pile (broke on power outage, one bad shot)",
+    "luck pile (broke on power outage, static, one bad shot)"
+   ],
+   "strict_percentile": 0.2,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth Canada",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on power outage, one bad shot, short day)",
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 99.9,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth Canada",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on power outage, one bad shot, short day)",
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 99.9,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth China",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 0.6,
+   "strict_pass": false
+  },
+  {
+   "name": "FRED PAYEMS",
+   "lens": "q2 Quarter turn",
+   "eq": "flat",
+   "nights_in_pile": 3,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on power outage, short day)",
+    "luck pile (broke on short day)"
+   ],
+   "strict_percentile": 0.5,
+   "strict_pass": false
+  },
+  {
+   "name": "FRED PAYEMS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on short day)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED PAYEMS",
+   "lens": "q2 Quarter turn",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on power outage, short day)",
+    "luck pile (broke on short day)",
+    "luck pile (broke on static, short day)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED PAYEMS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on short day)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WSPR 17m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on power outage, one bad shot)"
+   ],
+   "strict_percentile": 0.1,
+   "strict_pass": true
+  },
+  {
+   "name": "WSPR 17m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on power outage, one bad shot)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WSPR 80m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on power outage, one bad shot)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WSPR 80m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on one bad shot)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WSPR 60m",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "nights_in_pile": 1,
+   "why": [
+    "luck pile (broke on power outage, static, one bad shot, short day)"
+   ],
+   "strict_percentile": 1.0,
+   "strict_pass": false
+  },
+  {
+   "name": "WSPR 60m",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "nights_in_pile": 1,
+   "why": [
+    "luck pile (broke on power outage, static, short day)"
+   ],
+   "strict_percentile": 0.6,
+   "strict_pass": false
+  },
+  {
+   "name": "FRED DCOILWTICO",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 5,
+   "why": [
+    "frame trip (fake arm passed)",
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on static, one bad shot)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED DCOILWTICO",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 5,
+   "why": [
+    "luck pile (broke on one bad shot)",
+    "luck pile (broke on static, one bad shot)"
+   ],
+   "strict_percentile": 0.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WSPR 160m",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "nights_in_pile": 3,
+   "why": [
+    "frame trip (fake arm passed)",
+    "luck pile (broke on power outage, static, short day)",
+    "luck pile (broke on power outage, static, short day, eq nudge)"
+   ],
+   "strict_percentile": 99.6,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth India",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 1,
+   "why": [
+    "luck pile (broke on power outage, static, one bad shot, short day)"
+   ],
+   "strict_percentile": 99.8,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth Australia",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 2,
+   "why": [
+    "luck pile (broke on power outage, static, one bad shot, short day)",
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 98.5,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth France",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on power outage, one bad shot, short day)",
+    "luck pile (broke on power outage, static, one bad shot, short day)"
+   ],
+   "strict_percentile": 0.1,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth South Africa",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 1,
+   "why": [
+    "luck pile (broke on one bad shot, short day)"
+   ],
+   "strict_percentile": 99.3,
+   "strict_pass": false
+  },
+  {
+   "name": "FRED VIXCLS",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on power outage)",
+    "luck pile (broke on power outage, static)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED INDPRO",
+   "lens": "q2 Quarter turn",
+   "eq": "curve",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on static, one bad shot)",
+    "luck pile (broke on static, one bad shot, short day)",
+    "luck pile (broke on static, one bad shot, short day, eq nudge)"
+   ],
+   "strict_percentile": 0.1,
+   "strict_pass": false
+  },
+  {
+   "name": "FRED T10Y2Y",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 4,
+   "why": [
+    "luck pile (broke on power outage, one bad shot)",
+    "luck pile (broke on static)",
+    "luck pile (broke on static, one bad shot)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WSPR 30m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "nights_in_pile": 2,
+   "why": [
+    "luck pile (broke on one bad shot, eq nudge)",
+    "luck pile (broke on power outage, static, one bad shot)"
+   ],
+   "strict_percentile": 35.9,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth India",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 2,
+   "why": [
+    "luck pile (broke on one bad shot, short day)",
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 99.1,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth China",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "nights_in_pile": 2,
+   "why": [
+    "luck pile (broke on power outage, one bad shot, short day)",
+    "luck pile (broke on power outage, static, one bad shot, short day)"
+   ],
+   "strict_percentile": 0.6,
+   "strict_pass": false
+  },
+  {
+   "name": "FRED T10Y2Y",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 2,
+   "why": [
+    "luck pile (broke on static)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "FRED VIXCLS",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 1,
+   "why": [
+    "luck pile (broke on static)"
+   ],
+   "strict_percentile": 100.0,
+   "strict_pass": true
+  },
+  {
+   "name": "WB growth United States",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 1,
+   "why": [
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 98.5,
+   "strict_pass": false
+  },
+  {
+   "name": "WSPR 30m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 1,
+   "why": [
+    "luck pile (broke on power outage, one bad shot)"
+   ],
+   "strict_percentile": 36.4,
+   "strict_pass": false
+  },
+  {
+   "name": "WB growth Australia",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "nights_in_pile": 1,
+   "why": [
+    "luck pile (broke on static, one bad shot, short day)"
+   ],
+   "strict_percentile": 99.1,
+   "strict_pass": false
+  }
+ ],
+ "week_survivors": {
+  "FRED VIXCLS | q4 Inverse \u2212\u03b8 | flat": 4,
+  "FRED VIXCLS | q4 Inverse \u2212\u03b8 | curve": 1,
+  "FRED T10Y2Y | q4 Inverse \u2212\u03b8 | flat": 3,
+  "FRED T10Y2Y | q4 Inverse \u2212\u03b8 | curve": 1,
+  "FRED INDPRO | q4 Inverse \u2212\u03b8 | flat": 5,
+  "FRED INDPRO | q4 Inverse \u2212\u03b8 | curve": 5,
+  "FRED PAYEMS | q4 Inverse \u2212\u03b8 | flat": 5,
+  "FRED PAYEMS | q4 Inverse \u2212\u03b8 | curve": 5,
+  "WSPR 15m | q4 Inverse \u2212\u03b8 | flat": 1,
+  "WSPR 15m | q4 Inverse \u2212\u03b8 | curve": 3,
+  "WSPR 10m | q3 Superposed |\u03b8| | curve": 1,
+  "WSPR 80m | q4 Inverse \u2212\u03b8 | flat": 1,
+  "WSPR 80m | q4 Inverse \u2212\u03b8 | curve": 1,
+  "FRED UNRATE | q4 Inverse \u2212\u03b8 | flat": 1
+ },
+ "feeds_ok": [
+  "FRED DGS10",
+  "FRED T10Y2Y",
+  "FRED DCOILWTICO",
+  "FRED VIXCLS",
+  "WSPR 160m",
+  "WSPR 80m",
+  "WSPR 60m",
+  "WSPR 40m",
+  "WSPR 30m",
+  "WSPR 20m",
+  "WSPR 17m",
+  "WSPR 15m",
+  "WSPR 12m",
+  "WSPR 10m"
+ ],
+ "feeds_skipped": []
+}
