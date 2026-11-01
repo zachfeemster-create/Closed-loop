@@ -19,13 +19,14 @@ from closedloop import lab as LB          # noqa: E402
 from closedloop import pulse as PL        # noqa: E402
 from closedloop import runlog as RL       # noqa: E402
 from closedloop import sources as S       # noqa: E402
+from closedloop.menu import menu_test     # noqa: E402
 
 st.set_page_config(page_title="Run a Test · Closed Loop", page_icon="🧪", layout="centered")
 ss = st.session_state
 cfg = RL.config(st.secrets)
 
 # ---------------------------------------------------------------- the menu
-# kind: panel = many series over time; scores = one list; triplet = three values; dose = two columns
+# kind: panel = many series over time; scores = one list; triplet = three values; dose = two columns; constants = named numbers
 TESTS = {
     "real_vs_fakes": dict(
         label="Real vs fakes", kind="panel", star=True,
@@ -89,6 +90,13 @@ TESTS = {
         what="Fits a Hill curve to dose and response pairs and reads how much of the ceiling the curve never "
              "reaches, with a bootstrap range. Name suspected values and it says which the range rules out.",
         record="Dopamine run: leftover about 23% (range too wide to tell 23 from 17 or 19)."),
+    "number_menu": dict(
+        label="Number-menu match", kind="constants", star=False,
+        what="Does a target appear among named constants and their pairwise ratios more often than chance? "
+             "Identical candidate values count once. Lattice-matched fakes keep integers whole, powers of two "
+             "as powers of two, and equal constants tied.",
+        record="Contest menu: 8 raw hits collapsed to 3 distinct; 74.6th percentile with lattice-matched fakes, "
+               "not the old false 99.8th. The example below is illustrative, not the contest menu."),
 }
 
 st.title("Run a Test")
@@ -100,7 +108,7 @@ st.markdown(
 with st.sidebar:
     st.header("Settings")
     bar_pct = st.select_slider("Bar (how far past the fakes)", [95.0, 99.0, 99.9], 95.0)
-    n_fakes = st.select_slider("Fakes", [100, 200, 300, 500, 1000], 200)
+    n_fakes = st.select_slider("Fakes", [100, 200, 300, 500, 1000, 2000], 200)
     seed = st.number_input("Seed", 0, 99_999_999, 20261028, step=1)
     st.caption("More fakes = steadier verdicts, slower runs. The bar is part of the locked plan.")
 
@@ -189,7 +197,38 @@ data_desc = ""
 payload = None      # what goes into the test
 MAX_ROWS = 5000     # beyond this, long files keep every k-th row by default
 
-if T["kind"] == "panel":
+if T["kind"] == "constants":
+    st.subheader("1. Named constants")
+    txt = st.text_area("Constants as a JSON object (unique names, positive finite numbers)",
+                       '{"ten": 10, "five": 5, "one_twenty_eight": 128, "sixty_four": 64, "ten_again": 10}',
+                       height=160)
+    c = st.columns(2)
+    target = c[0].number_input("Target number", min_value=0.0, value=0.078, format="%.10g")
+    tol = c[1].number_input("Relative tolerance", min_value=0.0, max_value=1.0, value=0.01, format="%.6g")
+    ratios = st.checkbox("Include pairwise ratios", value=True)
+    st.caption("0.01 means within 1% of the target. Lock the target and tolerance before running. "
+               "For the reported contest run use the full 50-constant menu, 2,000 fakes, seed 78, and a 99% bar.")
+    try:
+        pairs = json.loads(txt, object_pairs_hook=list)
+        if isinstance(pairs, list) and all(isinstance(p, tuple) and len(p) == 2 for p in pairs):
+            if len({p[0] for p in pairs}) != len(pairs):
+                raise ValueError("Each constant needs a unique name; equal values can have different names.")
+            constants = dict(pairs)
+        else:
+            constants = None
+        if not isinstance(constants, dict) or not constants:
+            raise ValueError("Enter a nonempty JSON object of named constants.")
+        if any(isinstance(v, bool) or not isinstance(v, (int, float)) or not np.isfinite(float(v)) or v <= 0
+               for v in constants.values()):
+            raise ValueError("Every constant must be a positive finite number; zero is not supported by the fakes.")
+        if not np.isfinite(target) or target <= 0 or not np.isfinite(tol) or tol <= 0:
+            raise ValueError("Target and relative tolerance must be positive finite numbers.")
+        payload = dict(constants=constants, target=float(target), tol=float(tol), ratios=bool(ratios))
+        data_desc = f"{len(constants)} named constants"
+    except (ValueError, TypeError, OverflowError) as ex:
+        st.error(str(ex))
+
+elif T["kind"] == "panel":
     st.subheader("1. Data")
     src = st.radio("Where from", ["Demo", "Upload", "Paste", "Google Sheet or link", "FRED", "World Bank"],
                    horizontal=True)
@@ -358,6 +397,9 @@ else:
 
 # ---------------------------------------------------------------- test-specific knobs
 extra = {}
+if pick == "number_menu" and payload is not None:
+    # Preserve input order: it controls the seeded fake draws as well as hit labels.
+    extra = dict(payload, constants=list(payload["constants"].items()))
 use_groups = False
 if pick in ("leftovers", "orbit", "interlock", "step_flip"):
     opts = ["Across all series", "Within groups"] + (["Off"] if pick in ("orbit", "step_flip", "leftovers") else [])
@@ -423,6 +465,16 @@ st.subheader("3. Run")
 
 def _run():
     kw = dict(seed=int(seed), bar_pct=float(bar_pct))
+    if pick == "number_menu":
+        result = menu_test(**payload, n_fakes=int(n_fakes), **kw)
+        return dict(passed=result["passed"], verdict="PASS" if result["passed"] else "MISS",
+                    question=T["what"],
+                    rows=[dict(stat="Distinct target hits", real=result["distinct_hits"],
+                               fakes_mean=result["fake_mean"], bar=result["fake_bar"],
+                               percentile=result["percentile"], passed=result["passed"])],
+                    notes=[f"{result['raw_hits']} raw hits → {result['distinct_hits']} distinct hits "
+                           f"among {result['candidates']} candidates. Only distinct hits determine the verdict.",
+                           result["settings"]["fakes"]], details=result)
     if T["kind"] == "panel":
         X = payload.values.astype(float)
         names = list(map(str, payload.columns))
@@ -472,7 +524,7 @@ if out and out["plan"]["test"] == pick:
     (st.success if res.get("passed") else st.error)(f"**{res.get('verdict', '')}**")
     st.caption(res.get("question", ""))
     tbl = pd.DataFrame(res["rows"])
-    keep = [c for c in ["stat", "real", "fakes_mid", "bar", "percentile", "z", "p", "q", "passed", "note"] if c in tbl]
+    keep = [c for c in ["stat", "real", "fakes_mid", "fakes_mean", "bar", "percentile", "z", "p", "q", "passed", "note"] if c in tbl]
     tbl = tbl[keep]
     if "bar" in tbl:
         tbl["bar"] = tbl["bar"].map(lambda b: f"{b[0]:.4g} to {b[1]:.4g}" if isinstance(b, (list, tuple))
@@ -492,6 +544,9 @@ if out and out["plan"]["test"] == pick:
                "survivor (holds under another measure) → lead (holds on fresh data) → finding (someone else reproduces it).")
     with st.expander("Details"):
         st.json(res.get("details", {}))
+    if out["plan"]["test"] == "number_menu" and res["details"]["hits"]:
+        st.dataframe(pd.DataFrame(res["details"]["hits"], columns=["Candidate", "Value"]),
+                     hide_index=True, width="stretch")
 
     rid = out["run_id"]
     record = json.dumps(out, indent=2, default=str)
@@ -500,3 +555,4 @@ if out and out["plan"]["test"] == pick:
         ss[f"lab_saved_{rid}"] = True
     st.caption(f"Run **{rid}** · plan {out['plan_id']}" + (" · saved to the shared log ✓" if ss.get(f"lab_saved_{rid}") else ""))
     st.download_button("Download this run (.json)", record, file_name=f"{rid}.json")
+
