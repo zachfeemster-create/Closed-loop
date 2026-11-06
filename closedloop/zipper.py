@@ -74,6 +74,18 @@ def auto_window(bl: list[dict], n: int) -> int:
     return int(min(max(12, round(longest or 12)), n - 5))
 
 
+def too_slow(bl: list[dict], n: int) -> list[dict]:
+    """Boosted bands whose cycle is too long for this many rows: their full window (4 cycles for a bell,
+    5 for a low shelf) won't fit in a third of the data, so the scan would cut them short."""
+    cap = max(12, n // 3)
+    out = []
+    for b in boosted(bl):
+        need = int(round((5 if b["kind"] == 1 else 4) * cycle_of(b["hz"])))
+        if need > cap:
+            out.append(dict(kind=KINDS[b["kind"]], cycle=cycle_of(b["hz"]), need=need, min_rows=3 * need))
+    return out
+
+
 def _filt(x: np.ndarray, w: np.ndarray) -> np.ndarray:
     x = np.asarray(x, float)
     t = np.arange(len(x)); A = np.column_stack([np.ones(len(x)), t])
@@ -103,9 +115,12 @@ def pair(x, y, bl: list[dict], W: int | None = None, n_fakes: int = 300, seed: i
     if W < 12:
         raise ValueError("The zipper window must be at least 12 rows.")
     if W > max(12, n // 3):
+        slow = too_slow(bl, n)
+        hint = ("; ".join(f"the {s['kind']} at a {s['cycle']:.0f}-row cycle needs {s['min_rows']}+ rows" for s in slow)
+                + ". Move it right (shorter cycle) or pass a smaller W.") if slow else ""
         raise ValueError(
             f"Window {W} is too large for {n} rows. Use at most {max(12, n // 3)} rows "
-            "so the scan has independent-looking windows and enough null shifts."
+            "so the scan has independent-looking windows and enough null shifts. " + hint
         )
     w = listen_weight(n, bl)
     ax, ay = _filt(x, w), _filt(y, w)

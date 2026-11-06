@@ -118,6 +118,10 @@ if series and on and n >= 24:
     pick = st.multiselect("Series to check against each other", names, default=names[:12])
     W_auto = Z.auto_window(bl, n)
     W_max = max(13, n // 3)
+    for s in Z.too_slow(bl, n):
+        st.warning(f"The {s['kind']} at a {s['cycle']:.0f}-row cycle is too slow for {n} rows: a full window needs "
+                   f"{s['need']} rows, which needs {s['min_rows']}+ rows of data. The window below gets cut short and "
+                   "can't see a whole lock at that cycle. Drag it right (shorter cycle) or use longer data.")
     W = st.slider("Window (rows)", 12, W_max, min(W_auto, W_max),
                   help=f"Auto: {W_auto} rows, capped at {W_max} for this dataset so the null has enough shifts.")
     window_fraction = W / n
