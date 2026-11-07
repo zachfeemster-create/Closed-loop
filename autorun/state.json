@@ -7,8 +7,8 @@
   "FRED HOUST": 441,
   "FRED DGS10": 748,
   "FRED T10Y2Y": 749,
-  "FRED DCOILWTICO": 745,
-  "FRED VIXCLS": 774,
+  "FRED DCOILWTICO": 744,
+  "FRED VIXCLS": 773,
   "WB growth Australia": 54,
   "WB growth Brazil": 54,
   "WB growth Canada": 54,
@@ -36,14 +36,18 @@
   "WSPR 10m": 120
  },
  "streaks": {
-  "FRED INDPRO | q4 Inverse \u2212\u03b8 | flat": 10,
-  "FRED INDPRO | q4 Inverse \u2212\u03b8 | curve": 10,
-  "FRED PAYEMS | q4 Inverse \u2212\u03b8 | flat": 10,
-  "FRED PAYEMS | q4 Inverse \u2212\u03b8 | curve": 10,
-  "WSPR 80m | q4 Inverse \u2212\u03b8 | flat": 5,
-  "WSPR 80m | q4 Inverse \u2212\u03b8 | curve": 5,
-  "FRED VIXCLS | q4 Inverse \u2212\u03b8 | flat": 4,
-  "FRED UNRATE | q4 Inverse \u2212\u03b8 | flat": 1
+  "FRED INDPRO | q4 Inverse \u2212\u03b8 | flat": 11,
+  "FRED INDPRO | q4 Inverse \u2212\u03b8 | curve": 11,
+  "FRED PAYEMS | q4 Inverse \u2212\u03b8 | flat": 11,
+  "FRED PAYEMS | q4 Inverse \u2212\u03b8 | curve": 11,
+  "WSPR 80m | q4 Inverse \u2212\u03b8 | flat": 6,
+  "WSPR 80m | q4 Inverse \u2212\u03b8 | curve": 6,
+  "FRED VIXCLS | q4 Inverse \u2212\u03b8 | flat": 5,
+  "FRED UNRATE | q4 Inverse \u2212\u03b8 | flat": 2,
+  "FRED VIXCLS | q4 Inverse \u2212\u03b8 | curve": 1,
+  "WSPR 15m | q4 Inverse \u2212\u03b8 | flat": 1,
+  "WSPR 15m | q4 Inverse \u2212\u03b8 | curve": 1,
+  "FRED T10Y2Y | q4 Inverse \u2212\u03b8 | flat": 1
  },
  "arxiv_seen": [
   "2608.21521v1",

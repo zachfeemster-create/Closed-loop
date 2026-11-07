@@ -1,0 +1,5895 @@
+{
+ "kind": "nightly",
+ "ran_at": "2026-11-07T14:54:43+00:00",
+ "feeds_ok": [
+  "fred",
+  "worldbank",
+  "wspr",
+  "arxiv-juno",
+  "who-watch"
+ ],
+ "feeds_skipped": [
+  "fec (no FEC_API_KEY secret set)"
+ ],
+ "notes": [],
+ "headlines": [
+  "Survivor: FRED VIXCLS | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 5 night(s) running.",
+  "Survivor: FRED VIXCLS | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: WSPR 80m | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 6 night(s) running.",
+  "Survivor: WSPR 80m | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 6 night(s) running.",
+  "Survivor: FRED INDPRO | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 11 night(s) running.",
+  "Survivor: FRED INDPRO | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 11 night(s) running.",
+  "Survivor: FRED UNRATE | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 2 night(s) running.",
+  "Survivor: WSPR 15m | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: WSPR 15m | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: FRED T10Y2Y | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: FRED PAYEMS | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 11 night(s) running.",
+  "Survivor: FRED PAYEMS | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 11 night(s) running.",
+  "Luck pile: FRED VIXCLS | q3 Superposed |\u03b8| | flat: luck pile (broke on static).",
+  "Luck pile: FRED VIXCLS | q3 Superposed |\u03b8| | curve: luck pile (broke on static).",
+  "Luck pile: WB growth France | q3 Superposed |\u03b8| | flat: luck pile (broke on one bad shot, short day).",
+  "Luck pile: WB growth France | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot, short day).",
+  "Luck pile: WB growth France | q3 Superposed |\u03b8| | curve: luck pile (broke on power outage, static, one bad shot, short day).",
+  "Luck pile: WB growth France | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot, short day).",
+  "Luck pile: FRED INDPRO | q3 Superposed |\u03b8| | flat: luck pile (broke on static, one bad shot).",
+  "Luck pile: FRED INDPRO | q2 Quarter turn | curve: luck pile (broke on static, one bad shot, short day).",
+  "Luck pile: FRED INDPRO | q3 Superposed |\u03b8| | curve: luck pile (broke on power outage, static, one bad shot, short day).",
+  "Luck pile: FRED UNRATE | q3 Superposed |\u03b8| | flat: luck pile (broke on short day).",
+  "Luck pile: FRED UNRATE | q2 Quarter turn | curve: luck pile (broke on short day).",
+  "Luck pile: FRED UNRATE | q3 Superposed |\u03b8| | curve: luck pile (broke on short day).",
+  "Luck pile: FRED UNRATE | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage, short day).",
+  "Luck pile: WSPR 20m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on static, one bad shot).",
+  "Luck pile: WSPR 20m | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage, static, one bad shot).",
+  "Luck pile: WB growth Germany | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: WB growth Germany | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: FRED DCOILWTICO | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: FRED DCOILWTICO | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: WB growth Korea, Rep. | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on power outage, one bad shot, short day).",
+  "Luck pile: WB growth Korea, Rep. | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: WB growth United Kingdom | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot, short day).",
+  "Luck pile: WB growth United Kingdom | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot, short day).",
+  "Luck pile: WSPR 40m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: WSPR 40m | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: FRED T10Y2Y | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on static).",
+  "Luck pile: WB growth Indonesia | q3 Superposed |\u03b8| | flat: luck pile (broke on static, short day).",
+  "Luck pile: WB growth Indonesia | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: WB growth Indonesia | q3 Superposed |\u03b8| | curve: luck pile (broke on static, short day, eq nudge).",
+  "Luck pile: WB growth Indonesia | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: WSPR 17m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: WSPR 17m | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: FRED PAYEMS | q2 Quarter turn | flat: luck pile (broke on power outage, static, short day).",
+  "Luck pile: FRED PAYEMS | q3 Superposed |\u03b8| | flat: luck pile (broke on short day).",
+  "Luck pile: FRED PAYEMS | q2 Quarter turn | curve: luck pile (broke on short day).",
+  "Luck pile: FRED PAYEMS | q3 Superposed |\u03b8| | curve: luck pile (broke on short day).",
+  "Luck pile: WB growth Mexico | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot, short day).",
+  "Luck pile: WB growth Mexico | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage, static, one bad shot, short day).",
+  "Luck pile: WSPR 30m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: WSPR 30m | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: WB growth Canada | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot, short day).",
+  "Luck pile: WB growth Canada | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage, one bad shot, short day)."
+ ],
+ "fresh_rows": {
+  "FRED UNRATE": 0,
+  "FRED INDPRO": 0,
+  "FRED CPIAUCSL": 0,
+  "FRED PAYEMS": 0,
+  "FRED HOUST": 0,
+  "FRED DGS10": 0,
+  "FRED T10Y2Y": 0,
+  "FRED DCOILWTICO": -1,
+  "FRED VIXCLS": -1,
+  "WB growth Australia": 0,
+  "WB growth Brazil": 0,
+  "WB growth Canada": 0,
+  "WB growth China": 0,
+  "WB growth France": 0,
+  "WB growth Germany": 0,
+  "WB growth India": 0,
+  "WB growth Indonesia": 0,
+  "WB growth Japan": 0,
+  "WB growth Korea, Rep.": 0,
+  "WB growth Mexico": 0,
+  "WB growth South Africa": 0,
+  "WB growth Turkiye": 0,
+  "WB growth United Kingdom": 0,
+  "WB growth United States": 0,
+  "WSPR 160m": 0,
+  "WSPR 80m": 0,
+  "WSPR 60m": 0,
+  "WSPR 40m": 0,
+  "WSPR 30m": 0,
+  "WSPR 20m": 0,
+  "WSPR 17m": 0,
+  "WSPR 15m": 0,
+  "WSPR 12m": 0,
+  "WSPR 10m": 0
+ },
+ "survivors": [
+  {
+   "dataset": "D01",
+   "name": "FRED VIXCLS",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D01",
+   "name": "FRED VIXCLS",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D03",
+   "name": "WSPR 80m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D03",
+   "name": "WSPR 80m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D08",
+   "name": "FRED INDPRO",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 0.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D08",
+   "name": "FRED INDPRO",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 0.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D10",
+   "name": "FRED UNRATE",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D19",
+   "name": "WSPR 15m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 0.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D19",
+   "name": "WSPR 15m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 0.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D24",
+   "name": "FRED T10Y2Y",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D29",
+   "name": "FRED PAYEMS",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 0.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D29",
+   "name": "FRED PAYEMS",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 0.0,
+   "standing": "sturdy (Max couldn't break it)"
+  }
+ ],
+ "luck_pile": [
+  {
+   "dataset": "D01",
+   "name": "FRED VIXCLS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on static)"
+  },
+  {
+   "dataset": "D01",
+   "name": "FRED VIXCLS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on static)"
+  },
+  {
+   "dataset": "D02",
+   "name": "WB growth France",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D02",
+   "name": "WB growth France",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D02",
+   "name": "WB growth France",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on power outage, static, one bad shot, short day)"
+  },
+  {
+   "dataset": "D02",
+   "name": "WB growth France",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D08",
+   "name": "FRED INDPRO",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.2,
+   "why": "luck pile (broke on static, one bad shot)"
+  },
+  {
+   "dataset": "D08",
+   "name": "FRED INDPRO",
+   "lens": "q2 Quarter turn",
+   "eq": "curve",
+   "percentile": 0.2,
+   "why": "luck pile (broke on static, one bad shot, short day)"
+  },
+  {
+   "dataset": "D08",
+   "name": "FRED INDPRO",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.6,
+   "why": "luck pile (broke on power outage, static, one bad shot, short day)"
+  },
+  {
+   "dataset": "D10",
+   "name": "FRED UNRATE",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on short day)"
+  },
+  {
+   "dataset": "D10",
+   "name": "FRED UNRATE",
+   "lens": "q2 Quarter turn",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on short day)"
+  },
+  {
+   "dataset": "D10",
+   "name": "FRED UNRATE",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on short day)"
+  },
+  {
+   "dataset": "D10",
+   "name": "FRED UNRATE",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on power outage, short day)"
+  },
+  {
+   "dataset": "D12",
+   "name": "WSPR 20m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 99.6,
+   "why": "luck pile (broke on static, one bad shot)"
+  },
+  {
+   "dataset": "D12",
+   "name": "WSPR 20m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 99.6,
+   "why": "luck pile (broke on power outage, static, one bad shot)"
+  },
+  {
+   "dataset": "D15",
+   "name": "WB growth Germany",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D15",
+   "name": "WB growth Germany",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D17",
+   "name": "FRED DCOILWTICO",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D17",
+   "name": "FRED DCOILWTICO",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D18",
+   "name": "WB growth Korea, Rep.",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 99.8,
+   "why": "luck pile (broke on power outage, one bad shot, short day)"
+  },
+  {
+   "dataset": "D18",
+   "name": "WB growth Korea, Rep.",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D20",
+   "name": "WB growth United Kingdom",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D20",
+   "name": "WB growth United Kingdom",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D22",
+   "name": "WSPR 40m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D22",
+   "name": "WSPR 40m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D24",
+   "name": "FRED T10Y2Y",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on static)"
+  },
+  {
+   "dataset": "D26",
+   "name": "WB growth Indonesia",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on static, short day)"
+  },
+  {
+   "dataset": "D26",
+   "name": "WB growth Indonesia",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D26",
+   "name": "WB growth Indonesia",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on static, short day, eq nudge)"
+  },
+  {
+   "dataset": "D26",
+   "name": "WB growth Indonesia",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 0.2,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D28",
+   "name": "WSPR 17m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D28",
+   "name": "WSPR 17m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D29",
+   "name": "FRED PAYEMS",
+   "lens": "q2 Quarter turn",
+   "eq": "flat",
+   "percentile": 0.4,
+   "why": "luck pile (broke on power outage, static, short day)"
+  },
+  {
+   "dataset": "D29",
+   "name": "FRED PAYEMS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on short day)"
+  },
+  {
+   "dataset": "D29",
+   "name": "FRED PAYEMS",
+   "lens": "q2 Quarter turn",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on short day)"
+  },
+  {
+   "dataset": "D29",
+   "name": "FRED PAYEMS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on short day)"
+  },
+  {
+   "dataset": "D30",
+   "name": "WB growth Mexico",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 99.6,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D30",
+   "name": "WB growth Mexico",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 99.4,
+   "why": "luck pile (broke on power outage, static, one bad shot, short day)"
+  },
+  {
+   "dataset": "D33",
+   "name": "WSPR 30m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D33",
+   "name": "WSPR 30m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 99.8,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D34",
+   "name": "WB growth Canada",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D34",
+   "name": "WB growth Canada",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on power outage, one bad shot, short day)"
+  }
+ ],
+ "containment": {
+  "D01": {
+   "name": "FRED VIXCLS",
+   "passes": 4,
+   "passes_after_correction": 4
+  },
+  "D02": {
+   "name": "WB growth France",
+   "passes": 4,
+   "passes_after_correction": 4
+  },
+  "D03": {
+   "name": "WSPR 80m",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D04": {
+   "name": "WB growth Australia",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D05": {
+   "name": "WSPR 10m",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D06": {
+   "name": "WB growth South Africa",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D07": {
+   "name": "WSPR 160m",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D08": {
+   "name": "FRED INDPRO",
+   "passes": 5,
+   "passes_after_correction": 2
+  },
+  "D09": {
+   "name": "FRED DGS10",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D10": {
+   "name": "FRED UNRATE",
+   "passes": 5,
+   "passes_after_correction": 5
+  },
+  "D11": {
+   "name": "WSPR 60m",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D12": {
+   "name": "WSPR 20m",
+   "passes": 2,
+   "passes_after_correction": 0
+  },
+  "D13": {
+   "name": "WB growth Turkiye",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D14": {
+   "name": "FRED CPIAUCSL",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D15": {
+   "name": "WB growth Germany",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D16": {
+   "name": "WB growth China",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D17": {
+   "name": "FRED DCOILWTICO",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D18": {
+   "name": "WB growth Korea, Rep.",
+   "passes": 2,
+   "passes_after_correction": 1
+  },
+  "D19": {
+   "name": "WSPR 15m",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D20": {
+   "name": "WB growth United Kingdom",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D21": {
+   "name": "FRED HOUST",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D22": {
+   "name": "WSPR 40m",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D23": {
+   "name": "WB growth Brazil",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D24": {
+   "name": "FRED T10Y2Y",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D25": {
+   "name": "WB growth United States",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D26": {
+   "name": "WB growth Indonesia",
+   "passes": 4,
+   "passes_after_correction": 3
+  },
+  "D27": {
+   "name": "WSPR 12m",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D28": {
+   "name": "WSPR 17m",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D29": {
+   "name": "FRED PAYEMS",
+   "passes": 6,
+   "passes_after_correction": 5
+  },
+  "D30": {
+   "name": "WB growth Mexico",
+   "passes": 2,
+   "passes_after_correction": 0
+  },
+  "D31": {
+   "name": "WB growth Japan",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D32": {
+   "name": "WB growth India",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D33": {
+   "name": "WSPR 30m",
+   "passes": 2,
+   "passes_after_correction": 1
+  },
+  "D34": {
+   "name": "WB growth Canada",
+   "passes": 2,
+   "passes_after_correction": 2
+  }
+ },
+ "max_notes": [
+  {
+   "step": 204,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / flat: BROKE after one bad shot (percentile 3.5).",
+   "survived": false
+  },
+  {
+   "step": 204,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / flat: still passes after short day (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 207,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D26 / q3 Superposed |\u03b8| / curve: still passes after power outage (percentile 0.5).",
+   "survived": true
+  },
+  {
+   "step": 207,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D26 / q3 Superposed |\u03b8| / curve: BROKE after static (percentile 6.0).",
+   "survived": false
+  },
+  {
+   "step": 207,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D26 / q3 Superposed |\u03b8| / curve: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 207,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D26 / q3 Superposed |\u03b8| / curve: BROKE after short day (percentile 5.0).",
+   "survived": false
+  },
+  {
+   "step": 207,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D26 / q3 Superposed |\u03b8| / curve: BROKE after eq nudge (percentile 2.5).",
+   "survived": false
+  },
+  {
+   "step": 208,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / curve: still passes after power outage (percentile 0.5).",
+   "survived": true
+  },
+  {
+   "step": 208,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 208,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / curve: BROKE after one bad shot (percentile 3.5).",
+   "survived": false
+  },
+  {
+   "step": 208,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / curve: still passes after short day (percentile 0.5).",
+   "survived": true
+  },
+  {
+   "step": 208,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 215,
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D27 / q3 Superposed |\u03b8| / curve sat at the 0.8th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 218,
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D28 / q2 Quarter turn / flat sat at the 0.6th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 219,
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D28 / q3 Superposed |\u03b8| / flat sat at the 0.8th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 220,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D28 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 220,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D28 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 0.5).",
+   "survived": true
+  },
+  {
+   "step": 220,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D28 / q4 Inverse \u2212\u03b8 / flat: BROKE after one bad shot (percentile 6.0).",
+   "survived": false
+  },
+  {
+   "step": 220,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D28 / q4 Inverse \u2212\u03b8 / flat: still passes after short day (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 224,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D28 / q4 Inverse \u2212\u03b8 / curve: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 224,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D28 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 224,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D28 / q4 Inverse \u2212\u03b8 / curve: BROKE after one bad shot (percentile 5.5).",
+   "survived": false
+  },
+  {
+   "step": 224,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D28 / q4 Inverse \u2212\u03b8 / curve: still passes after short day (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 224,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D28 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 226,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D29 / q2 Quarter turn / flat: BROKE after power outage (percentile 18.0).",
+   "survived": false
+  },
+  {
+   "step": 226,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D29 / q2 Quarter turn / flat: BROKE after static (percentile 0.5).",
+   "survived": false
+  },
+  {
+   "step": 226,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D29 / q2 Quarter turn / flat: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 226,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D29 / q2 Quarter turn / flat: BROKE after short day (percentile 2.0).",
+   "survived": false
+  },
+  {
+   "step": 227,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D29 / q3 Superposed |\u03b8| / flat: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 227,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D29 / q3 Superposed |\u03b8| / flat: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 227,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D29 / q3 Superposed |\u03b8| / flat: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 227,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D29 / q3 Superposed |\u03b8| / flat: BROKE after short day (percentile 5.5).",
+   "survived": false
+  },
+  {
+   "step": 228,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 228,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 228,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 228,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: still passes after short day (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 230,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D29 / q2 Quarter turn / curve: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 230,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D29 / q2 Quarter turn / curve: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 230,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D29 / q2 Quarter turn / curve: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 230,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D29 / q2 Quarter turn / curve: BROKE after short day (percentile 6.0).",
+   "survived": false
+  },
+  {
+   "step": 230,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D29 / q2 Quarter turn / curve: still passes after eq nudge (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 231,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D29 / q3 Superposed |\u03b8| / curve: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 231,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D29 / q3 Superposed |\u03b8| / curve: still passes after static (percentile 0.5).",
+   "survived": true
+  },
+  {
+   "step": 231,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D29 / q3 Superposed |\u03b8| / curve: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 231,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D29 / q3 Superposed |\u03b8| / curve: BROKE after short day (percentile 5.0).",
+   "survived": false
+  },
+  {
+   "step": 231,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D29 / q3 Superposed |\u03b8| / curve: still passes after eq nudge (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 232,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / curve: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 232,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 232,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / curve: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 232,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / curve: still passes after short day (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 232,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 236,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D30 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 236,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D30 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 236,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D30 / q4 Inverse \u2212\u03b8 / flat: BROKE after one bad shot (percentile 87.0).",
+   "survived": false
+  },
+  {
+   "step": 236,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D30 / q4 Inverse \u2212\u03b8 / flat: BROKE after short day (percentile 83.5).",
+   "survived": false
+  },
+  {
+   "step": 240,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D30 / q4 Inverse \u2212\u03b8 / curve: BROKE after power outage (percentile 89.5).",
+   "survived": false
+  },
+  {
+   "step": 240,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D30 / q4 Inverse \u2212\u03b8 / curve: BROKE after static (percentile 99.0).",
+   "survived": false
+  },
+  {
+   "step": 240,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D30 / q4 Inverse \u2212\u03b8 / curve: BROKE after one bad shot (percentile 92.0).",
+   "survived": false
+  },
+  {
+   "step": 240,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D30 / q4 Inverse \u2212\u03b8 / curve: BROKE after short day (percentile 84.5).",
+   "survived": false
+  },
+  {
+   "step": 240,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D30 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 252,
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D32 / q4 Inverse \u2212\u03b8 / flat sat at the 98.8th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 256,
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D32 / q4 Inverse \u2212\u03b8 / curve sat at the 99.4th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 260,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 260,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 260,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / flat: BROKE after one bad shot (percentile 4.5).",
+   "survived": false
+  },
+  {
+   "step": 260,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / flat: still passes after short day (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 264,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / curve: still passes after power outage (percentile 99.5).",
+   "survived": true
+  },
+  {
+   "step": 264,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 264,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / curve: BROKE after one bad shot (percentile 2.5).",
+   "survived": false
+  },
+  {
+   "step": 264,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / curve: still passes after short day (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 264,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 99.5).",
+   "survived": true
+  },
+  {
+   "step": 268,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 268,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 268,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / flat: BROKE after one bad shot (percentile 51.0).",
+   "survived": false
+  },
+  {
+   "step": 268,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / flat: BROKE after short day (percentile 72.0).",
+   "survived": false
+  },
+  {
+   "step": 272,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / curve: BROKE after power outage (percentile 79.0).",
+   "survived": false
+  },
+  {
+   "step": 272,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 272,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / curve: BROKE after one bad shot (percentile 62.5).",
+   "survived": false
+  },
+  {
+   "step": 272,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / curve: BROKE after short day (percentile 72.0).",
+   "survived": false
+  },
+  {
+   "step": 272,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 100.0).",
+   "survived": true
+  }
+ ],
+ "settings": {
+  "n_fakes": 500,
+  "bar_pct": 99.0,
+  "seed": 20261107,
+  "eq_states": [
+   "flat",
+   "curve"
+  ],
+  "curve": {
+   "2000": -1.5,
+   "4000": 0.5,
+   "7000": 1.0,
+   "8000": 0.15,
+   "16000": 0.2
+  },
+  "lenses": [
+   "q1 Regular",
+   "q2 Quarter turn",
+   "q3 Superposed |\u03b8|",
+   "q4 Inverse \u2212\u03b8"
+  ],
+  "tests": 272,
+  "corrected_bar_pct": 99.875,
+  "eq_reference": "bands read as audio at 44.1 kHz"
+ },
+ "key": {
+  "D01": "FRED VIXCLS",
+  "D02": "WB growth France",
+  "D03": "WSPR 80m",
+  "D04": "WB growth Australia",
+  "D05": "WSPR 10m",
+  "D06": "WB growth South Africa",
+  "D07": "WSPR 160m",
+  "D08": "FRED INDPRO",
+  "D09": "FRED DGS10",
+  "D10": "FRED UNRATE",
+  "D11": "WSPR 60m",
+  "D12": "WSPR 20m",
+  "D13": "WB growth Turkiye",
+  "D14": "FRED CPIAUCSL",
+  "D15": "WB growth Germany",
+  "D16": "WB growth China",
+  "D17": "FRED DCOILWTICO",
+  "D18": "WB growth Korea, Rep.",
+  "D19": "WSPR 15m",
+  "D20": "WB growth United Kingdom",
+  "D21": "FRED HOUST",
+  "D22": "WSPR 40m",
+  "D23": "WB growth Brazil",
+  "D24": "FRED T10Y2Y",
+  "D25": "WB growth United States",
+  "D26": "WB growth Indonesia",
+  "D27": "WSPR 12m",
+  "D28": "WSPR 17m",
+  "D29": "FRED PAYEMS",
+  "D30": "WB growth Mexico",
+  "D31": "WB growth Japan",
+  "D32": "WB growth India",
+  "D33": "WSPR 30m",
+  "D34": "WB growth Canada"
+ },
+ "log": [
+  {
+   "step": 1,
+   "dataset": "D01",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.02506,
+   "bar": 0.061766471709977726,
+   "percentile": 31.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 2,
+   "dataset": "D01",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.62257,
+   "bar": [
+    0.6030869001297017,
+    0.6867769130998703
+   ],
+   "percentile": 5.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 3,
+   "dataset": "D01",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.68212,
+   "bar": [
+    0.7267801084022869,
+    1.012348956549804
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": false,
+     "one bad shot": true,
+     "short day": true
+    },
+    "broke": [
+     "static"
+    ],
+    "standing": "luck pile (broke on static)"
+   }
+  },
+  {
+   "step": 4,
+   "dataset": "D01",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.28764,
+   "bar": [
+    -0.42113364116068536,
+    0.4186067385731333
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 5,
+   "dataset": "D01",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.02573,
+   "bar": 0.06294508766528438,
+   "percentile": 33.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 6,
+   "dataset": "D01",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.63554,
+   "bar": [
+    0.6095979247730221,
+    0.7133592736705577
+   ],
+   "percentile": 8.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 7,
+   "dataset": "D01",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.70658,
+   "bar": [
+    0.7673322756284536,
+    1.0598898286172034
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": false,
+     "one bad shot": true,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [
+     "static"
+    ],
+    "standing": "luck pile (broke on static)"
+   }
+  },
+  {
+   "step": 8,
+   "dataset": "D01",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.19831,
+   "bar": [
+    -0.45594340713339926,
+    0.42567890091394883
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 9,
+   "dataset": "D02",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03903,
+   "bar": 0.07603150900652617,
+   "percentile": 50.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 10,
+   "dataset": "D02",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.76923,
+   "bar": [
+    0.6923076923076923,
+    0.9230769230769231
+   ],
+   "percentile": 14.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 11,
+   "dataset": "D02",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.4593,
+   "bar": [
+    1.5102946520128138,
+    2.212398011399558
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": false
+    },
+    "broke": [
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on one bad shot, short day)"
+   }
+  },
+  {
+   "step": 12,
+   "dataset": "D02",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 3.13573,
+   "bar": [
+    -1.5660891591165793,
+    1.3146608116199803
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": false
+    },
+    "broke": [
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on one bad shot, short day)"
+   }
+  },
+  {
+   "step": 13,
+   "dataset": "D02",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.04197,
+   "bar": 0.07195980839542335,
+   "percentile": 64.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 14,
+   "dataset": "D02",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.78846,
+   "bar": [
+    0.6825961538461539,
+    0.9230769230769231
+   ],
+   "percentile": 23.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 15,
+   "dataset": "D02",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.39556,
+   "bar": [
+    1.4600640091307795,
+    2.220892920278649
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": false,
+     "static": false,
+     "one bad shot": false,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "power outage",
+     "static",
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on power outage, static, one bad shot, short day)"
+   }
+  },
+  {
+   "step": 16,
+   "dataset": "D02",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 3.22002,
+   "bar": [
+    -1.3421722831541485,
+    1.596982436151039
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on one bad shot, short day)"
+   }
+  },
+  {
+   "step": 17,
+   "dataset": "D03",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.04333,
+   "bar": 0.0718238276153709,
+   "percentile": 60.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 18,
+   "dataset": "D03",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.77966,
+   "bar": [
+    0.6694915254237288,
+    0.8389830508474576
+   ],
+   "percentile": 73.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 19,
+   "dataset": "D03",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.02956,
+   "bar": [
+    0.8301020432861372,
+    1.3100663402779151
+   ],
+   "percentile": 31.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 20,
+   "dataset": "D03",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 3.88521,
+   "bar": [
+    -1.0624720693535976,
+    1.0661932831534466
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 21,
+   "dataset": "D03",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.03183,
+   "bar": 0.06938303450623995,
+   "percentile": 46.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 22,
+   "dataset": "D03",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.77119,
+   "bar": [
+    0.6949152542372882,
+    0.8559322033898306
+   ],
+   "percentile": 37.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 23,
+   "dataset": "D03",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.04995,
+   "bar": [
+    0.8969213081444618,
+    1.3450881245437964
+   ],
+   "percentile": 24.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 24,
+   "dataset": "D03",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 3.81788,
+   "bar": [
+    -1.0747058062108772,
+    1.0533503812066318
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 25,
+   "dataset": "D04",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03584,
+   "bar": 0.0663498578224569,
+   "percentile": 57.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 26,
+   "dataset": "D04",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.71154,
+   "bar": [
+    0.6441346153846154,
+    0.9038461538461539
+   ],
+   "percentile": 8.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 27,
+   "dataset": "D04",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.52448,
+   "bar": [
+    1.3282301073750493,
+    2.1535751356529147
+   ],
+   "percentile": 12.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 28,
+   "dataset": "D04",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.3657,
+   "bar": [
+    -1.5801950564905762,
+    1.4932881159330078
+   ],
+   "percentile": 99.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 29,
+   "dataset": "D04",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.0413,
+   "bar": 0.06981521784638278,
+   "percentile": 69.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 30,
+   "dataset": "D04",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.75,
+   "bar": [
+    0.6730769230769231,
+    0.9038461538461539
+   ],
+   "percentile": 15.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 31,
+   "dataset": "D04",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.52433,
+   "bar": [
+    1.3499032537984343,
+    2.0248027579843937
+   ],
+   "percentile": 14.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 32,
+   "dataset": "D04",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.41561,
+   "bar": [
+    -1.6664569039832857,
+    1.5097830401441377
+   ],
+   "percentile": 99.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 33,
+   "dataset": "D05",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.00757,
+   "bar": 0.09497555087862862,
+   "percentile": 0.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 34,
+   "dataset": "D05",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.68644,
+   "bar": [
+    0.5889406779661017,
+    0.7839406779661017
+   ],
+   "percentile": 47.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 35,
+   "dataset": "D05",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.80731,
+   "bar": [
+    0.7693042397474535,
+    1.4086669891677104
+   ],
+   "percentile": 1.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 36,
+   "dataset": "D05",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.72531,
+   "bar": [
+    -1.1906081103744892,
+    0.9617411117336487
+   ],
+   "percentile": 3.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 37,
+   "dataset": "D05",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.00568,
+   "bar": 0.08589823783524728,
+   "percentile": 0.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 38,
+   "dataset": "D05",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.69492,
+   "bar": [
+    0.5846610169491525,
+    0.8008898305084745
+   ],
+   "percentile": 41.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 39,
+   "dataset": "D05",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.83835,
+   "bar": [
+    0.8158563720250951,
+    1.4530218191033644
+   ],
+   "percentile": 1.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 40,
+   "dataset": "D05",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.70522,
+   "bar": [
+    -1.048907545986472,
+    1.144543294030024
+   ],
+   "percentile": 7.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 41,
+   "dataset": "D06",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.02213,
+   "bar": 0.07644829013454883,
+   "percentile": 3.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 42,
+   "dataset": "D06",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.78846,
+   "bar": [
+    0.6538461538461539,
+    0.894326923076923
+   ],
+   "percentile": 57.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 43,
+   "dataset": "D06",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.24029,
+   "bar": [
+    1.1353008736537697,
+    1.9053306801344
+   ],
+   "percentile": 3.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 44,
+   "dataset": "D06",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.499,
+   "bar": [
+    -1.7727793550232411,
+    1.6780967442654002
+   ],
+   "percentile": 98.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 45,
+   "dataset": "D06",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.0278,
+   "bar": 0.07385038118950484,
+   "percentile": 10.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 46,
+   "dataset": "D06",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.82692,
+   "bar": [
+    0.6730769230769231,
+    0.9135576923076922
+   ],
+   "percentile": 72.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 47,
+   "dataset": "D06",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.25242,
+   "bar": [
+    1.2046552638136003,
+    1.91980627352236
+   ],
+   "percentile": 3.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 48,
+   "dataset": "D06",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.49956,
+   "bar": [
+    -1.540315620858995,
+    1.7643255178852322
+   ],
+   "percentile": 99.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 49,
+   "dataset": "D07",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03099,
+   "bar": 0.07852418142979425,
+   "percentile": 25.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 50,
+   "dataset": "D07",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.78814,
+   "bar": [
+    0.6694915254237288,
+    0.8432627118644067
+   ],
+   "percentile": 80.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 51,
+   "dataset": "D07",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.24034,
+   "bar": [
+    0.838908931026955,
+    1.3416760888153783
+   ],
+   "percentile": 94.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 52,
+   "dataset": "D07",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.16337,
+   "bar": [
+    -1.0542149876917524,
+    1.2275972579283776
+   ],
+   "percentile": 34.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 53,
+   "dataset": "D07",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.02291,
+   "bar": 0.07886670008886469,
+   "percentile": 13.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 54,
+   "dataset": "D07",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.78814,
+   "bar": [
+    0.6736864406779661,
+    0.8771610169491525
+   ],
+   "percentile": 60.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 55,
+   "dataset": "D07",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.30263,
+   "bar": [
+    0.8750227940976734,
+    1.3826359579600027
+   ],
+   "percentile": 96.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 56,
+   "dataset": "D07",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.12729,
+   "bar": [
+    -0.9598388273340056,
+    0.9608667015087116
+   ],
+   "percentile": 37.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 57,
+   "dataset": "D08",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.02486,
+   "bar": 0.09507707423926742,
+   "percentile": 35.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 58,
+   "dataset": "D08",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.53986,
+   "bar": [
+    0.5352847380410023,
+    0.693633257403189
+   ],
+   "percentile": 0.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 59,
+   "dataset": "D08",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.24441,
+   "bar": [
+    0.2546917952850559,
+    0.6938854877682973
+   ],
+   "percentile": 0.2,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": false,
+     "one bad shot": false,
+     "short day": true
+    },
+    "broke": [
+     "static",
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on static, one bad shot)"
+   }
+  },
+  {
+   "step": 60,
+   "dataset": "D08",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -12.15301,
+   "bar": [
+    -0.5921785240174584,
+    0.6006856587700554
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 61,
+   "dataset": "D08",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.0251,
+   "bar": 0.1025299590649202,
+   "percentile": 30.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 62,
+   "dataset": "D08",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.53986,
+   "bar": [
+    0.5512300683371298,
+    0.7107289293849658
+   ],
+   "percentile": 0.2,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": false,
+     "one bad shot": false,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "static",
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on static, one bad shot, short day)"
+   }
+  },
+  {
+   "step": 63,
+   "dataset": "D08",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.25974,
+   "bar": [
+    0.2607871968193107,
+    0.7384931412319273
+   ],
+   "percentile": 0.6,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": false,
+     "static": false,
+     "one bad shot": false,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "power outage",
+     "static",
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on power outage, static, one bad shot, short day)"
+   }
+  },
+  {
+   "step": 64,
+   "dataset": "D08",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -12.11054,
+   "bar": [
+    -0.6417309725243253,
+    0.7040470151764505
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 65,
+   "dataset": "D09",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03569,
+   "bar": 0.09704848450956352,
+   "percentile": 36.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 66,
+   "dataset": "D09",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.61662,
+   "bar": [
+    0.5502613941018767,
+    0.6528150134048257
+   ],
+   "percentile": 77.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 67,
+   "dataset": "D09",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.52837,
+   "bar": [
+    0.37307864200630814,
+    0.7124895460510565
+   ],
+   "percentile": 39.8,
+   "passed": false,
+   "fake_arm_passed": true,
+   "sided": "both"
+  },
+  {
+   "step": 68,
+   "dataset": "D09",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 0.06783,
+   "bar": [
+    -0.48805085218061195,
+    0.45660146919530226
+   ],
+   "percentile": 65.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 69,
+   "dataset": "D09",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.03605,
+   "bar": 0.09358995318919597,
+   "percentile": 35.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 70,
+   "dataset": "D09",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.62064,
+   "bar": [
+    0.5563002680965148,
+    0.6595174262734584
+   ],
+   "percentile": 72.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 71,
+   "dataset": "D09",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.55452,
+   "bar": [
+    0.38940891888334966,
+    0.7774496326895612
+   ],
+   "percentile": 38.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 72,
+   "dataset": "D09",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 0.06744,
+   "bar": [
+    -0.483590193891387,
+    0.42560911431217846
+   ],
+   "percentile": 64.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 73,
+   "dataset": "D10",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03925,
+   "bar": 0.08857137552742281,
+   "percentile": 46.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 74,
+   "dataset": "D10",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.60137,
+   "bar": [
+    0.574009111617312,
+    0.6879271070615034
+   ],
+   "percentile": 5.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 75,
+   "dataset": "D10",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.27977,
+   "bar": [
+    0.5163709647666144,
+    0.9392808348389724
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": false
+    },
+    "broke": [
+     "short day"
+    ],
+    "standing": "luck pile (broke on short day)"
+   }
+  },
+  {
+   "step": 76,
+   "dataset": "D10",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 30.69642,
+   "bar": [
+    -0.6186907263716634,
+    0.5491407233724781
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 77,
+   "dataset": "D10",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.03945,
+   "bar": 0.09113175782564135,
+   "percentile": 43.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 78,
+   "dataset": "D10",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.5672,
+   "bar": [
+    0.5785421412300683,
+    0.7095785876993166
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "short day"
+    ],
+    "standing": "luck pile (broke on short day)"
+   }
+  },
+  {
+   "step": 79,
+   "dataset": "D10",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.29443,
+   "bar": [
+    0.5658327017414002,
+    0.9227625661298842
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "short day"
+    ],
+    "standing": "luck pile (broke on short day)"
+   }
+  },
+  {
+   "step": 80,
+   "dataset": "D10",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 30.33545,
+   "bar": [
+    -0.6994585397551666,
+    0.6313361277796739
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": false,
+     "static": true,
+     "one bad shot": true,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "power outage",
+     "short day"
+    ],
+    "standing": "luck pile (broke on power outage, short day)"
+   }
+  },
+  {
+   "step": 81,
+   "dataset": "D11",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03499,
+   "bar": 0.074979334552249,
+   "percentile": 66.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 82,
+   "dataset": "D11",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.71186,
+   "bar": [
+    0.635593220338983,
+    0.8347881355932203
+   ],
+   "percentile": 20.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 83,
+   "dataset": "D11",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.07167,
+   "bar": [
+    1.006914043366954,
+    1.598959182918475
+   ],
+   "percentile": 1.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 84,
+   "dataset": "D11",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 0.04176,
+   "bar": [
+    -1.0960101115913135,
+    1.2608012998298668
+   ],
+   "percentile": 53.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 85,
+   "dataset": "D11",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.0262,
+   "bar": 0.06581643180168516,
+   "percentile": 55.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 86,
+   "dataset": "D11",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.75424,
+   "bar": [
+    0.652542372881356,
+    0.847457627118644
+   ],
+   "percentile": 40.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 87,
+   "dataset": "D11",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.12206,
+   "bar": [
+    1.0747004005604603,
+    1.5772757959812371
+   ],
+   "percentile": 1.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 88,
+   "dataset": "D11",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 0.00769,
+   "bar": [
+    -1.112210606295412,
+    1.012035747537441
+   ],
+   "percentile": 52.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 89,
+   "dataset": "D12",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.02351,
+   "bar": 0.07884043433889051,
+   "percentile": 19.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 90,
+   "dataset": "D12",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.71186,
+   "bar": [
+    0.6482627118644068,
+    0.8602118644067797
+   ],
+   "percentile": 14.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 91,
+   "dataset": "D12",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.06595,
+   "bar": [
+    0.9018726156426403,
+    1.3989961606010903
+   ],
+   "percentile": 30.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 92,
+   "dataset": "D12",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.23529,
+   "bar": [
+    -1.1809806692757692,
+    1.0741645750014843
+   ],
+   "percentile": 99.6,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": false,
+     "one bad shot": false,
+     "short day": true
+    },
+    "broke": [
+     "static",
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on static, one bad shot)"
+   }
+  },
+  {
+   "step": 93,
+   "dataset": "D12",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.01892,
+   "bar": 0.06743623219630224,
+   "percentile": 8.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 94,
+   "dataset": "D12",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.72881,
+   "bar": [
+    0.6652118644067797,
+    0.8813559322033898
+   ],
+   "percentile": 9.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 95,
+   "dataset": "D12",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.13422,
+   "bar": [
+    0.8952948409409228,
+    1.3775549926953534
+   ],
+   "percentile": 37.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 96,
+   "dataset": "D12",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.11508,
+   "bar": [
+    -0.9567144942195817,
+    1.0144583121676365
+   ],
+   "percentile": 99.6,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": false,
+     "static": false,
+     "one bad shot": false,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [
+     "power outage",
+     "static",
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on power outage, static, one bad shot)"
+   }
+  },
+  {
+   "step": 97,
+   "dataset": "D13",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.02738,
+   "bar": 0.07351177378845297,
+   "percentile": 4.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 98,
+   "dataset": "D13",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.78846,
+   "bar": [
+    0.6633653846153846,
+    0.894326923076923
+   ],
+   "percentile": 40.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 99,
+   "dataset": "D13",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.7597,
+   "bar": [
+    1.3570183031457754,
+    2.111164360998715
+   ],
+   "percentile": 46.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 100,
+   "dataset": "D13",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 0.65826,
+   "bar": [
+    -1.386096342771912,
+    1.454531973875858
+   ],
+   "percentile": 87.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 101,
+   "dataset": "D13",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.02657,
+   "bar": 0.08635042120352861,
+   "percentile": 2.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 102,
+   "dataset": "D13",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.80769,
+   "bar": [
+    0.6825961538461539,
+    0.894326923076923
+   ],
+   "percentile": 54.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 103,
+   "dataset": "D13",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.70689,
+   "bar": [
+    1.3915132572655091,
+    2.1023987311190413
+   ],
+   "percentile": 40.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 104,
+   "dataset": "D13",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 0.70373,
+   "bar": [
+    -1.4818120335456388,
+    1.3736679269170398
+   ],
+   "percentile": 88.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 105,
+   "dataset": "D14",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.02459,
+   "bar": 0.05369409566248331,
+   "percentile": 96.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 106,
+   "dataset": "D14",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.57534,
+   "bar": [
+    0.5079794520547946,
+    0.6358561643835616
+   ],
+   "percentile": 80.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 107,
+   "dataset": "D14",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.13653,
+   "bar": [
+    0.015676511181982766,
+    0.3667522054675064
+   ],
+   "percentile": 91.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 108,
+   "dataset": "D14",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.12321,
+   "bar": [
+    -2.0000495040707977,
+    1.991612617790686
+   ],
+   "percentile": 47.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 109,
+   "dataset": "D14",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.02484,
+   "bar": 0.044201269822210315,
+   "percentile": 97.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 110,
+   "dataset": "D14",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.55708,
+   "bar": [
+    0.5079794520547946,
+    0.6347260273972603
+   ],
+   "percentile": 63.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 111,
+   "dataset": "D14",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.14865,
+   "bar": [
+    0.016093469378902353,
+    0.337629273256411
+   ],
+   "percentile": 93.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 112,
+   "dataset": "D14",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.13238,
+   "bar": [
+    -2.457326926679277,
+    2.5105106638173327
+   ],
+   "percentile": 47.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 113,
+   "dataset": "D15",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.04587,
+   "bar": 0.0833059659618802,
+   "percentile": 53.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 114,
+   "dataset": "D15",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.84615,
+   "bar": [
+    0.7402884615384615,
+    0.97125
+   ],
+   "percentile": 27.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 115,
+   "dataset": "D15",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.45829,
+   "bar": [
+    1.37248915813514,
+    2.027993516682768
+   ],
+   "percentile": 3.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 116,
+   "dataset": "D15",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.92465,
+   "bar": [
+    -1.3047144065898642,
+    1.551781105288471
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 117,
+   "dataset": "D15",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.05047,
+   "bar": 0.09141654502462125,
+   "percentile": 58.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 118,
+   "dataset": "D15",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.86538,
+   "bar": [
+    0.7692307692307693,
+    0.9615384615384616
+   ],
+   "percentile": 35.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 119,
+   "dataset": "D15",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.40143,
+   "bar": [
+    1.389442788249104,
+    2.0090895171864065
+   ],
+   "percentile": 1.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 120,
+   "dataset": "D15",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.94129,
+   "bar": [
+    -1.401452177055323,
+    1.5207511089504957
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 121,
+   "dataset": "D16",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.04576,
+   "bar": 0.08204412536103974,
+   "percentile": 75.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 122,
+   "dataset": "D16",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.69231,
+   "bar": [
+    0.5961538461538461,
+    0.8558653846153845
+   ],
+   "percentile": 13.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 123,
+   "dataset": "D16",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.11244,
+   "bar": [
+    1.087674992974382,
+    1.8765016195653712
+   ],
+   "percentile": 1.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 124,
+   "dataset": "D16",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.03012,
+   "bar": [
+    -1.7435230625391156,
+    1.240161641962436
+   ],
+   "percentile": 48.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 125,
+   "dataset": "D16",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.04397,
+   "bar": 0.07391673084721445,
+   "percentile": 64.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 126,
+   "dataset": "D16",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.69231,
+   "bar": [
+    0.6346153846153846,
+    0.9038461538461539
+   ],
+   "percentile": 8.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 127,
+   "dataset": "D16",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.09728,
+   "bar": [
+    1.0900732628815981,
+    1.9073287305819893
+   ],
+   "percentile": 0.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 128,
+   "dataset": "D16",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.02469,
+   "bar": [
+    -1.590652314334331,
+    1.6034361687704402
+   ],
+   "percentile": 51.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 129,
+   "dataset": "D17",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.01877,
+   "bar": 0.10170863816976156,
+   "percentile": 12.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 130,
+   "dataset": "D17",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.55526,
+   "bar": [
+    0.5383760107816712,
+    0.65366576819407
+   ],
+   "percentile": 3.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 131,
+   "dataset": "D17",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.35253,
+   "bar": [
+    0.3426476142897234,
+    0.7779351220905893
+   ],
+   "percentile": 0.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 132,
+   "dataset": "D17",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -1.28454,
+   "bar": [
+    -0.41503006147513205,
+    0.46481934902684574
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 133,
+   "dataset": "D17",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.01885,
+   "bar": 0.09619516287241531,
+   "percentile": 17.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 134,
+   "dataset": "D17",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.55256,
+   "bar": [
+    0.543099730458221,
+    0.6644204851752021
+   ],
+   "percentile": 1.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 135,
+   "dataset": "D17",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.38007,
+   "bar": [
+    0.3423177018849707,
+    0.8277065204083437
+   ],
+   "percentile": 1.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 136,
+   "dataset": "D17",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -1.3123,
+   "bar": [
+    -0.47149296912882754,
+    0.4009254251590363
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 137,
+   "dataset": "D18",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.02175,
+   "bar": 0.06904014442110334,
+   "percentile": 0.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 138,
+   "dataset": "D18",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.86538,
+   "bar": [
+    0.6825961538461539,
+    0.9230769230769231
+   ],
+   "percentile": 84.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 139,
+   "dataset": "D18",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.61263,
+   "bar": [
+    1.3873349628775782,
+    2.091404196785067
+   ],
+   "percentile": 26.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 140,
+   "dataset": "D18",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.6988,
+   "bar": [
+    -1.4434883377109338,
+    1.539170170667611
+   ],
+   "percentile": 99.8,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": false,
+     "static": true,
+     "one bad shot": false,
+     "short day": false
+    },
+    "broke": [
+     "power outage",
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on power outage, one bad shot, short day)"
+   }
+  },
+  {
+   "step": 141,
+   "dataset": "D18",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.02499,
+   "bar": 0.06884545610365057,
+   "percentile": 2.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 142,
+   "dataset": "D18",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.86538,
+   "bar": [
+    0.6923076923076923,
+    0.9423076923076923
+   ],
+   "percentile": 77.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 143,
+   "dataset": "D18",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.6006,
+   "bar": [
+    1.3542695887614817,
+    2.0586677520769157
+   ],
+   "percentile": 22.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 144,
+   "dataset": "D18",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.72479,
+   "bar": [
+    -1.5286581934465846,
+    1.5911397673945944
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 145,
+   "dataset": "D19",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.01378,
+   "bar": 0.08047001961261349,
+   "percentile": 2.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 146,
+   "dataset": "D19",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.66949,
+   "bar": [
+    0.6397881355932203,
+    0.8263135593220339
+   ],
+   "percentile": 5.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 147,
+   "dataset": "D19",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.94578,
+   "bar": [
+    0.8251305524583351,
+    1.415463158377886
+   ],
+   "percentile": 8.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 148,
+   "dataset": "D19",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -1.70116,
+   "bar": [
+    -1.1699017186280871,
+    1.2106262993298547
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 149,
+   "dataset": "D19",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.0121,
+   "bar": 0.07441263809516978,
+   "percentile": 2.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 150,
+   "dataset": "D19",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.73729,
+   "bar": [
+    0.652542372881356,
+    0.847457627118644
+   ],
+   "percentile": 33.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 151,
+   "dataset": "D19",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.99438,
+   "bar": [
+    0.8989831083862795,
+    1.4143873898786714
+   ],
+   "percentile": 8.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 152,
+   "dataset": "D19",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -1.71441,
+   "bar": [
+    -0.9710547976240068,
+    1.1314969362137561
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 153,
+   "dataset": "D20",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03977,
+   "bar": 0.06031367182556161,
+   "percentile": 63.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 154,
+   "dataset": "D20",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.76923,
+   "bar": [
+    0.6730769230769231,
+    0.9327884615384615
+   ],
+   "percentile": 12.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 155,
+   "dataset": "D20",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.43051,
+   "bar": [
+    1.3802492363209797,
+    2.1138055437463925
+   ],
+   "percentile": 1.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 156,
+   "dataset": "D20",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 2.81455,
+   "bar": [
+    -1.6448925379627184,
+    1.646129202549948
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": false
+    },
+    "broke": [
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on one bad shot, short day)"
+   }
+  },
+  {
+   "step": 157,
+   "dataset": "D20",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.04438,
+   "bar": 0.06938451942169557,
+   "percentile": 70.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 158,
+   "dataset": "D20",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.76923,
+   "bar": [
+    0.6825961538461539,
+    0.9615384615384616
+   ],
+   "percentile": 9.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 159,
+   "dataset": "D20",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.37215,
+   "bar": [
+    1.30943320343664,
+    2.075160168055288
+   ],
+   "percentile": 1.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 160,
+   "dataset": "D20",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 2.88793,
+   "bar": [
+    -1.5806840953528747,
+    1.4919447287803242
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on one bad shot, short day)"
+   }
+  },
+  {
+   "step": 161,
+   "dataset": "D21",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.05063,
+   "bar": 0.0991870156493581,
+   "percentile": 72.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 162,
+   "dataset": "D21",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.58314,
+   "bar": [
+    0.5409908883826879,
+    0.662870159453303
+   ],
+   "percentile": 27.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 163,
+   "dataset": "D21",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.67875,
+   "bar": [
+    0.5421465123680095,
+    1.2086207609783877
+   ],
+   "percentile": 9.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 164,
+   "dataset": "D21",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.28626,
+   "bar": [
+    -0.5472766797331785,
+    0.4841870786058067
+   ],
+   "percentile": 11.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 165,
+   "dataset": "D21",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.05065,
+   "bar": 0.10211230939839411,
+   "percentile": 78.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 166,
+   "dataset": "D21",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.58542,
+   "bar": [
+    0.5375626423690205,
+    0.6754555808656035
+   ],
+   "percentile": 25.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 167,
+   "dataset": "D21",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.70535,
+   "bar": [
+    0.45339896177581585,
+    1.2343658577682954
+   ],
+   "percentile": 11.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 168,
+   "dataset": "D21",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.2918,
+   "bar": [
+    -0.6361659458110888,
+    0.639618107354723
+   ],
+   "percentile": 10.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 169,
+   "dataset": "D22",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03113,
+   "bar": 0.06330632277092792,
+   "percentile": 44.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 170,
+   "dataset": "D22",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.73729,
+   "bar": [
+    0.6779661016949152,
+    0.8686864406779661
+   ],
+   "percentile": 11.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 171,
+   "dataset": "D22",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.16047,
+   "bar": [
+    0.9668105688153229,
+    1.47776277845148
+   ],
+   "percentile": 41.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 172,
+   "dataset": "D22",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 2.80336,
+   "bar": [
+    -1.1187534003399424,
+    1.0246868741883008
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 173,
+   "dataset": "D22",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.02797,
+   "bar": 0.05558255359460157,
+   "percentile": 38.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 174,
+   "dataset": "D22",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.74576,
+   "bar": [
+    0.7075847457627119,
+    0.8771610169491525
+   ],
+   "percentile": 6.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 175,
+   "dataset": "D22",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.14119,
+   "bar": [
+    0.9987549995176592,
+    1.467399204655904
+   ],
+   "percentile": 20.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 176,
+   "dataset": "D22",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 2.5788,
+   "bar": [
+    -1.0678871983749716,
+    1.1209860252396682
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 177,
+   "dataset": "D23",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03518,
+   "bar": 0.07128553597769348,
+   "percentile": 40.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 178,
+   "dataset": "D23",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.75,
+   "bar": [
+    0.6249038461538462,
+    0.8750961538461538
+   ],
+   "percentile": 46.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 179,
+   "dataset": "D23",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.60172,
+   "bar": [
+    1.2461191200686712,
+    2.0108502435685955
+   ],
+   "percentile": 43.2,
+   "passed": false,
+   "fake_arm_passed": true,
+   "sided": "both"
+  },
+  {
+   "step": 180,
+   "dataset": "D23",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.49445,
+   "bar": [
+    -1.553439661544418,
+    1.492235414522514
+   ],
+   "percentile": 18.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 181,
+   "dataset": "D23",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.0409,
+   "bar": 0.07114933791962112,
+   "percentile": 62.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 182,
+   "dataset": "D23",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.73077,
+   "bar": [
+    0.6346153846153846,
+    0.8653846153846154
+   ],
+   "percentile": 16.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 183,
+   "dataset": "D23",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.60661,
+   "bar": [
+    1.256974809263618,
+    2.013554436791206
+   ],
+   "percentile": 46.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 184,
+   "dataset": "D23",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.51093,
+   "bar": [
+    -1.6358774165216918,
+    1.5179887682316697
+   ],
+   "percentile": 19.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 185,
+   "dataset": "D24",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.0061,
+   "bar": 0.09417613766270251,
+   "percentile": 0.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 186,
+   "dataset": "D24",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.56359,
+   "bar": [
+    0.5234270414993306,
+    0.63119812583668
+   ],
+   "percentile": 23.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 187,
+   "dataset": "D24",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.33938,
+   "bar": [
+    0.2705054227444749,
+    0.7581985850586461
+   ],
+   "percentile": 2.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 188,
+   "dataset": "D24",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 0.87424,
+   "bar": [
+    -0.3739199065435467,
+    0.4621826370873216
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 189,
+   "dataset": "D24",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.00612,
+   "bar": 0.11236746303530314,
+   "percentile": 0.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 190,
+   "dataset": "D24",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.54618,
+   "bar": [
+    0.5347991967871486,
+    0.6432597054886211
+   ],
+   "percentile": 3.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 191,
+   "dataset": "D24",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.35746,
+   "bar": [
+    0.28807960259872617,
+    0.7845916261605886
+   ],
+   "percentile": 3.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 192,
+   "dataset": "D24",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 0.86321,
+   "bar": [
+    -0.4745038003585363,
+    0.4442248901570719
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": false,
+     "one bad shot": true,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [
+     "static"
+    ],
+    "standing": "luck pile (broke on static)"
+   }
+  },
+  {
+   "step": 193,
+   "dataset": "D25",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03712,
+   "bar": 0.07766741302538091,
+   "percentile": 41.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 194,
+   "dataset": "D25",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.78846,
+   "bar": [
+    0.6730769230769231,
+    0.9135576923076922
+   ],
+   "percentile": 31.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 195,
+   "dataset": "D25",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.49954,
+   "bar": [
+    1.2355673794893434,
+    2.0378072420426303
+   ],
+   "percentile": 16.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 196,
+   "dataset": "D25",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.40638,
+   "bar": [
+    -1.3378844271399954,
+    1.5519964526794725
+   ],
+   "percentile": 99.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 197,
+   "dataset": "D25",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.03967,
+   "bar": 0.08429856131087027,
+   "percentile": 41.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 198,
+   "dataset": "D25",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.76923,
+   "bar": [
+    0.7115384615384616,
+    0.9135576923076922
+   ],
+   "percentile": 11.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 199,
+   "dataset": "D25",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.52437,
+   "bar": [
+    1.202468551622403,
+    2.0586609074681883
+   ],
+   "percentile": 27.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 200,
+   "dataset": "D25",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.42228,
+   "bar": [
+    -1.5428918970380159,
+    1.6708529702638395
+   ],
+   "percentile": 98.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 201,
+   "dataset": "D26",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.02539,
+   "bar": 0.06907390274107433,
+   "percentile": 3.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 202,
+   "dataset": "D26",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.73077,
+   "bar": [
+    0.6825961538461539,
+    0.9230769230769231
+   ],
+   "percentile": 4.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 203,
+   "dataset": "D26",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.07932,
+   "bar": [
+    1.2534707659937836,
+    1.9251810602733077
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": false,
+     "one bad shot": true,
+     "short day": false
+    },
+    "broke": [
+     "static",
+     "short day"
+    ],
+    "standing": "luck pile (broke on static, short day)"
+   }
+  },
+  {
+   "step": 204,
+   "dataset": "D26",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -2.24467,
+   "bar": [
+    -1.596725334736012,
+    1.613743408458577
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 205,
+   "dataset": "D26",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.02054,
+   "bar": 0.07613420267268335,
+   "percentile": 0.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 206,
+   "dataset": "D26",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.75,
+   "bar": [
+    0.6923076923076923,
+    0.9423076923076923
+   ],
+   "percentile": 5.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 207,
+   "dataset": "D26",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.1601,
+   "bar": [
+    1.2346680086303359,
+    1.9126060749987706
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": false,
+     "one bad shot": true,
+     "short day": false,
+     "eq nudge": false
+    },
+    "broke": [
+     "static",
+     "short day",
+     "eq nudge"
+    ],
+    "standing": "luck pile (broke on static, short day, eq nudge)"
+   }
+  },
+  {
+   "step": 208,
+   "dataset": "D26",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -2.1549,
+   "bar": [
+    -1.6857330842652898,
+    1.6354375280540256
+   ],
+   "percentile": 0.2,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 209,
+   "dataset": "D27",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.01105,
+   "bar": 0.08745026037946789,
+   "percentile": 1.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 210,
+   "dataset": "D27",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.71186,
+   "bar": [
+    0.5889406779661017,
+    0.7966101694915254
+   ],
+   "percentile": 72.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 211,
+   "dataset": "D27",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.92149,
+   "bar": [
+    0.7925223279812598,
+    1.4414489440207545
+   ],
+   "percentile": 5.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 212,
+   "dataset": "D27",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.71679,
+   "bar": [
+    -1.1095885721109682,
+    1.0539715545193324
+   ],
+   "percentile": 4.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 213,
+   "dataset": "D27",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.0086,
+   "bar": 0.08192872938446087,
+   "percentile": 1.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 214,
+   "dataset": "D27",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.72034,
+   "bar": [
+    0.6101694915254238,
+    0.7966101694915254
+   ],
+   "percentile": 64.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 215,
+   "dataset": "D27",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.92599,
+   "bar": [
+    0.9010656546541456,
+    1.4457674849485682
+   ],
+   "percentile": 0.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 216,
+   "dataset": "D27",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -0.71779,
+   "bar": [
+    -1.0990029225772326,
+    1.1386246138152318
+   ],
+   "percentile": 5.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 217,
+   "dataset": "D28",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.02647,
+   "bar": 0.07517717071477509,
+   "percentile": 29.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 218,
+   "dataset": "D28",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.65254,
+   "bar": [
+    0.6482627118644068,
+    0.847457627118644
+   ],
+   "percentile": 0.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 219,
+   "dataset": "D28",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.86102,
+   "bar": [
+    0.8313521662242229,
+    1.3869018958940011
+   ],
+   "percentile": 0.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 220,
+   "dataset": "D28",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -1.56664,
+   "bar": [
+    -1.2025415438984266,
+    1.068831389501111
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 221,
+   "dataset": "D28",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.01983,
+   "bar": 0.06872608783575761,
+   "percentile": 14.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 222,
+   "dataset": "D28",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.68644,
+   "bar": [
+    0.6440677966101694,
+    0.847457627118644
+   ],
+   "percentile": 3.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 223,
+   "dataset": "D28",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.92774,
+   "bar": [
+    0.8922871343847143,
+    1.4246091390094828
+   ],
+   "percentile": 1.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 224,
+   "dataset": "D28",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -1.57015,
+   "bar": [
+    -1.0330150974478358,
+    1.1741078336267758
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 225,
+   "dataset": "D29",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03335,
+   "bar": 0.10080138485474434,
+   "percentile": 37.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 226,
+   "dataset": "D29",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.55682,
+   "bar": [
+    0.5613636363636364,
+    0.6954545454545454
+   ],
+   "percentile": 0.4,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": false,
+     "static": false,
+     "one bad shot": true,
+     "short day": false
+    },
+    "broke": [
+     "power outage",
+     "static",
+     "short day"
+    ],
+    "standing": "luck pile (broke on power outage, static, short day)"
+   }
+  },
+  {
+   "step": 227,
+   "dataset": "D29",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.07887,
+   "bar": [
+    0.3800123831484039,
+    0.8549158921106943
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": false
+    },
+    "broke": [
+     "short day"
+    ],
+    "standing": "luck pile (broke on short day)"
+   }
+  },
+  {
+   "step": 228,
+   "dataset": "D29",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -34.60221,
+   "bar": [
+    -0.6909380257993135,
+    0.6259525666619906
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 229,
+   "dataset": "D29",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.03347,
+   "bar": 0.09749656885366113,
+   "percentile": 41.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 230,
+   "dataset": "D29",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.55455,
+   "bar": [
+    0.575,
+    0.7205227272727273
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "short day"
+    ],
+    "standing": "luck pile (broke on short day)"
+   }
+  },
+  {
+   "step": 231,
+   "dataset": "D29",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 0.08324,
+   "bar": [
+    0.4246021507566372,
+    0.8942379946889945
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "short day"
+    ],
+    "standing": "luck pile (broke on short day)"
+   }
+  },
+  {
+   "step": 232,
+   "dataset": "D29",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": -33.7031,
+   "bar": [
+    -0.5148807500112729,
+    0.6041015475512166
+   ],
+   "percentile": 0.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": true,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [],
+    "standing": "sturdy (Max couldn't break it)"
+   }
+  },
+  {
+   "step": 233,
+   "dataset": "D30",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.02808,
+   "bar": 0.06982555583097556,
+   "percentile": 15.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 234,
+   "dataset": "D30",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.75,
+   "bar": [
+    0.6633653846153846,
+    0.9135576923076922
+   ],
+   "percentile": 13.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 235,
+   "dataset": "D30",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.50412,
+   "bar": [
+    1.341106820783738,
+    2.0833599433102563
+   ],
+   "percentile": 12.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 236,
+   "dataset": "D30",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.57248,
+   "bar": [
+    -1.5888484755341343,
+    1.5470995388527964
+   ],
+   "percentile": 99.6,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": false
+    },
+    "broke": [
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on one bad shot, short day)"
+   }
+  },
+  {
+   "step": 237,
+   "dataset": "D30",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.03106,
+   "bar": 0.0753529806566352,
+   "percentile": 19.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 238,
+   "dataset": "D30",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.75,
+   "bar": [
+    0.6923076923076923,
+    0.9135576923076922
+   ],
+   "percentile": 5.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 239,
+   "dataset": "D30",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.45084,
+   "bar": [
+    1.2566167085654651,
+    2.049394189956612
+   ],
+   "percentile": 9.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 240,
+   "dataset": "D30",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.62322,
+   "bar": [
+    -1.550197579659802,
+    1.582045386283784
+   ],
+   "percentile": 99.4,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": false,
+     "static": false,
+     "one bad shot": false,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "power outage",
+     "static",
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on power outage, static, one bad shot, short day)"
+   }
+  },
+  {
+   "step": 241,
+   "dataset": "D31",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.0279,
+   "bar": 0.07156345458191422,
+   "percentile": 15.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 242,
+   "dataset": "D31",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.80769,
+   "bar": [
+    0.6633653846153846,
+    0.9135576923076922
+   ],
+   "percentile": 61.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 243,
+   "dataset": "D31",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.45646,
+   "bar": [
+    1.291089856922615,
+    2.0639649086985328
+   ],
+   "percentile": 9.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 244,
+   "dataset": "D31",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.11153,
+   "bar": [
+    -1.7904924618364626,
+    1.3680782318142908
+   ],
+   "percentile": 97.2,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 245,
+   "dataset": "D31",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.03346,
+   "bar": 0.06493797742332276,
+   "percentile": 33.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 246,
+   "dataset": "D31",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.82692,
+   "bar": [
+    0.6633653846153846,
+    0.9038461538461539
+   ],
+   "percentile": 63.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 247,
+   "dataset": "D31",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.43649,
+   "bar": [
+    1.2953071666480929,
+    2.0426485301207613
+   ],
+   "percentile": 7.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 248,
+   "dataset": "D31",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.10168,
+   "bar": [
+    -1.3133405591049103,
+    1.46372262752058
+   ],
+   "percentile": 96.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 249,
+   "dataset": "D32",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03451,
+   "bar": 0.07257269223745981,
+   "percentile": 24.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 250,
+   "dataset": "D32",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.80769,
+   "bar": [
+    0.6825961538461539,
+    0.9038461538461539
+   ],
+   "percentile": 50.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 251,
+   "dataset": "D32",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.65248,
+   "bar": [
+    1.5138131660350798,
+    2.2585014350709383
+   ],
+   "percentile": 7.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 252,
+   "dataset": "D32",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.43148,
+   "bar": [
+    -1.5720649561875677,
+    1.8215388544313527
+   ],
+   "percentile": 98.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 253,
+   "dataset": "D32",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.03913,
+   "bar": 0.07652380250940564,
+   "percentile": 43.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 254,
+   "dataset": "D32",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.84615,
+   "bar": [
+    0.7115384615384616,
+    0.9135576923076922
+   ],
+   "percentile": 75.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 255,
+   "dataset": "D32",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.60251,
+   "bar": [
+    1.490079162651717,
+    2.2113185866404232
+   ],
+   "percentile": 5.6,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 256,
+   "dataset": "D32",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.50681,
+   "bar": [
+    -1.4829085721109614,
+    1.5313789855893563
+   ],
+   "percentile": 99.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 257,
+   "dataset": "D33",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03373,
+   "bar": 0.07629378079289074,
+   "percentile": 44.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 258,
+   "dataset": "D33",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.69492,
+   "bar": [
+    0.6271186440677966,
+    0.8221186440677966
+   ],
+   "percentile": 17.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 259,
+   "dataset": "D33",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.14497,
+   "bar": [
+    0.9049839522350204,
+    1.462677837463304
+   ],
+   "percentile": 49.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 260,
+   "dataset": "D33",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.65396,
+   "bar": [
+    -1.0926052549781338,
+    1.1862013235133642
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 261,
+   "dataset": "D33",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.02464,
+   "bar": 0.07033149254390071,
+   "percentile": 21.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 262,
+   "dataset": "D33",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.73729,
+   "bar": [
+    0.6610169491525424,
+    0.8347881355932203
+   ],
+   "percentile": 31.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 263,
+   "dataset": "D33",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.18085,
+   "bar": [
+    0.946947941479941,
+    1.5329087282058538
+   ],
+   "percentile": 46.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 264,
+   "dataset": "D33",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.47928,
+   "bar": [
+    -1.1227350872984139,
+    1.4393733129367083
+   ],
+   "percentile": 99.8,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": true,
+     "eq nudge": true
+    },
+    "broke": [
+     "one bad shot"
+    ],
+    "standing": "luck pile (broke on one bad shot)"
+   }
+  },
+  {
+   "step": 265,
+   "dataset": "D34",
+   "eq": "flat",
+   "lens": "q1 Regular",
+   "stat": 0.03342,
+   "bar": 0.07155441149679995,
+   "percentile": 28.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 266,
+   "dataset": "D34",
+   "eq": "flat",
+   "lens": "q2 Quarter turn",
+   "stat": 0.86538,
+   "bar": [
+    0.6825961538461539,
+    0.9230769230769231
+   ],
+   "percentile": 78.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 267,
+   "dataset": "D34",
+   "eq": "flat",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.5516,
+   "bar": [
+    1.3053851480710836,
+    2.02036620292448
+   ],
+   "percentile": 17.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 268,
+   "dataset": "D34",
+   "eq": "flat",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.93129,
+   "bar": [
+    -1.7682713530424583,
+    1.4283408030144502
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": true,
+     "static": true,
+     "one bad shot": false,
+     "short day": false
+    },
+    "broke": [
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on one bad shot, short day)"
+   }
+  },
+  {
+   "step": 269,
+   "dataset": "D34",
+   "eq": "curve",
+   "lens": "q1 Regular",
+   "stat": 0.02688,
+   "bar": 0.07539960613289969,
+   "percentile": 4.8,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "up"
+  },
+  {
+   "step": 270,
+   "dataset": "D34",
+   "eq": "curve",
+   "lens": "q2 Quarter turn",
+   "stat": 0.84615,
+   "bar": [
+    0.6923076923076923,
+    0.9423076923076923
+   ],
+   "percentile": 49.4,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 271,
+   "dataset": "D34",
+   "eq": "curve",
+   "lens": "q3 Superposed |\u03b8|",
+   "stat": 1.54391,
+   "bar": [
+    1.3320206565672115,
+    2.032023963095274
+   ],
+   "percentile": 21.0,
+   "passed": false,
+   "fake_arm_passed": false,
+   "sided": "both"
+  },
+  {
+   "step": 272,
+   "dataset": "D34",
+   "eq": "curve",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "stat": 1.96659,
+   "bar": [
+    -1.413089737595366,
+    1.479178762191382
+   ],
+   "percentile": 100.0,
+   "passed": true,
+   "fake_arm_passed": false,
+   "sided": "both",
+   "max": {
+    "jinxes": {
+     "power outage": false,
+     "static": true,
+     "one bad shot": false,
+     "short day": false,
+     "eq nudge": true
+    },
+    "broke": [
+     "power outage",
+     "one bad shot",
+     "short day"
+    ],
+    "standing": "luck pile (broke on power outage, one bad shot, short day)"
+   }
+  }
+ ]
+}
