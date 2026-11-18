@@ -1,0 +1,38 @@
+name: Spec-Driven Independent Loop Gate
+on:
+  pull_request:
+    paths:
+      - "engineering/**"
+      - "tests/test_contract_gate.py"
+      - "experiments/energy_constraints/**"
+      - ".github/workflows/spec-loop-contract.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  independent-acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test spec syntax, forbidden actions, and strict stop rules
+        run: |
+          python -m py_compile engineering/contract_gate.py
+          python -m unittest discover -s tests -p test_contract_gate.py -v
+      - name: Prove actual energy candidate acceptance (not an LLM self-grade)
+        run: |
+          python engineering/contract_gate.py \
+            --root . \
+            --contract engineering/contracts/energy-constraints.json \
+            --out acceptance/energy-contract-result.json
+      - name: Preserve verdict AND exact underlying evidence even when rejected
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: independent-spec-loop-verdict
+          path: acceptance/
+          if-no-files-found: warn
+          retention-days: 30
