@@ -66,7 +66,7 @@ def validate(root: Path, contract: dict) -> tuple[str, list]:
                 raise ValueError("Command executable not on allowlist")
             # No shells, scripts from /tmp, package downloads, eval flags,
             # or arbitrary commands. A spec gate is not a remote-code runner.
-            if any(x in argv for x in ("-c", "-e", "--eval", "-p", "pip", "npm", "npx")):
+            if any(x in argv for x in ("-c", "-e", "--eval", "pip", "npm", "npx")) or (argv[0] == "node" and "-p" in argv):
                 raise ValueError("Interactive evaluation/download commands prohibited")
             for part in argv[1:]:
                 if part.startswith("/") or part == ".." or "../" in part or part.startswith("../"):
