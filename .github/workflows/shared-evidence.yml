@@ -1,0 +1,41 @@
+name: Shared Closed Loop Evidence
+on:
+  pull_request:
+    paths:
+      - "closedloop/learning_evidence.py"
+      - "tests/test_learning_evidence.py"
+      - ".github/workflows/shared-evidence.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evidence-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test synthetic controls and invalid-source rejection
+        run: python -m unittest discover -s tests -p test_learning_evidence.py -v
+      - name: Build from all original nightly records and datasets
+        run: |
+          python closedloop/learning_evidence.py --root . --out shared-evidence
+          python - shared-evidence/evidence.json <<'PY'
+          import json, sys
+          data=json.load(open(sys.argv[1]))
+          assert data["schema"] == "closedloop.evidence.v1"
+          assert data["historical_run_count"] >= 15, "history missing"
+          assert data["dataset_count"] >= 5, "input datasets missing"
+          assert all(d["sha256"] for d in data["datasets"])
+          assert all(d["sha256"] for d in data["nightly_history"])
+          print("Historical files:", data["historical_run_count"])
+          print("Raw dataset snapshots:", data["dataset_count"])
+          PY
+      - name: Keep source-anchored evidence artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: closed-loop-evidence
+          path: shared-evidence/
+          retention-days: 30
