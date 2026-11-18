@@ -112,5 +112,15 @@ class SpecContractTests(unittest.TestCase):
         self.assertIn("FileNotFoundError", r["results"][-1]["error"])
 
 
+    def test_unittest_p_is_a_filename_pattern_not_python_eval(self):
+        self.contract["checks"][0]["argv"] = [
+            "python", "-m", "unittest", "discover", "-s", "tests",
+            "-p", "test_energy_constraints.py", "-v",
+        ]
+        self.assertEqual(len(validate(self.root, self.contract)[1]), 2)
+        self.contract["checks"][0]["argv"] = ["node", "-p", "process.env"]
+        with self.assertRaisesRegex(ValueError, "Interactive evaluation"):
+            validate(self.root, self.contract)
+
 if __name__ == "__main__":
     unittest.main()
