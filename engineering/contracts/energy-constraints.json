@@ -1,0 +1,44 @@
+{
+  "schema": "closedloop.acceptance-contract.v1",
+  "id": "closedloop-energy-constraints",
+  "spec": "engineering/specs/energy-constraints.md",
+  "checks": [
+    {
+      "name": "independent-exact-oracle-tests",
+      "kind": "command",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_energy_constraints.py",
+        "-v"
+      ],
+      "timeout_seconds": 45
+    },
+    {
+      "name": "execute-real-synthetic-energy-benchmark",
+      "kind": "command",
+      "argv": [
+        "python",
+        "experiments/energy_constraints/pilot.py",
+        "--out",
+        "acceptance/energy-result.json"
+      ],
+      "timeout_seconds": 45
+    },
+    {
+      "name": "check-real-benchmark-metadata-and-false-accepts",
+      "kind": "json_assert",
+      "path": "acceptance/energy-result.json",
+      "equals": {
+        "schema": "closedloop.constraint-energy-pilot.v1",
+        "claim": "HAND_SPECIFIED_QUBO_STYLE_ENERGY_NOT_TRAINED_CRAM",
+        "false_accept_count": 0
+      }
+    }
+  ]
+}
