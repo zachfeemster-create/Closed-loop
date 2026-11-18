@@ -1,0 +1,44 @@
+name: Historical Survivor Streak Matched Fakes
+on:
+  pull_request:
+    paths:
+      - "experiments/survivor_streak/**"
+      - "tests/test_survivor_streak.py"
+      - ".github/workflows/survivor-matched-fakes.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dated-history-real-matched-null:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test invariant matching and invalid-data rejection
+        run: python -m unittest discover -s tests -p "test_survivor_streak.py" -v
+      - name: Execute actual 21-day historical null with preserved date/key degrees
+        run: |
+          python experiments/survivor_streak/matched_null.py --repo . --out evidence/streak-matched-null.json --fakes 200 --swaps 900
+          python - evidence/streak-matched-null.json <<'PY'
+          import json,sys
+          x=json.load(open(sys.argv[1]))
+          assert x["schema"]=="closedloop.matched-survivor-null.v1"
+          assert len(x["dates"])>=20
+          assert len(x["sources"])==len(x["dates"])
+          assert x["null_control"]["n_fakes"]==200
+          assert x["null_control"]["actual_swaps_min"]>0
+          print("Observed:",x["observed_global_max_consecutive_days"])
+          print("Matched-null p:",x["null_control"]["p_ge_observed_plus_one"])
+          print("Source days:",len(x["dates"]))
+          PY
+      - name: Preserve actual result, even if conclusions are negative
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-closedloop-survivor-streak-matched-null
+          path: evidence/streak-matched-null.json
+          if-no-files-found: warn
+          retention-days: 30
