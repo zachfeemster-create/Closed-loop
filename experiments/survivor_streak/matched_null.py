@@ -78,27 +78,73 @@ def shuffle(rows, rng, attempts):
     return candidate, swaps
 
 
+def adjacent_overlap(dates, rows):
+    """How often does the same key persist across neighboring calendar days?"""
+    total = 0
+    for i in range(1, len(dates)):
+        if (dt.date.fromisoformat(dates[i]) - dt.date.fromisoformat(dates[i - 1])).days == 1:
+            total += len(rows[i] & rows[i - 1])
+    return total
+
+
+def intermittent_streak(dates, rows, eligible):
+    """Exclude forced/near-forced always-present keys from streak analysis."""
+    return longest(dates, [r & eligible for r in rows])
+
+
 def evaluate(dates, rows, sources, fakes=200, swaps=900, seed=20261118):
     if fakes < 20 or swaps < 1 or len(dates) != len(rows) or len(rows) != len(sources):
         raise ValueError("Need source-backed dates and at least 20 matched fakes")
     original_degrees, original_counts = [len(x) for x in rows], counts(rows)
     best, winners = longest(dates, rows)
+    # An always-present key trivially has a 21-day streak in EVERY null.
+    # Analyse only genuinely intermittent keys as an independent, labeled
+    # secondary statistic; never report the degenerate global max as a hit.
+    eligible = {k for k, v in original_counts.items() if 2 <= v <= len(dates) - 2}
+    inter_best, inter_winners = intermittent_streak(dates, rows, eligible)
+    real_overlap = adjacent_overlap(dates, rows)
     rng, null, accepted = random.Random(seed), [], []
+    intermittent_null, overlap_null = [], []
     for _ in range(fakes):
         fake, n = shuffle(rows, rng, swaps)
         if [len(x) for x in fake] != original_degrees or counts(fake) != original_counts:
             raise AssertionError("Null failed to preserve original degrees")
         null.append(longest(dates, fake)[0])
+        intermittent_null.append(intermittent_streak(dates, fake, eligible)[0])
+        overlap_null.append(adjacent_overlap(dates, fake))
         accepted.append(n)
     if min(accepted) < 1:
         raise ValueError("Fake history could not be shuffled: not an informative null")
     sorted_null = sorted(null)
+    sorted_intermittent = sorted(intermittent_null)
+    sorted_overlap = sorted(overlap_null)
     return {
         "schema": "closedloop.matched-survivor-null.v1",
         "status": "EXPLORATORY_MATCHED_FAKE_TEST_NOT_CAUSAL_PROOF",
         "dates": dates, "sources": sources, "unique_survivor_keys": len(original_counts),
         "original_day_survivor_counts": original_degrees,
         "observed_global_max_consecutive_days": best, "observed_best_keys": winners,
+        "nontrivial_streak": {
+            "key_inclusion_rule": "2 <= total day appearances <= (number of days - 2)",
+            "eligible_keys": len(eligible),
+            "observed_max": inter_best,
+            "observed_best_keys": inter_winners,
+            "null_max_values": intermittent_null,
+            "null_median": sorted_intermittent[fakes // 2],
+            "p_ge_observed_plus_one": (
+                (1 + sum(v >= inter_best for v in intermittent_null)) / (fakes + 1)
+                if eligible else None
+            ),
+        },
+        "adjacent_calendar_day_overlap": {
+            "statistic": "sum across consecutive calendar dates of survivor intersection count",
+            "observed": real_overlap,
+            "null_values": overlap_null,
+            "null_median": sorted_overlap[fakes // 2],
+            "p_ge_observed_plus_one": (
+                1 + sum(v >= real_overlap for v in overlap_null)
+            ) / (fakes + 1),
+        },
         "null_control": {
             "method": "two-day/two-key degree-preserving double-edge swaps",
             "invariants": ["original per-day counts", "original per-key appearances"],
