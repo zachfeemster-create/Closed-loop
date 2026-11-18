@@ -1,0 +1,43 @@
+name: CRAM-Inspired Constraint Energy (CPU Pilot)
+on:
+  pull_request:
+    paths:
+      - "experiments/energy_constraints/**"
+      - "tests/test_energy_constraints.py"
+      - ".github/workflows/energy-constraints-pilot.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-on-small-synthetic-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Prove hard-constraint gate with independent brute-force controls
+        run: |
+          python -m py_compile experiments/energy_constraints/pilot.py
+          python -m unittest discover -s tests -p test_energy_constraints.py -v
+      - name: Run actual energy-descent pilot on seven predefined conflict graphs
+        run: |
+          python experiments/energy_constraints/pilot.py --out evidence/energy-constraint-pilot.json
+          python - evidence/energy-constraint-pilot.json <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1]))
+          assert len(r["records"])==7
+          assert r["false_accept_count"]==0
+          assert r["claim"]=="HAND_SPECIFIED_QUBO_STYLE_ENERGY_NOT_TRAINED_CRAM"
+          print("Exact-checked energy proposals:",r["valid_cases"])
+          print("Missed feasible solutions:",r["missed_feasible_count"])
+          print("Real circuit improvement: NOT TESTED")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cram-inspired-cpu-pilot-evidence
+          path: evidence/energy-constraint-pilot.json
+          retention-days: 30
+          if-no-files-found: warn
