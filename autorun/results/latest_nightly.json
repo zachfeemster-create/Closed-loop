@@ -1,81 +1,92 @@
 {
  "kind": "nightly",
- "ran_at": "2026-11-19T17:23:31+00:00",
+ "ran_at": "2026-11-20T16:58:29+00:00",
  "feeds_ok": [
   "fred",
   "worldbank",
   "wspr",
+  "arxiv-juno",
   "who-watch"
  ],
  "feeds_skipped": [
-  "fec (no FEC_API_KEY secret set)",
-  "arxiv-juno (HTTP Error 429: Unknown Error)"
+  "fec (no FEC_API_KEY secret set)"
  ],
  "notes": [],
  "headlines": [
-  "Survivor: WSPR 12m | q3 Superposed |\u03b8| | curve (sturdy (Max couldn't break it)), held 1 night(s) running.",
-  "Survivor: FRED VIXCLS | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 11 night(s) running.",
-  "Survivor: WSPR 80m | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 18 night(s) running.",
-  "Survivor: WSPR 80m | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 18 night(s) running.",
-  "Survivor: FRED T10Y2Y | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 2 night(s) running.",
-  "Survivor: FRED PAYEMS | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 23 night(s) running.",
-  "Survivor: FRED PAYEMS | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 23 night(s) running.",
-  "Survivor: WSPR 10m | q3 Superposed |\u03b8| | flat (sturdy (Max couldn't break it)), held 2 night(s) running.",
-  "Survivor: WSPR 10m | q3 Superposed |\u03b8| | curve (sturdy (Max couldn't break it)), held 2 night(s) running.",
-  "Survivor: FRED INDPRO | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 5 night(s) running.",
-  "Survivor: FRED INDPRO | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 23 night(s) running.",
-  "Luck pile: WSPR 40m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
-  "Luck pile: WSPR 40m | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
-  "Luck pile: WSPR 12m | q3 Superposed |\u03b8| | flat: luck pile (broke on short day).",
-  "Luck pile: WB growth United Kingdom | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot, short day).",
-  "Luck pile: WB growth United Kingdom | q3 Superposed |\u03b8| | curve: luck pile (broke on static, one bad shot, short day, eq nudge).",
-  "Luck pile: WB growth United Kingdom | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot, short day).",
-  "Luck pile: WB growth Mexico | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on power outage, one bad shot, short day).",
-  "Luck pile: WB growth Mexico | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage, one bad shot, short day, eq nudge).",
-  "Luck pile: FRED VIXCLS | q3 Superposed |\u03b8| | flat: luck pile (broke on static).",
-  "Luck pile: FRED VIXCLS | q3 Superposed |\u03b8| | curve: luck pile (broke on static).",
-  "Luck pile: FRED VIXCLS | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on static).",
-  "Luck pile: WB growth Germany | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
-  "Luck pile: WB growth Germany | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
-  "Luck pile: FRED DCOILWTICO | q2 Quarter turn | flat: luck pile (broke on power outage, static, short day).",
-  "Luck pile: FRED DCOILWTICO | q3 Superposed |\u03b8| | flat: luck pile (broke on power outage, static, short day).",
-  "Luck pile: FRED DCOILWTICO | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
-  "Luck pile: FRED DCOILWTICO | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
-  "Luck pile: FRED T10Y2Y | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on static).",
-  "Luck pile: WSPR 15m | q3 Superposed |\u03b8| | flat: luck pile (broke on short day).",
-  "Luck pile: WSPR 15m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
-  "Luck pile: WSPR 15m | q3 Superposed |\u03b8| | curve: luck pile (broke on power outage, static, one bad shot, short day).",
-  "Luck pile: WSPR 15m | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage, one bad shot).",
-  "Luck pile: WB growth Indonesia | q3 Superposed |\u03b8| | flat: luck pile (broke on short day).",
-  "Luck pile: WB growth Indonesia | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
-  "Luck pile: WB growth Indonesia | q3 Superposed |\u03b8| | curve: luck pile (broke on static, short day, eq nudge).",
-  "Luck pile: WB growth Indonesia | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
-  "Luck pile: WB growth Canada | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot, short day).",
-  "Luck pile: WB growth Canada | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot, short day).",
-  "Luck pile: WB growth Korea, Rep. | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on power outage, one bad shot, short day).",
-  "Luck pile: WB growth Korea, Rep. | q4 Inverse \u2212\u03b8 | curve: frame trip (fake arm passed).",
+  "New JUNO paper on arXiv: Refractive Neutrino Mass: Effects of Fluctuations of the Dark Matter Field (2611.26549v1, 2026-11-19). Check it against the locked \u0394m\u00b221 bet.",
+  "New JUNO paper on arXiv: Future avenues for precision oscillation measurements with compact movable reactors (2611.26418v1, 2026-11-19). Check it against the locked \u0394m\u00b221 bet.",
+  "New JUNO paper on arXiv: Geoneutrinos (and reactor neutrinos) do not visibly decay (2611.23978v1, 2026-11-18). Check it against the locked \u0394m\u00b221 bet.",
+  "New JUNO paper on arXiv: Producing $\u03bc$Bq/m3-level low-226Ra ultrapure water for the Jiangmen Underground Neutrino Observatory (2611.23711v1, 2026-11-18). Check it against the locked \u0394m\u00b221 bet.",
+  "New JUNO paper on arXiv: Phenomenology of neutrino mass ordering synergies in reactor, accelerator, and atmospheric neutrino experiments, and the role of the detector response (2611.21252v2, 2026-11-16). Check it against the locked \u0394m\u00b221 bet.",
+  "New JUNO paper on arXiv: An interrelation of three neutrino mixing angles (2611.09478v2, 2026-11-06). Check it against the locked \u0394m\u00b221 bet.",
+  "Survivor: WSPR 30m | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: WSPR 30m | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: WSPR 12m | q3 Superposed |\u03b8| | curve (sturdy (Max couldn't break it)), held 2 night(s) running.",
+  "Survivor: FRED VIXCLS | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 12 night(s) running.",
+  "Survivor: FRED VIXCLS | q3 Superposed |\u03b8| | curve (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: FRED VIXCLS | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: WSPR 10m | q3 Superposed |\u03b8| | flat (sturdy (Max couldn't break it)), held 3 night(s) running.",
+  "Survivor: FRED T10Y2Y | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: FRED PAYEMS | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 24 night(s) running.",
+  "Survivor: WSPR 20m | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: WSPR 20m | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: WSPR 80m | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 19 night(s) running.",
+  "Survivor: WSPR 80m | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 19 night(s) running.",
+  "Survivor: FRED UNRATE | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 1 night(s) running.",
+  "Survivor: FRED INDPRO | q4 Inverse \u2212\u03b8 | flat (sturdy (Max couldn't break it)), held 6 night(s) running.",
+  "Survivor: FRED INDPRO | q4 Inverse \u2212\u03b8 | curve (sturdy (Max couldn't break it)), held 24 night(s) running.",
   "Luck pile: WB growth France | q3 Superposed |\u03b8| | flat: luck pile (broke on power outage, one bad shot, short day).",
   "Luck pile: WB growth France | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot, short day).",
-  "Luck pile: WB growth France | q3 Superposed |\u03b8| | curve: luck pile (broke on one bad shot, short day).",
+  "Luck pile: WB growth France | q3 Superposed |\u03b8| | curve: luck pile (broke on one bad shot, short day, eq nudge).",
   "Luck pile: WB growth France | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot, short day).",
-  "Luck pile: FRED PAYEMS | q3 Superposed |\u03b8| | flat: luck pile (broke on short day).",
-  "Luck pile: FRED PAYEMS | q2 Quarter turn | curve: luck pile (broke on power outage, short day).",
+  "Luck pile: WSPR 12m | q3 Superposed |\u03b8| | flat: luck pile (broke on static, one bad shot, short day).",
+  "Luck pile: WSPR 12m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: WSPR 12m | q4 Inverse \u2212\u03b8 | curve: frame trip (fake arm passed).",
+  "Luck pile: WB growth South Africa | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on power outage, one bad shot, short day).",
+  "Luck pile: WB growth South Africa | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage, static, one bad shot, short day, eq nudge).",
+  "Luck pile: WB growth India | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on power outage, static, one bad shot, short day).",
+  "Luck pile: WB growth India | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot, short day).",
+  "Luck pile: WB growth Canada | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on static, one bad shot, short day).",
+  "Luck pile: WB growth Canada | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage, one bad shot, short day).",
+  "Luck pile: FRED VIXCLS | q3 Superposed |\u03b8| | flat: luck pile (broke on static).",
+  "Luck pile: WSPR 10m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: WSPR 10m | q3 Superposed |\u03b8| | curve: luck pile (broke on short day).",
+  "Luck pile: WSPR 10m | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: WSPR 40m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: WSPR 40m | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: WB growth Mexico | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on static, one bad shot, short day).",
+  "Luck pile: WB growth Indonesia | q3 Superposed |\u03b8| | flat: luck pile (broke on short day).",
+  "Luck pile: WB growth Indonesia | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: WB growth Indonesia | q3 Superposed |\u03b8| | curve: luck pile (broke on power outage, static, short day).",
+  "Luck pile: WB growth Indonesia | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage, one bad shot).",
+  "Luck pile: WSPR 15m | q3 Superposed |\u03b8| | flat: luck pile (broke on short day).",
+  "Luck pile: WSPR 15m | q3 Superposed |\u03b8| | curve: luck pile (broke on power outage, short day).",
+  "Luck pile: FRED T10Y2Y | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on static).",
+  "Luck pile: WB growth Germany | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: WB growth Germany | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: FRED PAYEMS | q2 Quarter turn | flat: luck pile (broke on one bad shot, short day).",
+  "Luck pile: FRED PAYEMS | q3 Superposed |\u03b8| | flat: luck pile (broke on power outage, short day).",
+  "Luck pile: FRED PAYEMS | q2 Quarter turn | curve: luck pile (broke on power outage, static, short day).",
   "Luck pile: FRED PAYEMS | q3 Superposed |\u03b8| | curve: luck pile (broke on short day).",
-  "Luck pile: WSPR 20m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
-  "Luck pile: WSPR 20m | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
-  "Luck pile: FRED INDPRO | q2 Quarter turn | flat: luck pile (broke on short day).",
-  "Luck pile: FRED INDPRO | q3 Superposed |\u03b8| | flat: luck pile (broke on static, one bad shot, short day).",
-  "Luck pile: FRED INDPRO | q2 Quarter turn | curve: luck pile (broke on static, short day).",
-  "Luck pile: WB growth South Africa | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot, short day).",
+  "Luck pile: FRED PAYEMS | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage).",
+  "Luck pile: WB growth United Kingdom | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot, short day).",
+  "Luck pile: WB growth United Kingdom | q3 Superposed |\u03b8| | curve: luck pile (broke on power outage, one bad shot, short day, eq nudge).",
+  "Luck pile: WB growth United Kingdom | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot, short day).",
+  "Luck pile: FRED DCOILWTICO | q2 Quarter turn | flat: luck pile (broke on power outage, static, one bad shot, short day).",
+  "Luck pile: FRED DCOILWTICO | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
+  "Luck pile: FRED DCOILWTICO | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
+  "Luck pile: WB growth Korea, Rep. | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on power outage, one bad shot, short day).",
+  "Luck pile: WB growth Australia | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on power outage, one bad shot, short day).",
   "Luck pile: FRED UNRATE | q3 Superposed |\u03b8| | flat: luck pile (broke on short day).",
-  "Luck pile: FRED UNRATE | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on short day).",
-  "Luck pile: FRED UNRATE | q2 Quarter turn | curve: luck pile (broke on static, short day).",
+  "Luck pile: FRED UNRATE | q2 Quarter turn | curve: luck pile (broke on power outage, short day).",
   "Luck pile: FRED UNRATE | q3 Superposed |\u03b8| | curve: luck pile (broke on short day).",
   "Luck pile: FRED UNRATE | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on short day).",
-  "Luck pile: WSPR 30m | q4 Inverse \u2212\u03b8 | flat: luck pile (broke on one bad shot).",
-  "Luck pile: WSPR 30m | q4 Inverse \u2212\u03b8 | curve: luck pile (broke on one bad shot).",
-  "Dropped: FRED VIXCLS | q4 Inverse \u2212\u03b8 | curve stopped surviving after 12 night(s).",
-  "Dropped: FRED VIXCLS | q3 Superposed |\u03b8| | curve stopped surviving after 1 night(s)."
+  "Luck pile: FRED INDPRO | q2 Quarter turn | flat: luck pile (broke on static, one bad shot, short day).",
+  "Luck pile: FRED INDPRO | q3 Superposed |\u03b8| | flat: luck pile (broke on static, one bad shot, short day).",
+  "Luck pile: FRED INDPRO | q2 Quarter turn | curve: luck pile (broke on short day).",
+  "Dropped: FRED PAYEMS | q4 Inverse \u2212\u03b8 | curve stopped surviving after 23 night(s).",
+  "Dropped: FRED T10Y2Y | q4 Inverse \u2212\u03b8 | flat stopped surviving after 2 night(s).",
+  "Dropped: WSPR 10m | q3 Superposed |\u03b8| | curve stopped surviving after 2 night(s)."
  ],
  "fresh_rows": {
   "FRED UNRATE": 0,
@@ -83,10 +94,10 @@
   "FRED CPIAUCSL": 0,
   "FRED PAYEMS": 0,
   "FRED HOUST": 0,
-  "FRED DGS10": 1,
-  "FRED T10Y2Y": 1,
-  "FRED DCOILWTICO": 4,
-  "FRED VIXCLS": 1,
+  "FRED DGS10": 0,
+  "FRED T10Y2Y": 0,
+  "FRED DCOILWTICO": -1,
+  "FRED VIXCLS": 0,
   "WB growth Australia": 0,
   "WB growth Brazil": 0,
   "WB growth Canada": 0,
@@ -115,15 +126,31 @@
  },
  "survivors": [
   {
-   "dataset": "D02",
-   "name": "WSPR 12m",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "curve",
-   "percentile": 0.0,
+   "dataset": "D01",
+   "name": "WSPR 30m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
    "standing": "sturdy (Max couldn't break it)"
   },
   {
-   "dataset": "D07",
+   "dataset": "D01",
+   "name": "WSPR 30m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D03",
+   "name": "WSPR 12m",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.2,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D08",
    "name": "FRED VIXCLS",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "flat",
@@ -131,63 +158,87 @@
    "standing": "sturdy (Max couldn't break it)"
   },
   {
-   "dataset": "D14",
-   "name": "WSPR 80m",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 100.0,
+   "dataset": "D08",
+   "name": "FRED VIXCLS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.0,
    "standing": "sturdy (Max couldn't break it)"
   },
   {
-   "dataset": "D14",
-   "name": "WSPR 80m",
+   "dataset": "D08",
+   "name": "FRED VIXCLS",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "curve",
    "percentile": 100.0,
    "standing": "sturdy (Max couldn't break it)"
   },
   {
-   "dataset": "D15",
+   "dataset": "D09",
+   "name": "WSPR 10m",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D17",
    "name": "FRED T10Y2Y",
    "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D19",
+   "name": "FRED PAYEMS",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 0.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D21",
+   "name": "WSPR 20m",
+   "lens": "q4 Inverse \u2212\u03b8",
    "eq": "flat",
    "percentile": 100.0,
    "standing": "sturdy (Max couldn't break it)"
   },
   {
-   "dataset": "D24",
-   "name": "FRED PAYEMS",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 0.0,
-   "standing": "sturdy (Max couldn't break it)"
-  },
-  {
-   "dataset": "D24",
-   "name": "FRED PAYEMS",
+   "dataset": "D21",
+   "name": "WSPR 20m",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "curve",
-   "percentile": 0.0,
+   "percentile": 100.0,
    "standing": "sturdy (Max couldn't break it)"
   },
   {
-   "dataset": "D26",
-   "name": "WSPR 10m",
-   "lens": "q3 Superposed |\u03b8|",
+   "dataset": "D22",
+   "name": "WSPR 80m",
+   "lens": "q4 Inverse \u2212\u03b8",
    "eq": "flat",
-   "percentile": 0.0,
+   "percentile": 100.0,
    "standing": "sturdy (Max couldn't break it)"
   },
   {
-   "dataset": "D26",
-   "name": "WSPR 10m",
-   "lens": "q3 Superposed |\u03b8|",
+   "dataset": "D22",
+   "name": "WSPR 80m",
+   "lens": "q4 Inverse \u2212\u03b8",
    "eq": "curve",
-   "percentile": 0.0,
+   "percentile": 100.0,
    "standing": "sturdy (Max couldn't break it)"
   },
   {
-   "dataset": "D28",
+   "dataset": "D33",
+   "name": "FRED UNRATE",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "standing": "sturdy (Max couldn't break it)"
+  },
+  {
+   "dataset": "D34",
    "name": "FRED INDPRO",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "flat",
@@ -195,7 +246,7 @@
    "standing": "sturdy (Max couldn't break it)"
   },
   {
-   "dataset": "D28",
+   "dataset": "D34",
    "name": "FRED INDPRO",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "curve",
@@ -205,7 +256,143 @@
  ],
  "luck_pile": [
   {
-   "dataset": "D01",
+   "dataset": "D02",
+   "name": "WB growth France",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on power outage, one bad shot, short day)"
+  },
+  {
+   "dataset": "D02",
+   "name": "WB growth France",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D02",
+   "name": "WB growth France",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on one bad shot, short day, eq nudge)"
+  },
+  {
+   "dataset": "D02",
+   "name": "WB growth France",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D03",
+   "name": "WSPR 12m",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on static, one bad shot, short day)"
+  },
+  {
+   "dataset": "D03",
+   "name": "WSPR 12m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D03",
+   "name": "WSPR 12m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "frame trip (fake arm passed)"
+  },
+  {
+   "dataset": "D04",
+   "name": "WB growth South Africa",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on power outage, one bad shot, short day)"
+  },
+  {
+   "dataset": "D04",
+   "name": "WB growth South Africa",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 99.4,
+   "why": "luck pile (broke on power outage, static, one bad shot, short day, eq nudge)"
+  },
+  {
+   "dataset": "D06",
+   "name": "WB growth India",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 99.8,
+   "why": "luck pile (broke on power outage, static, one bad shot, short day)"
+  },
+  {
+   "dataset": "D06",
+   "name": "WB growth India",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 99.8,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D07",
+   "name": "WB growth Canada",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 99.8,
+   "why": "luck pile (broke on static, one bad shot, short day)"
+  },
+  {
+   "dataset": "D07",
+   "name": "WB growth Canada",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on power outage, one bad shot, short day)"
+  },
+  {
+   "dataset": "D08",
+   "name": "FRED VIXCLS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on static)"
+  },
+  {
+   "dataset": "D09",
+   "name": "WSPR 10m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D09",
+   "name": "WSPR 10m",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.4,
+   "why": "luck pile (broke on short day)"
+  },
+  {
+   "dataset": "D09",
+   "name": "WSPR 10m",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D11",
    "name": "WSPR 40m",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "flat",
@@ -213,7 +400,7 @@
    "why": "luck pile (broke on one bad shot)"
   },
   {
-   "dataset": "D01",
+   "dataset": "D11",
    "name": "WSPR 40m",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "curve",
@@ -221,215 +408,175 @@
    "why": "luck pile (broke on one bad shot)"
   },
   {
-   "dataset": "D02",
-   "name": "WSPR 12m",
+   "dataset": "D12",
+   "name": "WB growth Mexico",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 99.6,
+   "why": "luck pile (broke on static, one bad shot, short day)"
+  },
+  {
+   "dataset": "D15",
+   "name": "WB growth Indonesia",
    "lens": "q3 Superposed |\u03b8|",
    "eq": "flat",
    "percentile": 0.0,
    "why": "luck pile (broke on short day)"
   },
   {
-   "dataset": "D03",
-   "name": "WB growth United Kingdom",
+   "dataset": "D15",
+   "name": "WB growth Indonesia",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "flat",
-   "percentile": 100.0,
-   "why": "luck pile (broke on one bad shot, short day)"
-  },
-  {
-   "dataset": "D03",
-   "name": "WB growth United Kingdom",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "curve",
-   "percentile": 0.4,
-   "why": "luck pile (broke on static, one bad shot, short day, eq nudge)"
-  },
-  {
-   "dataset": "D03",
-   "name": "WB growth United Kingdom",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "curve",
-   "percentile": 100.0,
-   "why": "luck pile (broke on one bad shot, short day)"
-  },
-  {
-   "dataset": "D05",
-   "name": "WB growth Mexico",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 99.6,
-   "why": "luck pile (broke on power outage, one bad shot, short day)"
-  },
-  {
-   "dataset": "D05",
-   "name": "WB growth Mexico",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "curve",
-   "percentile": 99.8,
-   "why": "luck pile (broke on power outage, one bad shot, short day, eq nudge)"
-  },
-  {
-   "dataset": "D07",
-   "name": "FRED VIXCLS",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "flat",
-   "percentile": 0.0,
-   "why": "luck pile (broke on static)"
-  },
-  {
-   "dataset": "D07",
-   "name": "FRED VIXCLS",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "curve",
-   "percentile": 0.0,
-   "why": "luck pile (broke on static)"
-  },
-  {
-   "dataset": "D07",
-   "name": "FRED VIXCLS",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "curve",
-   "percentile": 100.0,
-   "why": "luck pile (broke on static)"
-  },
-  {
-   "dataset": "D12",
-   "name": "WB growth Germany",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 100.0,
-   "why": "luck pile (broke on one bad shot)"
-  },
-  {
-   "dataset": "D12",
-   "name": "WB growth Germany",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "curve",
-   "percentile": 99.6,
-   "why": "luck pile (broke on one bad shot)"
-  },
-  {
-   "dataset": "D13",
-   "name": "FRED DCOILWTICO",
-   "lens": "q2 Quarter turn",
-   "eq": "flat",
-   "percentile": 0.4,
-   "why": "luck pile (broke on power outage, static, short day)"
-  },
-  {
-   "dataset": "D13",
-   "name": "FRED DCOILWTICO",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "flat",
-   "percentile": 0.6,
-   "why": "luck pile (broke on power outage, static, short day)"
-  },
-  {
-   "dataset": "D13",
-   "name": "FRED DCOILWTICO",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 0.0,
-   "why": "luck pile (broke on one bad shot)"
-  },
-  {
-   "dataset": "D13",
-   "name": "FRED DCOILWTICO",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "curve",
    "percentile": 0.0,
    "why": "luck pile (broke on one bad shot)"
   },
   {
    "dataset": "D15",
-   "name": "FRED T10Y2Y",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "curve",
-   "percentile": 100.0,
-   "why": "luck pile (broke on static)"
-  },
-  {
-   "dataset": "D18",
-   "name": "WSPR 15m",
+   "name": "WB growth Indonesia",
    "lens": "q3 Superposed |\u03b8|",
-   "eq": "flat",
+   "eq": "curve",
    "percentile": 0.2,
-   "why": "luck pile (broke on short day)"
+   "why": "luck pile (broke on power outage, static, short day)"
   },
   {
-   "dataset": "D18",
-   "name": "WSPR 15m",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 0.0,
-   "why": "luck pile (broke on one bad shot)"
-  },
-  {
-   "dataset": "D18",
-   "name": "WSPR 15m",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "curve",
-   "percentile": 0.4,
-   "why": "luck pile (broke on power outage, static, one bad shot, short day)"
-  },
-  {
-   "dataset": "D18",
-   "name": "WSPR 15m",
+   "dataset": "D15",
+   "name": "WB growth Indonesia",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "curve",
    "percentile": 0.0,
    "why": "luck pile (broke on power outage, one bad shot)"
   },
   {
-   "dataset": "D19",
-   "name": "WB growth Indonesia",
+   "dataset": "D16",
+   "name": "WSPR 15m",
    "lens": "q3 Superposed |\u03b8|",
    "eq": "flat",
    "percentile": 0.0,
    "why": "luck pile (broke on short day)"
   },
   {
-   "dataset": "D19",
-   "name": "WB growth Indonesia",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 0.0,
-   "why": "luck pile (broke on one bad shot)"
-  },
-  {
-   "dataset": "D19",
-   "name": "WB growth Indonesia",
+   "dataset": "D16",
+   "name": "WSPR 15m",
    "lens": "q3 Superposed |\u03b8|",
    "eq": "curve",
    "percentile": 0.2,
-   "why": "luck pile (broke on static, short day, eq nudge)"
+   "why": "luck pile (broke on power outage, short day)"
+  },
+  {
+   "dataset": "D17",
+   "name": "FRED T10Y2Y",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on static)"
+  },
+  {
+   "dataset": "D18",
+   "name": "WB growth Germany",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D18",
+   "name": "WB growth Germany",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 99.8,
+   "why": "luck pile (broke on one bad shot)"
   },
   {
    "dataset": "D19",
-   "name": "WB growth Indonesia",
+   "name": "FRED PAYEMS",
+   "lens": "q2 Quarter turn",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D19",
+   "name": "FRED PAYEMS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on power outage, short day)"
+  },
+  {
+   "dataset": "D19",
+   "name": "FRED PAYEMS",
+   "lens": "q2 Quarter turn",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on power outage, static, short day)"
+  },
+  {
+   "dataset": "D19",
+   "name": "FRED PAYEMS",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on short day)"
+  },
+  {
+   "dataset": "D19",
+   "name": "FRED PAYEMS",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 0.0,
+   "why": "luck pile (broke on power outage)"
+  },
+  {
+   "dataset": "D24",
+   "name": "WB growth United Kingdom",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D24",
+   "name": "WB growth United Kingdom",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "curve",
+   "percentile": 0.6,
+   "why": "luck pile (broke on power outage, one bad shot, short day, eq nudge)"
+  },
+  {
+   "dataset": "D24",
+   "name": "WB growth United Kingdom",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "curve",
+   "percentile": 100.0,
+   "why": "luck pile (broke on one bad shot, short day)"
+  },
+  {
+   "dataset": "D26",
+   "name": "FRED DCOILWTICO",
+   "lens": "q2 Quarter turn",
+   "eq": "flat",
+   "percentile": 0.2,
+   "why": "luck pile (broke on power outage, static, one bad shot, short day)"
+  },
+  {
+   "dataset": "D26",
+   "name": "FRED DCOILWTICO",
+   "lens": "q4 Inverse \u2212\u03b8",
+   "eq": "flat",
+   "percentile": 0.0,
+   "why": "luck pile (broke on one bad shot)"
+  },
+  {
+   "dataset": "D26",
+   "name": "FRED DCOILWTICO",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "curve",
    "percentile": 0.0,
    "why": "luck pile (broke on one bad shot)"
   },
   {
-   "dataset": "D20",
-   "name": "WB growth Canada",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 99.8,
-   "why": "luck pile (broke on one bad shot, short day)"
-  },
-  {
-   "dataset": "D20",
-   "name": "WB growth Canada",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "curve",
-   "percentile": 99.6,
-   "why": "luck pile (broke on one bad shot, short day)"
-  },
-  {
-   "dataset": "D22",
+   "dataset": "D29",
    "name": "WB growth Korea, Rep.",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "flat",
@@ -437,641 +584,395 @@
    "why": "luck pile (broke on power outage, one bad shot, short day)"
   },
   {
-   "dataset": "D22",
-   "name": "WB growth Korea, Rep.",
+   "dataset": "D31",
+   "name": "WB growth Australia",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "curve",
    "percentile": 99.8,
-   "why": "frame trip (fake arm passed)"
-  },
-  {
-   "dataset": "D23",
-   "name": "WB growth France",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "flat",
-   "percentile": 0.0,
    "why": "luck pile (broke on power outage, one bad shot, short day)"
   },
   {
-   "dataset": "D23",
-   "name": "WB growth France",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 100.0,
-   "why": "luck pile (broke on one bad shot, short day)"
-  },
-  {
-   "dataset": "D23",
-   "name": "WB growth France",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "curve",
-   "percentile": 0.0,
-   "why": "luck pile (broke on one bad shot, short day)"
-  },
-  {
-   "dataset": "D23",
-   "name": "WB growth France",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "curve",
-   "percentile": 100.0,
-   "why": "luck pile (broke on one bad shot, short day)"
-  },
-  {
-   "dataset": "D24",
-   "name": "FRED PAYEMS",
+   "dataset": "D33",
+   "name": "FRED UNRATE",
    "lens": "q3 Superposed |\u03b8|",
    "eq": "flat",
    "percentile": 0.0,
    "why": "luck pile (broke on short day)"
   },
   {
-   "dataset": "D24",
-   "name": "FRED PAYEMS",
+   "dataset": "D33",
+   "name": "FRED UNRATE",
    "lens": "q2 Quarter turn",
    "eq": "curve",
    "percentile": 0.0,
    "why": "luck pile (broke on power outage, short day)"
   },
   {
-   "dataset": "D24",
-   "name": "FRED PAYEMS",
+   "dataset": "D33",
+   "name": "FRED UNRATE",
    "lens": "q3 Superposed |\u03b8|",
    "eq": "curve",
    "percentile": 0.0,
    "why": "luck pile (broke on short day)"
   },
   {
-   "dataset": "D25",
-   "name": "WSPR 20m",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 100.0,
-   "why": "luck pile (broke on one bad shot)"
-  },
-  {
-   "dataset": "D25",
-   "name": "WSPR 20m",
+   "dataset": "D33",
+   "name": "FRED UNRATE",
    "lens": "q4 Inverse \u2212\u03b8",
    "eq": "curve",
    "percentile": 100.0,
-   "why": "luck pile (broke on one bad shot)"
+   "why": "luck pile (broke on short day)"
   },
   {
-   "dataset": "D28",
+   "dataset": "D34",
    "name": "FRED INDPRO",
    "lens": "q2 Quarter turn",
    "eq": "flat",
    "percentile": 0.2,
-   "why": "luck pile (broke on short day)"
-  },
-  {
-   "dataset": "D28",
-   "name": "FRED INDPRO",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "flat",
-   "percentile": 0.4,
    "why": "luck pile (broke on static, one bad shot, short day)"
   },
   {
-   "dataset": "D28",
+   "dataset": "D34",
+   "name": "FRED INDPRO",
+   "lens": "q3 Superposed |\u03b8|",
+   "eq": "flat",
+   "percentile": 0.6,
+   "why": "luck pile (broke on static, one bad shot, short day)"
+  },
+  {
+   "dataset": "D34",
    "name": "FRED INDPRO",
    "lens": "q2 Quarter turn",
    "eq": "curve",
-   "percentile": 0.2,
-   "why": "luck pile (broke on static, short day)"
-  },
-  {
-   "dataset": "D29",
-   "name": "WB growth South Africa",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 99.6,
-   "why": "luck pile (broke on one bad shot, short day)"
-  },
-  {
-   "dataset": "D30",
-   "name": "FRED UNRATE",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "flat",
    "percentile": 0.0,
    "why": "luck pile (broke on short day)"
-  },
-  {
-   "dataset": "D30",
-   "name": "FRED UNRATE",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 100.0,
-   "why": "luck pile (broke on short day)"
-  },
-  {
-   "dataset": "D30",
-   "name": "FRED UNRATE",
-   "lens": "q2 Quarter turn",
-   "eq": "curve",
-   "percentile": 0.0,
-   "why": "luck pile (broke on static, short day)"
-  },
-  {
-   "dataset": "D30",
-   "name": "FRED UNRATE",
-   "lens": "q3 Superposed |\u03b8|",
-   "eq": "curve",
-   "percentile": 0.0,
-   "why": "luck pile (broke on short day)"
-  },
-  {
-   "dataset": "D30",
-   "name": "FRED UNRATE",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "curve",
-   "percentile": 100.0,
-   "why": "luck pile (broke on short day)"
-  },
-  {
-   "dataset": "D32",
-   "name": "WSPR 30m",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "flat",
-   "percentile": 100.0,
-   "why": "luck pile (broke on one bad shot)"
-  },
-  {
-   "dataset": "D32",
-   "name": "WSPR 30m",
-   "lens": "q4 Inverse \u2212\u03b8",
-   "eq": "curve",
-   "percentile": 100.0,
-   "why": "luck pile (broke on one bad shot)"
   }
  ],
  "containment": {
   "D01": {
-   "name": "WSPR 40m",
-   "passes": 2,
-   "passes_after_correction": 2
-  },
-  "D02": {
-   "name": "WSPR 12m",
-   "passes": 2,
-   "passes_after_correction": 2
-  },
-  "D03": {
-   "name": "WB growth United Kingdom",
-   "passes": 3,
-   "passes_after_correction": 2
-  },
-  "D04": {
-   "name": "WSPR 160m",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D05": {
-   "name": "WB growth Mexico",
-   "passes": 2,
-   "passes_after_correction": 0
-  },
-  "D06": {
-   "name": "WB growth Japan",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D07": {
-   "name": "FRED VIXCLS",
-   "passes": 4,
-   "passes_after_correction": 4
-  },
-  "D08": {
-   "name": "FRED DGS10",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D09": {
-   "name": "WB growth India",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D10": {
-   "name": "FRED CPIAUCSL",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D11": {
-   "name": "FRED HOUST",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D12": {
-   "name": "WB growth Germany",
-   "passes": 2,
-   "passes_after_correction": 1
-  },
-  "D13": {
-   "name": "FRED DCOILWTICO",
-   "passes": 4,
-   "passes_after_correction": 2
-  },
-  "D14": {
-   "name": "WSPR 80m",
-   "passes": 2,
-   "passes_after_correction": 2
-  },
-  "D15": {
-   "name": "FRED T10Y2Y",
-   "passes": 2,
-   "passes_after_correction": 2
-  },
-  "D16": {
-   "name": "WB growth Turkiye",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D17": {
-   "name": "WB growth Australia",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D18": {
-   "name": "WSPR 15m",
-   "passes": 4,
-   "passes_after_correction": 2
-  },
-  "D19": {
-   "name": "WB growth Indonesia",
-   "passes": 4,
-   "passes_after_correction": 3
-  },
-  "D20": {
-   "name": "WB growth Canada",
-   "passes": 2,
-   "passes_after_correction": 0
-  },
-  "D21": {
-   "name": "WB growth Brazil",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D22": {
-   "name": "WB growth Korea, Rep.",
-   "passes": 1,
-   "passes_after_correction": 0
-  },
-  "D23": {
-   "name": "WB growth France",
-   "passes": 4,
-   "passes_after_correction": 4
-  },
-  "D24": {
-   "name": "FRED PAYEMS",
-   "passes": 5,
-   "passes_after_correction": 5
-  },
-  "D25": {
-   "name": "WSPR 20m",
-   "passes": 2,
-   "passes_after_correction": 2
-  },
-  "D26": {
-   "name": "WSPR 10m",
-   "passes": 2,
-   "passes_after_correction": 2
-  },
-  "D27": {
-   "name": "WB growth China",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D28": {
-   "name": "FRED INDPRO",
-   "passes": 5,
-   "passes_after_correction": 2
-  },
-  "D29": {
-   "name": "WB growth South Africa",
-   "passes": 1,
-   "passes_after_correction": 0
-  },
-  "D30": {
-   "name": "FRED UNRATE",
-   "passes": 5,
-   "passes_after_correction": 5
-  },
-  "D31": {
-   "name": "WSPR 17m",
-   "passes": 0,
-   "passes_after_correction": 0
-  },
-  "D32": {
    "name": "WSPR 30m",
    "passes": 2,
    "passes_after_correction": 2
   },
-  "D33": {
+  "D02": {
+   "name": "WB growth France",
+   "passes": 4,
+   "passes_after_correction": 4
+  },
+  "D03": {
+   "name": "WSPR 12m",
+   "passes": 3,
+   "passes_after_correction": 2
+  },
+  "D04": {
+   "name": "WB growth South Africa",
+   "passes": 2,
+   "passes_after_correction": 1
+  },
+  "D05": {
+   "name": "WB growth Turkiye",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D06": {
+   "name": "WB growth India",
+   "passes": 2,
+   "passes_after_correction": 0
+  },
+  "D07": {
+   "name": "WB growth Canada",
+   "passes": 2,
+   "passes_after_correction": 1
+  },
+  "D08": {
+   "name": "FRED VIXCLS",
+   "passes": 4,
+   "passes_after_correction": 4
+  },
+  "D09": {
+   "name": "WSPR 10m",
+   "passes": 4,
+   "passes_after_correction": 3
+  },
+  "D10": {
    "name": "WSPR 60m",
    "passes": 0,
    "passes_after_correction": 0
   },
-  "D34": {
+  "D11": {
+   "name": "WSPR 40m",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D12": {
+   "name": "WB growth Mexico",
+   "passes": 1,
+   "passes_after_correction": 0
+  },
+  "D13": {
+   "name": "FRED DGS10",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D14": {
+   "name": "WSPR 17m",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D15": {
+   "name": "WB growth Indonesia",
+   "passes": 4,
+   "passes_after_correction": 3
+  },
+  "D16": {
+   "name": "WSPR 15m",
+   "passes": 2,
+   "passes_after_correction": 1
+  },
+  "D17": {
+   "name": "FRED T10Y2Y",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D18": {
+   "name": "WB growth Germany",
+   "passes": 2,
+   "passes_after_correction": 1
+  },
+  "D19": {
+   "name": "FRED PAYEMS",
+   "passes": 6,
+   "passes_after_correction": 6
+  },
+  "D20": {
+   "name": "FRED HOUST",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D21": {
+   "name": "WSPR 20m",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D22": {
+   "name": "WSPR 80m",
+   "passes": 2,
+   "passes_after_correction": 2
+  },
+  "D23": {
+   "name": "WB growth Japan",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D24": {
+   "name": "WB growth United Kingdom",
+   "passes": 3,
+   "passes_after_correction": 2
+  },
+  "D25": {
+   "name": "FRED CPIAUCSL",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D26": {
+   "name": "FRED DCOILWTICO",
+   "passes": 3,
+   "passes_after_correction": 2
+  },
+  "D27": {
    "name": "WB growth United States",
    "passes": 0,
    "passes_after_correction": 0
+  },
+  "D28": {
+   "name": "WSPR 160m",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D29": {
+   "name": "WB growth Korea, Rep.",
+   "passes": 1,
+   "passes_after_correction": 0
+  },
+  "D30": {
+   "name": "WB growth Brazil",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D31": {
+   "name": "WB growth Australia",
+   "passes": 1,
+   "passes_after_correction": 0
+  },
+  "D32": {
+   "name": "WB growth China",
+   "passes": 0,
+   "passes_after_correction": 0
+  },
+  "D33": {
+   "name": "FRED UNRATE",
+   "passes": 5,
+   "passes_after_correction": 5
+  },
+  "D34": {
+   "name": "FRED INDPRO",
+   "passes": 5,
+   "passes_after_correction": 3
   }
  },
  "max_notes": [
   {
-   "step": 200,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D25 / q4 Inverse \u2212\u03b8 / curve: still passes after short day (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 200,
-   "kind": "eq nudge",
-   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
-   "note": "D25 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 203,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D26 / q3 Superposed |\u03b8| / flat: still passes after power outage (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 203,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D26 / q3 Superposed |\u03b8| / flat: still passes after static (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 203,
+   "step": 202,
    "kind": "one bad shot",
    "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D26 / q3 Superposed |\u03b8| / flat: still passes after one bad shot (percentile 0.0).",
-   "survived": true
+   "note": "D26 / q2 Quarter turn / flat: BROKE after one bad shot (percentile 1.0).",
+   "survived": false
+  },
+  {
+   "step": 202,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D26 / q2 Quarter turn / flat: BROKE after short day (percentile 30.0).",
+   "survived": false
   },
   {
    "step": 203,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D26 / q3 Superposed |\u03b8| / flat: still passes after short day (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 207,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D26 / q3 Superposed |\u03b8| / curve: still passes after power outage (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 207,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D26 / q3 Superposed |\u03b8| / curve: still passes after static (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 207,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D26 / q3 Superposed |\u03b8| / curve: still passes after one bad shot (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 207,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D26 / q3 Superposed |\u03b8| / curve: still passes after short day (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 207,
-   "kind": "eq nudge",
-   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
-   "note": "D26 / q3 Superposed |\u03b8| / curve: still passes after eq nudge (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 211,
-   "kind": "frame trip",
-   "line": "Huh. The fake one passed too. That's fine. That's totally fine.",
-   "note": "D27 / q3 Superposed |\u03b8| / flat: the fake arm passed too, so this tunnel's frame is suspect; a pass here doesn't count."
-  },
-  {
-   "step": 215,
    "kind": "near miss",
    "line": "So close. Not like that's how every luck-pile story starts.",
-   "note": "D27 / q3 Superposed |\u03b8| / curve sat at the 0.8th percentile, just under the bar. Watching it, not counting it."
+   "note": "D26 / q3 Superposed |\u03b8| / flat sat at the 1.0th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 204,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 204,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 204,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / flat: BROKE after one bad shot (percentile 17.0).",
+   "survived": false
+  },
+  {
+   "step": 204,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / flat: still passes after short day (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 206,
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D26 / q2 Quarter turn / curve sat at the 0.6th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 207,
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D26 / q3 Superposed |\u03b8| / curve sat at the 0.8th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 208,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / curve: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 208,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 208,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / curve: BROKE after one bad shot (percentile 11.0).",
+   "survived": false
+  },
+  {
+   "step": 208,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / curve: still passes after short day (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 208,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D26 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 206,
+   "kind": "flip",
+   "line": "Funny how the EQ moved that one. Wonder which band it was hiding in.",
+   "note": "D26 / q2 Quarter turn: passed flat, lost it with the EQ curve. The pattern lives in (or is hidden by) the bands you moved."
+  },
+  {
+   "step": 212,
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D27 / q4 Inverse \u2212\u03b8 / flat sat at the 98.8th percentile, just under the bar. Watching it, not counting it."
   },
   {
    "step": 216,
-   "kind": "frame trip",
-   "line": "Huh. The fake one passed too. That's fine. That's totally fine.",
-   "note": "D27 / q4 Inverse \u2212\u03b8 / curve: the fake arm passed too, so this tunnel's frame is suspect; a pass here doesn't count."
-  },
-  {
-   "step": 218,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D28 / q2 Quarter turn / flat: still passes after power outage (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 218,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D28 / q2 Quarter turn / flat: still passes after static (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 218,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D28 / q2 Quarter turn / flat: still passes after one bad shot (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 218,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D28 / q2 Quarter turn / flat: BROKE after short day (percentile 1.5).",
-   "survived": false
-  },
-  {
-   "step": 219,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D28 / q3 Superposed |\u03b8| / flat: still passes after power outage (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 219,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D28 / q3 Superposed |\u03b8| / flat: BROKE after static (percentile 7.5).",
-   "survived": false
-  },
-  {
-   "step": 219,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D28 / q3 Superposed |\u03b8| / flat: BROKE after one bad shot (percentile 3.0).",
-   "survived": false
-  },
-  {
-   "step": 219,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D28 / q3 Superposed |\u03b8| / flat: BROKE after short day (percentile 2.0).",
-   "survived": false
-  },
-  {
-   "step": 220,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D28 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 220,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D28 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 220,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D28 / q4 Inverse \u2212\u03b8 / flat: still passes after one bad shot (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 220,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D28 / q4 Inverse \u2212\u03b8 / flat: still passes after short day (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 222,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D28 / q2 Quarter turn / curve: still passes after power outage (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 222,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D28 / q2 Quarter turn / curve: BROKE after static (percentile 2.0).",
-   "survived": false
-  },
-  {
-   "step": 222,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D28 / q2 Quarter turn / curve: still passes after one bad shot (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 222,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D28 / q2 Quarter turn / curve: BROKE after short day (percentile 1.5).",
-   "survived": false
-  },
-  {
-   "step": 222,
-   "kind": "eq nudge",
-   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
-   "note": "D28 / q2 Quarter turn / curve: still passes after eq nudge (percentile 0.5).",
-   "survived": true
-  },
-  {
-   "step": 223,
    "kind": "near miss",
    "line": "So close. Not like that's how every luck-pile story starts.",
-   "note": "D28 / q3 Superposed |\u03b8| / curve sat at the 1.0th percentile, just under the bar. Watching it, not counting it."
+   "note": "D27 / q4 Inverse \u2212\u03b8 / curve sat at the 99.0th percentile, just under the bar. Watching it, not counting it."
   },
   {
    "step": 224,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D28 / q4 Inverse \u2212\u03b8 / curve: still passes after power outage (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 224,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D28 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 224,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D28 / q4 Inverse \u2212\u03b8 / curve: still passes after one bad shot (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 224,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D28 / q4 Inverse \u2212\u03b8 / curve: still passes after short day (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 224,
-   "kind": "eq nudge",
-   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
-   "note": "D28 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 223,
-   "kind": "flip",
-   "line": "Funny how the EQ moved that one. Wonder which band it was hiding in.",
-   "note": "D28 / q3 Superposed |\u03b8|: passed flat, lost it with the EQ curve. The pattern lives in (or is hidden by) the bands you moved."
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D28 / q4 Inverse \u2212\u03b8 / curve sat at the 99.4th percentile, just under the bar. Watching it, not counting it."
   },
   {
    "step": 228,
    "kind": "power outage",
    "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 99.5).",
-   "survived": true
+   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: BROKE after power outage (percentile 79.5).",
+   "survived": false
   },
   {
    "step": 228,
    "kind": "static",
    "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 99.5).",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 100.0).",
    "survived": true
   },
   {
    "step": 228,
    "kind": "one bad shot",
    "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: BROKE after one bad shot (percentile 28.5).",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: BROKE after one bad shot (percentile 47.0).",
    "survived": false
   },
   {
    "step": 228,
    "kind": "short day",
    "line": "We'll definitely have time to finish the whole run.",
-   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: BROKE after short day (percentile 31.5).",
+   "note": "D29 / q4 Inverse \u2212\u03b8 / flat: BROKE after short day (percentile 98.5).",
    "survived": false
   },
   {
    "step": 232,
    "kind": "near miss",
    "line": "So close. Not like that's how every luck-pile story starts.",
-   "note": "D29 / q4 Inverse \u2212\u03b8 / curve sat at the 99.2th percentile, just under the bar. Watching it, not counting it."
+   "note": "D29 / q4 Inverse \u2212\u03b8 / curve sat at the 99.0th percentile, just under the bar. Watching it, not counting it."
   },
   {
    "step": 232,
@@ -1080,258 +981,396 @@
    "note": "D29 / q4 Inverse \u2212\u03b8: passed flat, lost it with the EQ curve. The pattern lives in (or is hidden by) the bands you moved."
   },
   {
-   "step": 235,
+   "step": 248,
    "kind": "power outage",
    "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D30 / q3 Superposed |\u03b8| / flat: still passes after power outage (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 235,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D30 / q3 Superposed |\u03b8| / flat: still passes after static (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 235,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D30 / q3 Superposed |\u03b8| / flat: still passes after one bad shot (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 235,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D30 / q3 Superposed |\u03b8| / flat: BROKE after short day (percentile 21.0).",
+   "note": "D31 / q4 Inverse \u2212\u03b8 / curve: BROKE after power outage (percentile 98.5).",
    "survived": false
-  },
-  {
-   "step": 236,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D30 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 236,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D30 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 236,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D30 / q4 Inverse \u2212\u03b8 / flat: still passes after one bad shot (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 236,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D30 / q4 Inverse \u2212\u03b8 / flat: BROKE after short day (percentile 99.0).",
-   "survived": false
-  },
-  {
-   "step": 238,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D30 / q2 Quarter turn / curve: still passes after power outage (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 238,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D30 / q2 Quarter turn / curve: BROKE after static (percentile 0.5).",
-   "survived": false
-  },
-  {
-   "step": 238,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D30 / q2 Quarter turn / curve: still passes after one bad shot (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 238,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D30 / q2 Quarter turn / curve: BROKE after short day (percentile 27.5).",
-   "survived": false
-  },
-  {
-   "step": 238,
-   "kind": "eq nudge",
-   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
-   "note": "D30 / q2 Quarter turn / curve: still passes after eq nudge (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 239,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D30 / q3 Superposed |\u03b8| / curve: still passes after power outage (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 239,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D30 / q3 Superposed |\u03b8| / curve: still passes after static (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 239,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D30 / q3 Superposed |\u03b8| / curve: still passes after one bad shot (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 239,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D30 / q3 Superposed |\u03b8| / curve: BROKE after short day (percentile 17.5).",
-   "survived": false
-  },
-  {
-   "step": 239,
-   "kind": "eq nudge",
-   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
-   "note": "D30 / q3 Superposed |\u03b8| / curve: still passes after eq nudge (percentile 0.0).",
-   "survived": true
-  },
-  {
-   "step": 240,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D30 / q4 Inverse \u2212\u03b8 / curve: still passes after power outage (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 240,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D30 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 240,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D30 / q4 Inverse \u2212\u03b8 / curve: still passes after one bad shot (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 240,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D30 / q4 Inverse \u2212\u03b8 / curve: BROKE after short day (percentile 91.0).",
-   "survived": false
-  },
-  {
-   "step": 240,
-   "kind": "eq nudge",
-   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
-   "note": "D30 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 238,
-   "kind": "flip",
-   "line": "Funny how the EQ moved that one. Wonder which band it was hiding in.",
-   "note": "D30 / q2 Quarter turn: failed flat, passed with the EQ curve. The pattern lives in (or is hidden by) the bands you moved."
-  },
-  {
-   "step": 247,
-   "kind": "near miss",
-   "line": "So close. Not like that's how every luck-pile story starts.",
-   "note": "D31 / q3 Superposed |\u03b8| / curve sat at the 1.0th percentile, just under the bar. Watching it, not counting it."
   },
   {
    "step": 248,
-   "kind": "near miss",
-   "line": "So close. Not like that's how every luck-pile story starts.",
-   "note": "D31 / q4 Inverse \u2212\u03b8 / curve sat at the 0.8th percentile, just under the bar. Watching it, not counting it."
-  },
-  {
-   "step": 252,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D32 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 252,
    "kind": "static",
    "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D32 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 100.0).",
+   "note": "D31 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 99.5).",
    "survived": true
   },
   {
-   "step": 252,
+   "step": 248,
    "kind": "one bad shot",
    "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D32 / q4 Inverse \u2212\u03b8 / flat: BROKE after one bad shot (percentile 66.5).",
+   "note": "D31 / q4 Inverse \u2212\u03b8 / curve: BROKE after one bad shot (percentile 61.0).",
    "survived": false
   },
   {
-   "step": 252,
+   "step": 248,
    "kind": "short day",
    "line": "We'll definitely have time to finish the whole run.",
-   "note": "D32 / q4 Inverse \u2212\u03b8 / flat: still passes after short day (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 256,
-   "kind": "power outage",
-   "line": "HEY, it's not like the power's gonna go out or anything.",
-   "note": "D32 / q4 Inverse \u2212\u03b8 / curve: still passes after power outage (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 256,
-   "kind": "static",
-   "line": "Good thing nobody's running a blender next to the antenna.",
-   "note": "D32 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 256,
-   "kind": "one bad shot",
-   "line": "Glad we never take a bad shot. That'd be crazy.",
-   "note": "D32 / q4 Inverse \u2212\u03b8 / curve: BROKE after one bad shot (percentile 66.5).",
+   "note": "D31 / q4 Inverse \u2212\u03b8 / curve: BROKE after short day (percentile 98.0).",
    "survived": false
   },
   {
-   "step": 256,
-   "kind": "short day",
-   "line": "We'll definitely have time to finish the whole run.",
-   "note": "D32 / q4 Inverse \u2212\u03b8 / curve: still passes after short day (percentile 100.0).",
-   "survived": true
-  },
-  {
-   "step": 256,
+   "step": 248,
    "kind": "eq nudge",
    "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
-   "note": "D32 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 100.0).",
+   "note": "D31 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 99.5).",
+   "survived": true
+  },
+  {
+   "step": 248,
+   "kind": "flip",
+   "line": "Funny how the EQ moved that one. Wonder which band it was hiding in.",
+   "note": "D31 / q4 Inverse \u2212\u03b8: failed flat, passed with the EQ curve. The pattern lives in (or is hidden by) the bands you moved."
+  },
+  {
+   "step": 251,
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D32 / q3 Superposed |\u03b8| / flat sat at the 1.4th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 255,
+   "kind": "near miss",
+   "line": "So close. Not like that's how every luck-pile story starts.",
+   "note": "D32 / q3 Superposed |\u03b8| / curve sat at the 0.8th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 259,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D33 / q3 Superposed |\u03b8| / flat: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 259,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D33 / q3 Superposed |\u03b8| / flat: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 259,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D33 / q3 Superposed |\u03b8| / flat: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 259,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D33 / q3 Superposed |\u03b8| / flat: BROKE after short day (percentile 22.5).",
+   "survived": false
+  },
+  {
+   "step": 260,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 260,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 260,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / flat: still passes after one bad shot (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 260,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / flat: still passes after short day (percentile 99.5).",
+   "survived": true
+  },
+  {
+   "step": 262,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D33 / q2 Quarter turn / curve: BROKE after power outage (percentile 39.5).",
+   "survived": false
+  },
+  {
+   "step": 262,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D33 / q2 Quarter turn / curve: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 262,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D33 / q2 Quarter turn / curve: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 262,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D33 / q2 Quarter turn / curve: BROKE after short day (percentile 31.5).",
+   "survived": false
+  },
+  {
+   "step": 262,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D33 / q2 Quarter turn / curve: still passes after eq nudge (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 263,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D33 / q3 Superposed |\u03b8| / curve: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 263,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D33 / q3 Superposed |\u03b8| / curve: still passes after static (percentile 0.5).",
+   "survived": true
+  },
+  {
+   "step": 263,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D33 / q3 Superposed |\u03b8| / curve: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 263,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D33 / q3 Superposed |\u03b8| / curve: BROKE after short day (percentile 25.5).",
+   "survived": false
+  },
+  {
+   "step": 263,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D33 / q3 Superposed |\u03b8| / curve: still passes after eq nudge (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 264,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / curve: still passes after power outage (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 264,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 264,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / curve: still passes after one bad shot (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 264,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / curve: BROKE after short day (percentile 95.0).",
+   "survived": false
+  },
+  {
+   "step": 264,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D33 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 100.0).",
+   "survived": true
+  },
+  {
+   "step": 262,
+   "kind": "flip",
+   "line": "Funny how the EQ moved that one. Wonder which band it was hiding in.",
+   "note": "D33 / q2 Quarter turn: failed flat, passed with the EQ curve. The pattern lives in (or is hidden by) the bands you moved."
+  },
+  {
+   "step": 266,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D34 / q2 Quarter turn / flat: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 266,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D34 / q2 Quarter turn / flat: BROKE after static (percentile 3.0).",
+   "survived": false
+  },
+  {
+   "step": 266,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D34 / q2 Quarter turn / flat: BROKE after one bad shot (percentile 1.5).",
+   "survived": false
+  },
+  {
+   "step": 266,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D34 / q2 Quarter turn / flat: BROKE after short day (percentile 2.0).",
+   "survived": false
+  },
+  {
+   "step": 267,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D34 / q3 Superposed |\u03b8| / flat: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 267,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D34 / q3 Superposed |\u03b8| / flat: BROKE after static (percentile 2.5).",
+   "survived": false
+  },
+  {
+   "step": 267,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D34 / q3 Superposed |\u03b8| / flat: BROKE after one bad shot (percentile 3.5).",
+   "survived": false
+  },
+  {
+   "step": 267,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D34 / q3 Superposed |\u03b8| / flat: BROKE after short day (percentile 1.0).",
+   "survived": false
+  },
+  {
+   "step": 268,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / flat: still passes after power outage (percentile 0.0).",
    "survived": true
   },
   {
    "step": 268,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / flat: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 268,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / flat: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 268,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / flat: still passes after short day (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 270,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D34 / q2 Quarter turn / curve: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 270,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D34 / q2 Quarter turn / curve: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 270,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D34 / q2 Quarter turn / curve: still passes after one bad shot (percentile 0.5).",
+   "survived": true
+  },
+  {
+   "step": 270,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D34 / q2 Quarter turn / curve: BROKE after short day (percentile 1.0).",
+   "survived": false
+  },
+  {
+   "step": 270,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D34 / q2 Quarter turn / curve: still passes after eq nudge (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 271,
    "kind": "near miss",
    "line": "So close. Not like that's how every luck-pile story starts.",
-   "note": "D34 / q4 Inverse \u2212\u03b8 / flat sat at the 98.8th percentile, just under the bar. Watching it, not counting it."
+   "note": "D34 / q3 Superposed |\u03b8| / curve sat at the 1.4th percentile, just under the bar. Watching it, not counting it."
+  },
+  {
+   "step": 272,
+   "kind": "power outage",
+   "line": "HEY, it's not like the power's gonna go out or anything.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / curve: still passes after power outage (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 272,
+   "kind": "static",
+   "line": "Good thing nobody's running a blender next to the antenna.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / curve: still passes after static (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 272,
+   "kind": "one bad shot",
+   "line": "Glad we never take a bad shot. That'd be crazy.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / curve: still passes after one bad shot (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 272,
+   "kind": "short day",
+   "line": "We'll definitely have time to finish the whole run.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / curve: still passes after short day (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 272,
+   "kind": "eq nudge",
+   "line": "Nobody's gonna bump the knobs. Nobody ever bumps the knobs.",
+   "note": "D34 / q4 Inverse \u2212\u03b8 / curve: still passes after eq nudge (percentile 0.0).",
+   "survived": true
+  },
+  {
+   "step": 271,
+   "kind": "flip",
+   "line": "Funny how the EQ moved that one. Wonder which band it was hiding in.",
+   "note": "D34 / q3 Superposed |\u03b8|: passed flat, lost it with the EQ curve. The pattern lives in (or is hidden by) the bands you moved."
   }
  ],
  "settings": {
   "n_fakes": 500,
   "bar_pct": 99.0,
-  "seed": 20261119,
+  "seed": 20261120,
   "eq_states": [
    "flat",
    "curve"
@@ -1354,39 +1393,39 @@
   "eq_reference": "bands read as audio at 44.1 kHz"
  },
  "key": {
-  "D01": "WSPR 40m",
-  "D02": "WSPR 12m",
-  "D03": "WB growth United Kingdom",
-  "D04": "WSPR 160m",
-  "D05": "WB growth Mexico",
-  "D06": "WB growth Japan",
-  "D07": "FRED VIXCLS",
-  "D08": "FRED DGS10",
-  "D09": "WB growth India",
-  "D10": "FRED CPIAUCSL",
-  "D11": "FRED HOUST",
-  "D12": "WB growth Germany",
-  "D13": "FRED DCOILWTICO",
-  "D14": "WSPR 80m",
-  "D15": "FRED T10Y2Y",
-  "D16": "WB growth Turkiye",
-  "D17": "WB growth Australia",
-  "D18": "WSPR 15m",
-  "D19": "WB growth Indonesia",
-  "D20": "WB growth Canada",
-  "D21": "WB growth Brazil",
-  "D22": "WB growth Korea, Rep.",
-  "D23": "WB growth France",
-  "D24": "FRED PAYEMS",
-  "D25": "WSPR 20m",
-  "D26": "WSPR 10m",
-  "D27": "WB growth China",
-  "D28": "FRED INDPRO",
-  "D29": "WB growth South Africa",
-  "D30": "FRED UNRATE",
-  "D31": "WSPR 17m",
-  "D32": "WSPR 30m",
-  "D33": "WSPR 60m",
-  "D34": "WB growth United States"
+  "D01": "WSPR 30m",
+  "D02": "WB growth France",
+  "D03": "WSPR 12m",
+  "D04": "WB growth South Africa",
+  "D05": "WB growth Turkiye",
+  "D06": "WB growth India",
+  "D07": "WB growth Canada",
+  "D08": "FRED VIXCLS",
+  "D09": "WSPR 10m",
+  "D10": "WSPR 60m",
+  "D11": "WSPR 40m",
+  "D12": "WB growth Mexico",
+  "D13": "FRED DGS10",
+  "D14": "WSPR 17m",
+  "D15": "WB growth Indonesia",
+  "D16": "WSPR 15m",
+  "D17": "FRED T10Y2Y",
+  "D18": "WB growth Germany",
+  "D19": "FRED PAYEMS",
+  "D20": "FRED HOUST",
+  "D21": "WSPR 20m",
+  "D22": "WSPR 80m",
+  "D23": "WB growth Japan",
+  "D24": "WB growth United Kingdom",
+  "D25": "FRED CPIAUCSL",
+  "D26": "FRED DCOILWTICO",
+  "D27": "WB growth United States",
+  "D28": "WSPR 160m",
+  "D29": "WB growth Korea, Rep.",
+  "D30": "WB growth Brazil",
+  "D31": "WB growth Australia",
+  "D32": "WB growth China",
+  "D33": "FRED UNRATE",
+  "D34": "FRED INDPRO"
  }
 }
